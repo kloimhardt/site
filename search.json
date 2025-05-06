@@ -12,5 +12,33 @@
     "title": "Notebooks",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "quartoblockly.html",
+    "href": "quartoblockly.html",
+    "title": "Twotiles Code Visualization",
+    "section": "",
+    "text": "from sympy import symbols,diff,log\nfrom functools import partial\nx=symbols(\"x\")\nb=symbols(\"b\")\ny=symbols(\"y\")\n\ndef call(f, x):\n    return f(x)"
+  },
+  {
+    "objectID": "quartoblockly.html#symbolic-computation-in-python-sympy",
+    "href": "quartoblockly.html#symbolic-computation-in-python-sympy",
+    "title": "Twotiles Code Visualization",
+    "section": "Symbolic computation in Python: SymPy",
+    "text": "Symbolic computation in Python: SymPy\nUsing SymPy, one can calculate with symbols. Here, x is a symbol.\n\n\n\n\n\n\n\nx * 5 + (50 + 14)\n\n\n\\(\\displaystyle 5 x + 64\\)\n\n\n\n\n\n\n\n\n\nlog(64.0)\n\n\n\\(\\displaystyle 4.15888308335967\\)\n\n\n\n\n\n\n\n\n\nlog(5 * x)\n\n\n\\(\\displaystyle \\log{\\left(5 x \\right)}\\)\n\n\n\n\n\n\n\n\n\ndiff(log(x),x)\n\n\n\\(\\displaystyle \\frac{1}{x}\\)\n\n\n\n\n\n\n\n\n\ncall(log, 64.0)\n\n\n\\(\\displaystyle 4.15888308335967\\)\n\n\n\n\n\n\n\n\n\ndef logarithm(b, x):\n    return log(x) / log(b)\n\n\n\n\n\n\n\n\n\nlogarithm(8.0, 64.0)\n\n\n\\(\\displaystyle 2.0\\)\n\n\n\n\n\n\n\n\n\ndef log_base(b):\n    return partial(logarithm, b)\n\n\n\n\n\n\n\n\n\ncall(log_base(8.0),64.0)\n\n\n\\(\\displaystyle 2.0\\)\n\n\n\n\n\n\n\n\n\ndiff(call(log_base(8.0),x),x)\n\n\n\\(\\displaystyle \\frac{0.480898346962988}{x}\\)"
+  },
+  {
+    "objectID": "quartoblockly.html#symbolic-computation-in-javascript-emmyjs",
+    "href": "quartoblockly.html#symbolic-computation-in-javascript-emmyjs",
+    "title": "Twotiles Code Visualization",
+    "section": "Symbolic computation in JavaScript: EmmyJS",
+    "text": "Symbolic computation in JavaScript: EmmyJS\n\n\n\n\n\n\n\n\n\n\n\nto_infix(\n  call(diff(log_base(8.0)), x)\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nto_infix(\n  call(diff(log), x)\n)"
+  },
+  {
+    "objectID": "quartoblockly.html#sympy-recap",
+    "href": "quartoblockly.html#sympy-recap",
+    "title": "Twotiles Code Visualization",
+    "section": "SymPy Recap",
+    "text": "SymPy Recap"
   }
 ]
