@@ -9,7 +9,7 @@ format:
 jupyter: python3
 ---
 
-<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js" type="application/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js"></script>
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
 <script src="https://unpkg.com/blockly/msg/en.js"></script>
 <script src="https://kloimhardt.github.io/twotiles/twotiles_core.js"></script>
@@ -29,8 +29,10 @@ Blockly.inject(divid,
 "trashcan": false}));
 </script>
 
+Twotiles is a free and open JavaScript libaray for turning code into visual blocks. More details can be found in the Appendix.
 
 ```{python}
+#| code-summary: "Code Preamble"
 from sympy import symbols,diff,log
 from functools import partial
 x=symbols("x")
@@ -41,7 +43,7 @@ def call(f, x):
     return f(x)
 ```
 
-## Symbolic computation in Python: SymPy
+# Symbolic computation in Python: SymPy
 
 Using SymPy, one can calculate with symbols. Here, `x` is a symbol.
 
@@ -116,7 +118,7 @@ call(log_base(8.0),64.0)
 ```{python}
 diff(call(log_base(8.0),x),x)
 ```
-## Symbolic computation in JavaScript: EmmyJS 
+# Symbolic computation in JavaScript: EmmyJS
 
 <script src="https://kloimhardt.github.io/blog/js/emmy.js/build/emmy_bundle.js"></script>
 
@@ -320,7 +322,58 @@ to_infix(
 )
 ```
 
-## SymPy Recap
+# SymPy Recap
 
 <div id="blocklyDiv10" style="height: 100px;"></div>
 <script>brender("(diff (log x) x)", "blocklyDiv10")</script>
+
+# Appendix
+## Technical Details of Twotiles
+To display graphical blocks, include into your web-site the Scittle, Blockly and indeed the Twotiles library:
+
+```
+<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js"></script>
+<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+<script src="https://unpkg.com/blockly/msg/en.js"></script>
+<script src="https://kloimhardt.github.io/twotiles/twotiles_core.js"></script>
+```
+
+Then initialize the Twotiles parser ...
+
+```
+<script>
+var parse = scittle.core.eval_string(twotiles.parse_clj);
+</script>
+```
+... and Blockly:
+
+```
+<script>
+Blockly.defineBlocksWithJsonArray(twotiles.blocks);
+</script>
+```
+
+It is convenient to have a render function:
+
+```
+<script>
+var brender = (code,divid) =>
+Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)),
+Blockly.inject(divid,
+{"toolbox": twotiles.toolbox,
+"sounds": false,
+"scrollbars": false,
+"trashcan": false}));
+</script>
+```
+
+Then graphics can be displayed with
+
+```
+<div id="blocklyDiv" style="height: 100px;"></div>
+<script>brender("(log 64)", "blocklyDiv")</script>
+```
+which looks like this:
+
+<div id="blocklyDiv" style="height: 100px;"></div>
+<script>brender("(log 64)", "blocklyDiv")</script>
