@@ -7,38 +7,31 @@
     "text": "About this site"
   },
   {
+    "objectID": "twotiles.html",
+    "href": "twotiles.html",
+    "title": "Twotiles Code Visualization",
+    "section": "",
+    "text": "Twotiles is a free and open JavaScript libaray for turning code into visual blocks. The library can be used in any website."
+  },
+  {
+    "objectID": "twotiles.html#example",
+    "href": "twotiles.html#example",
+    "title": "Twotiles Code Visualization",
+    "section": "Example",
+    "text": "Example\nThe following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.\n\nSymbolic computation in Python: SymPy\n\n\nCode Preamble\nfrom sympy import symbols,diff,log\nfrom functools import partial\nx=symbols(\"x\")\nb=symbols(\"b\")\ny=symbols(\"y\")\n\ndef call(f, x):\n    return f(x)\n\n\nUsing SymPy, one can calculate with symbols. Here, x is a symbol.\n\n\n\n\n\n\n\n5/x - (50 + 14)\n\n\n\\(\\displaystyle -64 + \\frac{5}{x}\\)\n\n\n\n\n\n\n\n\n\nlog(64.0)\n\n\n\\(\\displaystyle 4.15888308335967\\)\n\n\nOne can also make an explicit call to the log function.\n\n\n\n\n\n\n\ncall(log, 64.0)\n\n\n\\(\\displaystyle 4.15888308335967\\)\n\n\nThis makes call a special kind of function. Because it takes a function as its first argument, call is a function of “higher order”. But for now we return to the usual way of making a calculation.\n\n\n\n\n\n\n\nlog(x * 5)\n\n\n\\(\\displaystyle \\log{\\left(5 x \\right)}\\)\n\n\n\n\n\n\n\n\n\ndiff(log(x) * 5, x)\n\n\n\\(\\displaystyle \\frac{5}{x}\\)\n\n\n\n\n\n\n\n\n\ndiff(log(x),x)\n\n\n\\(\\displaystyle \\frac{1}{x}\\)\n\n\n\n\n\n\n\n\n\ndef logarithm(b, x):\n    return log(x) / log(b)\n\n\n\n\n\n\n\n\n\nlogarithm(8.0, 64.0)\n\n\n\\(\\displaystyle 2.0\\)\n\n\n\n\n\n\n\n\n\ndef log_base(b):\n    return partial(logarithm, b)\n\n\n\n\n\n\n\n\n\ncall(log_base(8.0),64.0)\n\n\n\\(\\displaystyle 2.0\\)\n\n\n\n\n\n\n\n\n\ndiff(call(log_base(8.0),x),x)\n\n\n\\(\\displaystyle \\frac{0.480898346962988}{x}\\)\n\n\n\n\nSymbolic computation in JavaScript: EmmyJS\n\n\n\n\n\n\n\n\n\n\n\nto_infix(\n  call(diff(log_base(8.0)), x)\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nto_infix(\n  call(diff(log), x)\n)\n\n\n\n\n\n\n\n\n\nSymPy Recap"
+  },
+  {
+    "objectID": "twotiles.html#guide",
+    "href": "twotiles.html#guide",
+    "title": "Twotiles Code Visualization",
+    "section": "Guide",
+    "text": "Guide\n\nUsing Twotiles in a Website\nTo display graphical blocks, include into your web-site the Scittle, Blockly and indeed the Twotiles library:\n&lt;script src=\"https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js\"&gt;&lt;/script&gt;\n&lt;script src=\"https://unpkg.com/blockly/blockly.min.js\"&gt;&lt;/script&gt;\n&lt;script src=\"https://unpkg.com/blockly/msg/en.js\"&gt;&lt;/script&gt;\n&lt;script src=\"https://kloimhardt.github.io/twotiles/twotiles_core.js\"&gt;&lt;/script&gt;\nThen initialize the Twotiles parser …\n&lt;script&gt;\nvar parse = scittle.core.eval_string(twotiles.parse_clj);\n&lt;/script&gt;\n… and Blockly:\n&lt;script&gt;\nBlockly.defineBlocksWithJsonArray(twotiles.blocks);\n&lt;/script&gt;\nIt is convenient to have a render function:\n&lt;script&gt;\nvar brender = (code,divid) =&gt;\nBlockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)),\nBlockly.inject(divid,\n{\"toolbox\": twotiles.toolbox,\n\"sounds\": false,\n\"scrollbars\": false,\n\"trashcan\": false}));\n&lt;/script&gt;\nThen graphics can be displayed with\n&lt;div id=\"blocklyDiv\" style=\"height: 100px;\"&gt;&lt;/div&gt;\n&lt;script&gt;brender(\"(log 64)\", \"blocklyDiv\")&lt;/script&gt;\nwhich looks like this:\n\n\n\n\n\n\nUsing EmmyJS\nA detailed example of EmmyJS can be found at sicmutils-as-js-book-part1.html\n\n\nQuarto Notebook of this Page\nThis page was generated with Quarto out of the file twotiles.qmd"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Notebooks",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
-  },
-  {
-    "objectID": "quartoblockly.html",
-    "href": "quartoblockly.html",
-    "title": "Twotiles Code Visualization",
-    "section": "",
-    "text": "from sympy import symbols,diff,log\nfrom functools import partial\nx=symbols(\"x\")\nb=symbols(\"b\")\ny=symbols(\"y\")\n\ndef call(f, x):\n    return f(x)"
-  },
-  {
-    "objectID": "quartoblockly.html#symbolic-computation-in-python-sympy",
-    "href": "quartoblockly.html#symbolic-computation-in-python-sympy",
-    "title": "Twotiles Code Visualization",
-    "section": "Symbolic computation in Python: SymPy",
-    "text": "Symbolic computation in Python: SymPy\nUsing SymPy, one can calculate with symbols. Here, x is a symbol.\n\n\n\n\n\n\n\n5/x - (50 + 14)\n\n\n\\(\\displaystyle -64 + \\frac{5}{x}\\)\n\n\n\n\n\n\n\n\n\nlog(64.0)\n\n\n\\(\\displaystyle 4.15888308335967\\)\n\n\nOne can also make an explicit call to the log function.\n\n\n\n\n\n\n\ncall(log, 64.0)\n\n\n\\(\\displaystyle 4.15888308335967\\)\n\n\nThis makes call a special kind of function. Because it takes a function as its first argument, call is a function of “higher order”. But for now we return to the usual way of making a calculation.\n\n\n\n\n\n\n\nlog(x * 5)\n\n\n\\(\\displaystyle \\log{\\left(5 x \\right)}\\)\n\n\n\n\n\n\n\n\n\ndiff(log(x) * 5, x)\n\n\n\\(\\displaystyle \\frac{5}{x}\\)\n\n\n\n\n\n\n\n\n\ndiff(log(x),x)\n\n\n\\(\\displaystyle \\frac{1}{x}\\)\n\n\n\n\n\n\n\n\n\ndef logarithm(b, x):\n    return log(x) / log(b)\n\n\n\n\n\n\n\n\n\nlogarithm(8.0, 64.0)\n\n\n\\(\\displaystyle 2.0\\)\n\n\n\n\n\n\n\n\n\ndef log_base(b):\n    return partial(logarithm, b)\n\n\n\n\n\n\n\n\n\ncall(log_base(8.0),64.0)\n\n\n\\(\\displaystyle 2.0\\)\n\n\n\n\n\n\n\n\n\ndiff(call(log_base(8.0),x),x)\n\n\n\\(\\displaystyle \\frac{0.480898346962988}{x}\\)"
-  },
-  {
-    "objectID": "quartoblockly.html#symbolic-computation-in-javascript-emmyjs",
-    "href": "quartoblockly.html#symbolic-computation-in-javascript-emmyjs",
-    "title": "Twotiles Code Visualization",
-    "section": "Symbolic computation in JavaScript: EmmyJS",
-    "text": "Symbolic computation in JavaScript: EmmyJS\n\n\n\n\n\n\n\n\n\n\n\nto_infix(\n  call(diff(log_base(8.0)), x)\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nto_infix(\n  call(diff(log), x)\n)"
-  },
-  {
-    "objectID": "quartoblockly.html#sympy-recap",
-    "href": "quartoblockly.html#sympy-recap",
-    "title": "Twotiles Code Visualization",
-    "section": "SymPy Recap",
-    "text": "SymPy Recap"
   }
 ]
