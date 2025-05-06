@@ -46,9 +46,9 @@ def call(f, x):
 Using SymPy, one can calculate with symbols. Here, `x` is a symbol.
 
 <div id="blocklyDiv21" style="height: 100px;"></div>
-<script>brender("(:tiles/infix (+ (:tiles/infix (* x 5)) (:tiles/infix (+ 50 14))))", "blocklyDiv21")</script>
+<script>brender("(:tiles/infix (- (:tiles/infix (/ 5 x)) (:tiles/infix (+ 50 14))))", "blocklyDiv21")</script>
 ```{python}
-x * 5 + (50 + 14)
+5/x - (50 + 14)
 ```
 
 <div id="blocklyDiv1" style="height: 100px;"></div>
@@ -57,22 +57,32 @@ x * 5 + (50 + 14)
 log(64.0)
 ```
 
-<div id="blocklyDiv22" style="height: 100px;"></div>
-<script>brender("(log (:tiles/infix (* 5 x)))", "blocklyDiv22")</script>
+One can also make an explicit call to the `log` function.
+
+<div id="blocklyDiv23" style="height: 100px;"></div>
+<script>brender("(call log 64)", "blocklyDiv23")</script>
 ```{python}
-log(5 * x)
+call(log, 64.0)
+```
+
+This makes `call` a special kind of function. Because it takes a function as its first argument, `call` is a function of "higher order". But for now we return to the usual way of making a calculation.
+
+<div id="blocklyDiv22" style="height: 100px;"></div>
+<script>brender("(log (:tiles/infix (* x 5)))", "blocklyDiv22")</script>
+```{python}
+log(x * 5)
+```
+
+<div id="blocklyDiv24" style="height: 100px;"></div>
+<script>brender("(diff (:tiles/infix (* (log x) 5)) x)", "blocklyDiv24")</script>
+```{python}
+diff(log(x) * 5, x)
 ```
 
 <div id="blocklyDiv2" style="height: 100px;"></div>
 <script>brender("(diff (log x) x)", "blocklyDiv2")</script>
 ```{python}
 diff(log(x),x)
-```
-
-<div id="blocklyDiv1.1" style="height: 100px;"></div>
-<script>brender("(call log 64)", "blocklyDiv1.1")</script>
-```{python}
-call(log, 64.0)
 ```
 
 <div id="blocklyDiv3" style="height: 150px;"></div>

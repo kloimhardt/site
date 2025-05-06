@@ -1,7 +1,17 @@
 # site
 
+The site was generated once using `quarto create project website mysite`
+
 ```
-(python_venv) ~/klmtemp/site$ quarto preview mysite
+~/klmtemp/site$ source python_venv/bin/activate
+```
+
+```
+(python_venv) ~/klmtemp/site/mysite$ quarto preview
+```
+
+```
+(python_venv) ~/klmtemp/site/mysite$ quarto render
 ```
 
 ```
