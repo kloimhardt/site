@@ -226,7 +226,7 @@ Blockly.inject(divid,
 "scrollbars": false,
 "trashcan": false}));
 </script>
-<div id="829807f0" class="cell" data-execution_count="1">
+<div id="df8a7fc7" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> symbols,diff,log</span>
@@ -245,89 +245,104 @@ Blockly.inject(divid,
 <div id="blocklyDiv21" style="height: 100px;">
 
 </div>
-<script>brender("(:tiles/infix (+ (:tiles/infix (* x 5)) (:tiles/infix (+ 50 14))))", "blocklyDiv21")</script>
-<div id="25aad72e" class="cell" data-execution_count="2">
+<script>brender("(:tiles/infix (- (:tiles/infix (/ 5 x)) (:tiles/infix (+ 50 14))))", "blocklyDiv21")</script>
+<div id="af7791a9" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> <span class="dv">5</span> <span class="op">+</span> (<span class="dv">50</span> <span class="op">+</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="op">/</span>x <span class="op">-</span> (<span class="dv">50</span> <span class="op">+</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
-<p><span class="math inline">\(\displaystyle 5 x + 64\)</span></p>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
+<p><span class="math inline">\(\displaystyle -64 + \frac{5}{x}\)</span></p>
 </div>
 </div>
 <div id="blocklyDiv1" style="height: 100px;">
 
 </div>
 <script>brender("(log 64)", "blocklyDiv1")</script>
-<div id="607d849a" class="cell" data-execution_count="3">
+<div id="906c49e2" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>log(<span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <p><span class="math inline">\(\displaystyle 4.15888308335967\)</span></p>
 </div>
 </div>
+<p>One can also make an explicit call to the <code>log</code> function.</p>
+<div id="blocklyDiv23" style="height: 100px;">
+
+</div>
+<script>brender("(call log 64)", "blocklyDiv23")</script>
+<div id="69a9b034" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary></summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>call(log, <span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
+<p><span class="math inline">\(\displaystyle 4.15888308335967\)</span></p>
+</div>
+</div>
+<p>This makes <code>call</code> a special kind of function. Because it takes a function as its first argument, <code>call</code> is a function of “higher order”. But for now we return to the usual way of making a calculation.</p>
 <div id="blocklyDiv22" style="height: 100px;">
 
 </div>
-<script>brender("(log (:tiles/infix (* 5 x)))", "blocklyDiv22")</script>
-<div id="c34a7733" class="cell" data-execution_count="4">
+<script>brender("(log (:tiles/infix (* x 5)))", "blocklyDiv22")</script>
+<div id="9f9fd1e4" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>log(<span class="dv">5</span> <span class="op">*</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>log(x <span class="op">*</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
 <p><span class="math inline">\(\displaystyle \log{\left(5 x \right)}\)</span></p>
+</div>
+</div>
+<div id="blocklyDiv24" style="height: 100px;">
+
+</div>
+<script>brender("(diff (:tiles/infix (* (log x) 5)) x)", "blocklyDiv24")</script>
+<div id="4d4619e2" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary></summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>diff(log(x) <span class="op">*</span> <span class="dv">5</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="18">
+<p><span class="math inline">\(\displaystyle \frac{5}{x}\)</span></p>
 </div>
 </div>
 <div id="blocklyDiv2" style="height: 100px;">
 
 </div>
 <script>brender("(diff (log x) x)", "blocklyDiv2")</script>
-<div id="69113dd0" class="cell" data-execution_count="5">
+<div id="6e7d0bfd" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>diff(log(x),x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>diff(log(x),x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="19">
 <p><span class="math inline">\(\displaystyle \frac{1}{x}\)</span></p>
-</div>
-</div>
-<div id="blocklyDiv1.1" style="height: 100px;">
-
-</div>
-<script>brender("(call log 64)", "blocklyDiv1.1")</script>
-<div id="f4b36d88" class="cell" data-execution_count="6">
-<details class="code-fold">
-<summary></summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>call(log, <span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
-<p><span class="math inline">\(\displaystyle 4.15888308335967\)</span></p>
 </div>
 </div>
 <div id="blocklyDiv3" style="height: 150px;">
 
 </div>
 <script>brender("(def (logarithm b x) (return (:tiles/infix (/ (log x) (log b)))))", "blocklyDiv3")</script>
-<div id="80466c04" class="cell" data-execution_count="7">
+<div id="d5321fd6" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logarithm(b, x):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log(x) <span class="op">/</span> log(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logarithm(b, x):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log(x) <span class="op">/</span> log(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="blocklyDiv4" style="height: 100px;">
 
 </div>
 <script>brender("(logarithm 8.0 64.0)", "blocklyDiv4")</script>
-<div id="a6a038ad" class="cell" data-execution_count="8">
+<div id="ae07038f" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>logarithm(<span class="fl">8.0</span>, <span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>logarithm(<span class="fl">8.0</span>, <span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="21">
 <p><span class="math inline">\(\displaystyle 2.0\)</span></p>
 </div>
 </div>
@@ -335,23 +350,23 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(def (log_base b) (return (partial logarithm b)))", "blocklyDiv5")</script>
-<div id="d218ec35" class="cell" data-execution_count="9">
+<div id="f2c51041" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_base(b):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> partial(logarithm, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_base(b):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> partial(logarithm, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="blocklyDiv6" style="height: 100px;">
 
 </div>
 <script>brender("(call (log_base 8.0) 64.0)", "blocklyDiv6")</script>
-<div id="6dc13558" class="cell" data-execution_count="10">
+<div id="01c62487" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>call(log_base(<span class="fl">8.0</span>),<span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>call(log_base(<span class="fl">8.0</span>),<span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
 <p><span class="math inline">\(\displaystyle 2.0\)</span></p>
 </div>
 </div>
@@ -359,12 +374,12 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(diff (call (log_base 8.0) x) x)", "blocklyDiv7")</script>
-<div id="3918a196" class="cell" data-execution_count="11">
+<div id="230cf8f9" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>diff(call(log_base(<span class="fl">8.0</span>),x),x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>diff(call(log_base(<span class="fl">8.0</span>),x),x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
 <p><span class="math inline">\(\displaystyle \frac{0.480898346962988}{x}\)</span></p>
 </div>
 </div>
@@ -550,9 +565,9 @@ var log_base = (b) => partial(logarithm,b);
 <div class="cell">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb12" data-startfrom="289" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 288;"><span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a><span class="fu">to_infix</span>(</span>
-<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>  <span class="fu">call</span>(<span class="fu">diff</span>(<span class="fu">log_base</span>(<span class="fl">8.0</span>))<span class="op">,</span> x)</span>
-<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13" data-startfrom="299" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 298;"><span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a><span class="fu">to_infix</span>(</span>
+<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a>  <span class="fu">call</span>(<span class="fu">diff</span>(<span class="fu">log_base</span>(<span class="fl">8.0</span>))<span class="op">,</span> x)</span>
+<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="expression">
@@ -576,9 +591,9 @@ eval(expressionToJs("(call (diff (log_base 8.0)) x)"));
 <div class="cell" data-output="asis">
 <details class="code-fold">
 <summary></summary>
-<div class="sourceCode cell-code" id="cb13" data-startfrom="307" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 306;"><span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a><span class="fu">to_infix</span>(</span>
-<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">call</span>(<span class="fu">diff</span>(log)<span class="op">,</span> x)</span>
-<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14" data-startfrom="317" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 316;"><span id="cb14-317"><a href="#cb14-317" aria-hidden="true" tabindex="-1"></a><span class="fu">to_infix</span>(</span>
+<span id="cb14-318"><a href="#cb14-318" aria-hidden="true" tabindex="-1"></a>  <span class="fu">call</span>(<span class="fu">diff</span>(log)<span class="op">,</span> x)</span>
+<span id="cb14-319"><a href="#cb14-319" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
