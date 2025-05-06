@@ -8,7 +8,7 @@ website:
       - href: index.qmd
         text: "Home"
       - about.qmd
-      - quartoblockly.qmd
+      - twotiles.qmd
 format:
   html:
     theme:
