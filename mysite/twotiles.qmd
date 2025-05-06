@@ -127,10 +127,7 @@ diff(call(log_base(8.0),x),x)
 <script src="https://kloimhardt.github.io/blog/js/emmy.js/build/emmy_bundle.js"></script>
 
 <script>
-     var loadEnv = (name) => {
-         window[name] = emmy[name];
-         return name;
-     }
+ var loadEnv = (name) => window[name] = emmy[name];
 </script>
 
 <script>
@@ -383,3 +380,11 @@ which looks like this:
 
 <div id="blocklyDiv" style="height: 100px;"></div>
 <script>brender("(log 64)", "blocklyDiv")</script>
+
+### Using EmmyJS
+
+A detailed example of EmmyJS can be found at [sicmutils-as-js-book-part1.html](https://kloimhardt.github.io/blog/html/sicmutils-as-js-book-part1.html)
+
+### Quarto Notebook of this Page
+
+This page was generated with Quarto out of the file [twotiles.qmd](https://github.com/kloimhardt/site/blob/main/mysite/twotiles.qmd)
