@@ -1,0 +1,75 @@
+---
+title: "Lise"
+format:
+  html:
+    code-fold: true
+    code-summary: " "
+    echo: false
+    self-contained: false
+jupyter: python3
+execute:
+  cache: true
+---
+
+```{python}
+# pip install python_hiccup
+# pip install edn_format
+
+from functools import partial
+import edn_format
+
+def walk(inner, outer, coll):
+    if isinstance(coll, edn_format.immutable_list.ImmutableList):
+        return outer([inner(e) for e in coll])
+    elif isinstance(coll, edn_format.immutable_dict.ImmutableDict):
+        return outer(dict([inner(e) for e in iter(coll.items())]))
+    elif isinstance(coll, tuple):
+        return outer(tuple([inner(e) for e in coll]))
+    else:
+        return outer(coll)
+
+def postwalk(fn, coll):
+    return walk(partial(postwalk, fn), fn, coll)
+```
+
+```{python}
+def simpleExecute(coll):
+    if isinstance(coll, edn_format.edn_lex.Symbol):
+        return globals().get(str(coll))
+    elif isinstance(coll, edn_format.edn_lex.Keyword):
+        return str(coll)[1:]
+    elif isinstance(coll, tuple):
+        f = coll[0]
+        if isinstance(f, str):
+            return coll
+        else:
+            return f(*coll[1:])
+    else:
+        return coll
+```
+
+```{python}
+from python_hiccup.html import render
+
+def tP(strEdn):
+  return postwalk(simpleExecute, edn_format.loads(strEdn))
+
+def html(pyColl):
+  print(render(pyColl))
+```
+
+## Dialog Lise Albert
+hallo
+ich auch
+
+```{python}
+#| output: asis
+
+wh = tP("{:width 200 :height 100}")
+c =tP("""[:svg wh [:circle {:cx 50 :cy 50 :r 25 :style "fill:red"}]]""")
+html(c)
+
+m = "html h2"
+a = tP(""" [:h2 m]""")
+html(a)
+```
