@@ -1,5 +1,5 @@
 # site
-
+## Quarto Website
 The site was generated once using `quarto create project website mysite`
 
 ```
@@ -16,4 +16,9 @@ The site was generated once using `quarto create project website mysite`
 
 ```
 (python_venv) ~/klmtemp/site/mysite$ quarto publish gh-pages
+```
+## Misc
+
+```
+(python_venv) ~/klmtemp/site$ python3 mybasilisp.py
 ```
