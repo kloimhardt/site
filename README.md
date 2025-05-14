@@ -22,3 +22,7 @@ The site was generated once using `quarto create project website mysite`
 ```
 (python_venv) ~/klmtemp/site$ python3 mybasilisp.py
 ```
+
+```
+ basilisp nrepl-server
+```

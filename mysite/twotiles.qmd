@@ -11,6 +11,10 @@ execute:
   cache: true
 ---
 
+<script type="text/javascript" charset="UTF-8"
+ src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+
 <script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js"></script>
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
 <script src="https://unpkg.com/blockly/msg/en.js"></script>
@@ -58,6 +62,32 @@ Using SymPy, one can calculate with symbols. Here, `x` is a symbol.
 ```{python}
 5/x - (50 + 14)
 ```
+<div id="jxg10" class="jxgbox" style="width:750px; height:300px;"></div>
+
+<script>
+var state = {};
+state['board1'] = JXG.JSXGraph.initBoard('jxg10', {
+            boundingbox: [-20, -54, 20, -74],
+            axis:true
+        });
+state['board1'].create('functiongraph', ['5/x - (50 + 14)'], {strokeColor:'red'});
+</script>
+
+<p></p>
+
+<div id="blocklyDivLog" style="height: 100px;"></div>
+<script>brender("(log x)", "blocklyDivLog")</script>
+
+<div id="jxgLog" class="jxgbox" style="width:750px; height:300px;"></div>
+
+<script>
+state['board3'] = JXG.JSXGraph.initBoard('jxgLog', {
+            boundingbox: [-5, 10, 70, -10],
+            axis:true
+        });
+state['board3'].create('functiongraph', ['log(x)']);
+state['board3'].create('line',[[64,0],[64,4.16]], {straightFirst:false, straightLast:false, strokeWidth:5, strokeColor:'#00ff00'});
+</script>
 
 <div id="blocklyDiv1" style="height: 100px;"></div>
 <script>brender("(log 64)", "blocklyDiv1")</script>
@@ -75,23 +105,78 @@ call(log, 64.0)
 
 This makes `call` a special kind of function. Because it takes a function as its first argument, `call` is a function of "higher order". But for now we return to the usual way of making a calculation.
 
-<div id="blocklyDiv22" style="height: 100px;"></div>
-<script>brender("(log (:tiles/infix (* x 5)))", "blocklyDiv22")</script>
-```{python}
-log(x * 5)
-```
-
-<div id="blocklyDiv24" style="height: 100px;"></div>
-<script>brender("(diff (:tiles/infix (* (log x) 5)) x)", "blocklyDiv24")</script>
-```{python}
-diff(log(x) * 5, x)
-```
-
 <div id="blocklyDiv2" style="height: 100px;"></div>
 <script>brender("(diff (log x) x)", "blocklyDiv2")</script>
 ```{python}
 diff(log(x),x)
 ```
+
+<div id="jxgOx" class="jxgbox" style="width:750px; height:300px;"></div>
+
+<script>
+var range = (n) => [...Array(n).keys()];
+
+var points = (nmax, o, f) =>
+ range(nmax).map((n) =>
+  [[String(n) + "_1", [n+o, 0]], [String(n) + "_2", [n+o+1, 0]], [String(n) + "_3", [n+o+1, f(n+o+1)]]]);
+
+function triangle() {
+let b2 = state["board2"]
+let ps = state["points"]
+
+ps.map((tri) => {
+       b2.create('point',tri[0][1], {name:tri[0][0]}).setLabel("")
+       b2.create('point',tri[1][1], {name:tri[1][0], visible: false})
+       b2.create('point',tri[2][1], {name:tri[2][0], visible: false})
+})
+
+ps.map((tri) => b2.create('polygon',[tri[0][0], tri[1][0], tri[2][0]], { borders:{strokeColor:'black'}}))
+
+ps.map((tri) => {
+b2.create('transform',
+  [function(){return b2.select(tri[2][0]).X()-tri[2][1][0];},
+   function(){return b2.select(tri[2][0]).Y()-tri[2][1][1];}],
+   {type:'translate'})
+   .bindTo([b2.select(tri[0][0]),b2.select(tri[1][0])]);
+})
+}
+
+function anim(n) {
+let tri = state["points"][n];
+ state['board2'].select(tri[2][0])
+   .moveTo([tri[2][1][0], Math.log(tri[2][1][0])],1500)
+}
+
+function shrink() {
+let tri = state["points"][0];
+let hohe = tri[2][1][1] -  tri[1][1][1];
+let faktor = 0.5;
+let p1 = state['board2'].select(tri[0][0]);
+let p2 = state['board2'].select(tri[1][0]);
+p1.moveTo([p1.X() + faktor, p1.Y() + faktor * hohe], 1500);
+p2.moveTo([p2.X(), p2.Y() + faktor * hohe], 1500);
+}
+
+</script>
+
+<script>
+state["board2"] = JXG.JSXGraph.initBoard('jxgOx', {
+            boundingbox: [-3, 2, 7, -2],
+            axis:true
+        });
+
+state["board2"].create('functiongraph', ['log(x)']);
+state["board2"].create('functiongraph', ['1 / x'], {strokeColor:'red'});
+state["points"] = points(6, 0, (x) => 1 / x).filter((_, index) => index % 2 === 0);
+</script>
+
+<span onClick="triangle()" style="color:blue">t</span>
+<span onClick="anim(0)" style="color:blue">1</span>
+<span onClick="anim(1)" style="color:blue">2</span>
+<span onClick="anim(2)" style="color:blue">3</span>
+<span onClick="shrink()" style="color:blue">s</span>
+
+All of our natural science is based on those triangles. Choosing the position and size of the triangles is the art of the scientist. But the shape of those trianges seems to be universally given by nature.
 
 <div id="blocklyDiv3" style="height: 150px;"></div>
 <script>brender("(def (logarithm b x) (return (:tiles/infix (/ (log x) (log b)))))", "blocklyDiv3")</script>
