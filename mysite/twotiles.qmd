@@ -75,9 +75,10 @@ notes.main("divnotes");
 </script>
 
 <span onClick="notes.anim1()" style="color:blue">1</span>
+<span onClick="notes.anim2()" style="color:blue">2</span>
 
  ```{ojs}
-332
+352
  notes.out();
  ```
 

@@ -50,7 +50,6 @@ class Notes {
     }
 
     anim1() {
-        statejs['bnotes1'].create('functiongraph', ['(7 * (log(x) - log(16.35)))/log(2)'], {strokeColor:'red'});
         var rm = (d) =>
             d.reverse().map((i) => statejs['bnotes1']
                             .removeObject("stl" + statejs["frequencies"][i][0]));
@@ -59,12 +58,20 @@ class Notes {
         rm(statejs["stieloben"]);
 
         statejs["frequencies"].map((tu, i) => statejs['bnotes1'].select(tu[0]).moveTo([tu[1], i], 1500));
+
+    }
+
+    anim2() {
+        statejs["frequencies"].map((tu, i) => statejs['bnotes1'].select(tu[0]).setAttribute({size: 2}).setLabel(""));
+
+        statejs['bnotes1'].create('functiongraph', ['(7 * (log(x) - log(16.35)))/log(2)'], {strokeColor:'red'});
     }
 
     main(divid) {
         statejs['bnotes1'] = JXG.JSXGraph.initBoard(divid, {
             boundingbox: [120, 45, 950, 20],
-            axis:false,
+            showCopyright:false,
+            axis: false,
             grid: false
         });
 
