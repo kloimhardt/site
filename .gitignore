@@ -1,2 +1,3 @@
 /mysite/.quarto/
-/mysite/_site/
+/mysite/_site/*
+!/mysite/_site/myjs

@@ -35,9 +35,49 @@ Blockly.inject(divid,
 "trashcan": false}));
 </script>
 
+<script>var statejs = {};</script>
+
 Twotiles is a free and open JavaScript libaray for turning code into visual blocks. The library can be used in any website.
 
 ## Example
+
+```{python}
+#| output: asis
+
+import numpy as np
+import json
+
+# https://muted.io/note-frequencies/
+data = np.genfromtxt('notes.txt', delimiter='\t', dtype=str)
+row_names = data[:, 0].tolist()
+numerical_data = np.matrix.transpose(data[:, 1:]).astype(float).tolist()
+               
+print("<script>")
+print("statejs['notenames']= ")
+print(json.dumps(row_names))
+print("statejs['frequencies']= ")
+
+nofreq = [item
+    for subl in
+      [list(map(lambda n,f: [n, idx, f], row_names, fs))
+        for idx, fs in enumerate(numerical_data)]
+   for item in subl]
+
+
+print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
+print("</script>")
+```
+
+<div id="divnotes" class="jxgbox" style="width:750px; height:300px;"></div>
+<script src="myjs/notes.js"></script>
+<script>
+notes.main("divnotes");
+</script>
+
+ ```{ojs}
+32
+ notes.out();
+ ```
 
 The following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.
 
@@ -65,12 +105,11 @@ Using SymPy, one can calculate with symbols. Here, `x` is a symbol.
 <div id="jxg10" class="jxgbox" style="width:750px; height:300px;"></div>
 
 <script>
-var state = {};
-state['board1'] = JXG.JSXGraph.initBoard('jxg10', {
+statejs['board1'] = JXG.JSXGraph.initBoard('jxg10', {
             boundingbox: [-20, -54, 20, -74],
             axis:true
         });
-state['board1'].create('functiongraph', ['5/x - (50 + 14)'], {strokeColor:'red'});
+statejs['board1'].create('functiongraph', ['5/x - (50 + 14)'], {strokeColor:'red'});
 </script>
 
 <p></p>
@@ -81,12 +120,12 @@ state['board1'].create('functiongraph', ['5/x - (50 + 14)'], {strokeColor:'red'}
 <div id="jxgLog" class="jxgbox" style="width:750px; height:300px;"></div>
 
 <script>
-state['board3'] = JXG.JSXGraph.initBoard('jxgLog', {
+statejs['board3'] = JXG.JSXGraph.initBoard('jxgLog', {
             boundingbox: [-5, 10, 70, -10],
             axis:true
         });
-state['board3'].create('functiongraph', ['log(x)']);
-state['board3'].create('line',[[64,0],[64,4.16]], {straightFirst:false, straightLast:false, strokeWidth:5, strokeColor:'#00ff00'});
+statejs['board3'].create('functiongraph', ['log(x)']);
+statejs['board3'].create('line',[[64,0],[64,4.16]], {straightFirst:false, straightLast:false, strokeWidth:5, strokeColor:'#00ff00'});
 </script>
 
 <div id="blocklyDiv1" style="height: 100px;"></div>
@@ -121,8 +160,8 @@ var points = (nmax, o, f) =>
   [[String(n) + "_1", [n+o, 0]], [String(n) + "_2", [n+o+1, 0]], [String(n) + "_3", [n+o+1, f(n+o+1)]]]);
 
 function triangle() {
-let b2 = state["board2"]
-let ps = state["points"]
+let b2 = statejs["board2"]
+let ps = statejs["points"]
 
 ps.map((tri) => {
        b2.create('point',tri[0][1], {name:tri[0][0]}).setLabel("")
@@ -142,17 +181,17 @@ b2.create('transform',
 }
 
 function anim(n) {
-let tri = state["points"][n];
- state['board2'].select(tri[2][0])
+let tri = statejs["points"][n];
+ statejs['board2'].select(tri[2][0])
    .moveTo([tri[2][1][0], Math.log(tri[2][1][0])],1500)
 }
 
 function shrink() {
-let tri = state["points"][0];
+let tri = statejs["points"][0];
 let hohe = tri[2][1][1] -  tri[1][1][1];
 let faktor = 0.5;
-let p1 = state['board2'].select(tri[0][0]);
-let p2 = state['board2'].select(tri[1][0]);
+let p1 = statejs['board2'].select(tri[0][0]);
+let p2 = statejs['board2'].select(tri[1][0]);
 p1.moveTo([p1.X() + faktor, p1.Y() + faktor * hohe], 1500);
 p2.moveTo([p2.X(), p2.Y() + faktor * hohe], 1500);
 }
@@ -160,14 +199,14 @@ p2.moveTo([p2.X(), p2.Y() + faktor * hohe], 1500);
 </script>
 
 <script>
-state["board2"] = JXG.JSXGraph.initBoard('jxgOx', {
+statejs["board2"] = JXG.JSXGraph.initBoard('jxgOx', {
             boundingbox: [-3, 2, 7, -2],
             axis:true
         });
 
-state["board2"].create('functiongraph', ['log(x)']);
-state["board2"].create('functiongraph', ['1 / x'], {strokeColor:'red'});
-state["points"] = points(6, 0, (x) => 1 / x).filter((_, index) => index % 2 === 0);
+statejs["board2"].create('functiongraph', ['log(x)']);
+statejs["board2"].create('functiongraph', ['1 / x'], {strokeColor:'red'});
+statejs["points"] = points(6, 0, (x) => 1 / x).filter((_, index) => index % 2 === 0);
 </script>
 
 <span onClick="triangle()" style="color:blue">t</span>
