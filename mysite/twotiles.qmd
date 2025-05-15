@@ -74,8 +74,10 @@ print("</script>")
 notes.main("divnotes");
 </script>
 
+<span onClick="notes.anim1()" style="color:blue">1</span>
+
  ```{ojs}
-32
+332
  notes.out();
  ```
 
