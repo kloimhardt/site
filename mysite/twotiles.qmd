@@ -70,20 +70,13 @@ print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].ends
 print("</script>")
 ```
 
-<div id="divnotes" class="jxgbox" style="width:750px; height:300px;"></div>
-<script src="myjs/notes.js"></script>
-<script>
-notes.main("divnotes");
-</script>
-
-<span onClick="notes.anim1()" style="color:blue">1</span>
-<span onClick="notes.anim2()" style="color:blue">2</span>
-
-<div id="divnotes2" class="jxgbox" style="width:750px; height:300px;"></div>
-
 ```{python}
 #| output: asis
 "999 2"
+# instead of using the plain js
+# print("<script src='myjs/notes.js'></script>")
+# we load the respective Scittle code
+
 print("<script>")
 with open('notes.cljs', 'r') as file:
     data = file.read().replace('\n', '')
@@ -91,14 +84,10 @@ print("scittle.core.eval_string('", data, "')")
 print("</script>")
 ```
 
+<div id="divnotes2" class="jxgbox" style="width:750px; height:300px;"></div>
 <script>statejs.notes.main("divnotes2");</script>
 <span onClick="statejs.notes.anim1()" style="color:blue">1</span>
 <span onClick="statejs.notes.anim2()" style="color:blue">2</span>
-
- ```{ojs}
-999 2
- notes.out();
- ```
 
 The following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.
 

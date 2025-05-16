@@ -79,4 +79,4 @@ class Notes {
     }
 };
 
-var notes = new Notes();
+statejs["notes"] = new Notes();
