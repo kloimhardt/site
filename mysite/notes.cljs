@@ -26,7 +26,7 @@
         sp       (into [] (map-indexed
                             (fn [i tu] [(first tu) (straight i)]) pp))
         violines [30 32 34 36 38]
-        viogaps  [28 29 31 33 35 37 39 40]]
+        viogaps  [28 29 31 33 35 37 39]]
     (doall
       (map-indexed
         (fn [i, d]
@@ -95,7 +95,7 @@
         (.. js/JXG
             -JSXGraph
             (initBoard divid
-                       (clj->js {:boundingbox   [120 45 950 20]
+                       (clj->js {:boundingbox   [120 48 1080 20]
                                  :showCopyright false
                                  :axis          false
                                  :grid          false})))]
@@ -106,8 +106,27 @@
 (set! (.. js/statejs -notes -main) main)
 
 (comment
-  (main "divnotes")
-  (anim1)
-  (anim2)
+  (do
+    (main "divnotes2")
+    #_(anim1)
+    #_(anim2)
 
+    (def bnotes2 (.. js/statejs -notes -bnotes2))
+
+    )
+
+  (defn octave [y o]
+    (. bnotes2
+       (create "line"
+               (clj->js [[(second (pp y)) y]
+                         [(second (pp (+ y o))) y]
+                         ])
+               #js{:name          (str "stl" (first (pp i)))
+                   :straightFirst false
+                   :straightLast  false
+                   :strokeWidth   4
+                   :strokeColor   "red"})))
+
+  (octave 26 7)
+  (octave 40 -7)
   :end)

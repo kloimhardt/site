@@ -68,11 +68,7 @@ nofreq = [item
 
 print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
 print("</script>")
-```
 
-```{python}
-#| output: asis
-"999 2"
 # instead of using the plain js
 # print("<script src='myjs/notes.js'></script>")
 # we load the respective Scittle code
