@@ -1,0 +1,1 @@
+clj -Sdeps "{:deps {io.github.babashka/sci.nrepl {:mvn/version \"0.0.2\"} org.babashka/http-server {:mvn/version \"0.1.13\"}}}" -M -e "(require '[sci.nrepl.browser-server :as nrepl]) (nrepl/start! {:nrepl-port 1339 :websocket-port 1340})"
