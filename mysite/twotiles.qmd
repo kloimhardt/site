@@ -15,7 +15,9 @@ execute:
  src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
 
-<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js"></script>
+<script>var SCITTLE_NREPL_WEBSOCKET_PORT = 1340;</script>
+<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js" type="application/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.nrepl.js" type="application/javascript"></script>
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
 <script src="https://unpkg.com/blockly/msg/en.js"></script>
 <script src="https://kloimhardt.github.io/twotiles/twotiles_core.js"></script>
@@ -77,8 +79,24 @@ notes.main("divnotes");
 <span onClick="notes.anim1()" style="color:blue">1</span>
 <span onClick="notes.anim2()" style="color:blue">2</span>
 
+<div id="divnotes2" class="jxgbox" style="width:750px; height:300px;"></div>
+
+```{python}
+#| output: asis
+"999 2"
+print("<script>")
+with open('notes.cljs', 'r') as file:
+    data = file.read().replace('\n', '')
+print("scittle.core.eval_string('", data, "')")
+print("</script>")
+```
+
+<script>statejs.notes.main("divnotes2");</script>
+<span onClick="statejs.notes.anim1()" style="color:blue">1</span>
+<span onClick="statejs.notes.anim2()" style="color:blue">2</span>
+
  ```{ojs}
-352
+999 2
  notes.out();
  ```
 
