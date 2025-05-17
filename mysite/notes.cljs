@@ -17,6 +17,26 @@
 (def stielunten [34 35 36 37 38 39])
 (def stieloben [33 32 31 30 29])
 
+(defn drawstiel1 [bnotes2 shift len]
+  (fn [name]
+    (let [bp (.select bnotes2 name)]
+      (. bnotes2
+         (create "line"
+                 #js[#js[(fn [] (+ (.X bp) shift)) (fn [] (.Y bp))]
+                     #js[(fn [] (+ (.X bp) shift)) (fn [] (+ (.Y bp) len))]]
+                 #js{:name          (str "stlm" name)
+                     :straightFirst false
+                     :straightLast  false
+                     :strokeWidth   4
+                     :strokeColor   "black"})))))
+
+(def vpp
+  (map-indexed (fn [i [name x]]
+                 {:name name :x x :y i}) pp))
+
+(def mpp (into {} (map (juxt :name identity)) vpp))
+
+
 (defn setAtt [bnotes2 vsp jsatt]
   (fn [idx]
     (.. bnotes2 (select (first (vsp idx))) (setAttribute jsatt))))
@@ -53,7 +73,14 @@
     (run! (setAtt bnotes2 sp #js{:size 9}) (concat violines viogaps))
 
     (run! (drawstiel bnotes2 sp -9 -7) stielunten)
-    (run! (drawstiel bnotes2 sp 9 7) stieloben)))
+    (run! (drawstiel bnotes2 sp 9 7) stieloben)
+
+    (def stielobennames ["D4" "E4" "F4" "G4" "A4"])
+    (run! (drawstiel1 bnotes2 9 7) stielobennames)
+    (def stieluntennames ["B4" "C5" "D5" "E5" "F5" "G5"])
+    (run! (drawstiel1 bnotes2 -9 -7) stieluntennames)
+
+    ))
 
 (defn anim1 []
   (let [bnotes2 (.. js/statejs -notes -bnotes2)
@@ -133,6 +160,7 @@
     (def bnotes2 (.. js/statejs -notes -bnotes2))
 
     )
+
   :end)
 
 
