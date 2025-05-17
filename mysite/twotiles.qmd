@@ -69,6 +69,8 @@ nofreq = [item
 print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
 print("</script>")
 
+9993
+
 # instead of using the plain js
 # print("<script src='myjs/notes.js'></script>")
 # we load the respective Scittle code
@@ -84,6 +86,7 @@ print("</script>")
 <script>statejs.notes.main("divnotes2");</script>
 <span onClick="statejs.notes.anim1()" style="color:blue">1</span>
 <span onClick="statejs.notes.anim2()" style="color:blue">2</span>
+<span onClick="statejs.notes.anim3()" style="color:blue">3</span>
 
 The following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.
 

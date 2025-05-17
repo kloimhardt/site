@@ -26,7 +26,7 @@
         sp       (into [] (map-indexed
                             (fn [i tu] [(first tu) (straight i)]) pp))
         violines [30 32 34 36 38]
-        viogaps  [28 29 31 33 35 37 39]]
+        viogaps  [29 31 33 35 37 39]]
     (doall
       (map-indexed
         (fn [i, d]
@@ -38,7 +38,7 @@
     (doall
       (map (fn [y]
              (. bnotes2 (create "line"
-                                #js[#js[150 y] #js[920 y]]
+                                #js[#js[150 y] #js[1050 y]]
                                 #js{:straightFirst false
                                     :straightLast  false
                                     :strokeWidth   1
@@ -57,6 +57,25 @@
 
 (defn anim1 []
   (let [bnotes2 (.. js/statejs -notes -bnotes2)
+        octave  (fn [y o]
+                  (. bnotes2
+                     (create "line"
+                             (let [p1 (.select bnotes2 (first (pp y)))
+                                   p2 (.select bnotes2 (first (pp (+ y o))))]
+                               #js[p1
+                                   #js[(fn [] (.X p2)) (fn [] (.Y p1))]])
+                             #js{:name          (str "stl" (first (pp y)))
+                                 :straightFirst false
+                                 :straightLast  false
+                                 :strokeWidth   4
+                                 :strokeColor   "red"})))]
+    (octave 26 7)
+    (octave 40 -7)))
+
+(set! (.. js/statejs -notes -anim1) anim1)
+
+(defn anim2 []
+  (let [bnotes2 (.. js/statejs -notes -bnotes2)
         rm      (fn [d]
                   (run! (fn [i]
                           (. bnotes2
@@ -73,9 +92,9 @@
               (moveTo #js[(second tu) i] 1500)))
         pp))))
 
-(set! (.. js/statejs -notes -anim1) anim1)
+(set! (.. js/statejs -notes -anim2) anim2)
 
-(defn anim2 []
+(defn anim3 []
   (let [bnotes2 (.. js/statejs -notes -bnotes2)]
     (run! (fn [tu]
             (.. bnotes2
@@ -88,7 +107,7 @@
                #js["(7 * (log(x) - log(16.35)))/log(2)"]
                #js{:strokeColor "red"}))))
 
-(set! (.. js/statejs -notes -anim2) anim2)
+(set! (.. js/statejs -notes -anim3) anim3)
 
 (defn main [divid]
   (let [bnotes2
@@ -114,19 +133,7 @@
     (def bnotes2 (.. js/statejs -notes -bnotes2))
 
     )
-
-  (defn octave [y o]
-    (. bnotes2
-       (create "line"
-               (clj->js [[(second (pp y)) y]
-                         [(second (pp (+ y o))) y]
-                         ])
-               #js{:name          (str "stl" (first (pp i)))
-                   :straightFirst false
-                   :straightLast  false
-                   :strokeWidth   4
-                   :strokeColor   "red"})))
-
-  (octave 26 7)
-  (octave 40 -7)
   :end)
+
+
+
