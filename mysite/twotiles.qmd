@@ -8,7 +8,7 @@ format:
     self-contained: false
 jupyter: python3
 execute:
-  cache: true
+  cache: false
 ---
 
 <script type="text/javascript" charset="UTF-8"
@@ -69,7 +69,7 @@ nofreq = [item
 print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
 print("</script>")
 
-99922
+99927
 
 # instead of using the plain js
 # print("<script src='myjs/notes.js'></script>")
