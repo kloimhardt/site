@@ -1,5 +1,7 @@
 (ns notes)
 
+(defmacro deepdef [v e] `(def ~v ~e))
+
 (defn drawstiel1 [bnotes2 shift len]
   (fn [name]
     (let [bp (.select bnotes2 name)]
@@ -13,16 +15,6 @@
                      :strokeWidth   4
                      :strokeColor   "black"})))))
 
-(defmacro deepdef [v e] `(def ~v ~e))
-
-(comment
-  (def mpp (into {} (map (juxt :name identity)) vpp))
-
-  (get mpp "A4")
-  (sp 30)
-  (nth vpp 33)
-  (nth ssp 33)
-  :end)
 
 (defn plotpoints1 [bnotes2 vpp]
   (run! (fn [d]
@@ -43,17 +35,16 @@
                                   :strokeColor   "black"}))))
        names))
 
-
+(def idx220 26)
 
 (defn plotpoints [bnotes2 vpp]
   (plotpoints1 bnotes2 vpp)
 
   (drawlines bnotes2 ["E4" "G4" "B4" "D5" "F5"])
-
   (. bnotes2 (create "image"
                      #js["https://upload.wikimedia.org/wikipedia/commons/f/ff/GClef.svg"
-                         #js[170 26.4]
-                         #js[80 15.5]]))
+                         #js[166 0.5]
+                         #js[76 -15]]))
 
   (run! (fn [name]
           (.. bnotes2 (select name) (setAttribute #js{:size 9})))
@@ -68,19 +59,23 @@
 
 (defn straight1 [y d] (* (- y d) (/ 440 7)))
 
+
 (defn vpp [frequencies]
-  (map-indexed (fn [i [name x]]
-                 (let [zero 0
-                       y    (- i zero)]
-                   {:name name :x x :sx (straight1 y 23.5) :y y }))
-               frequencies))
+  (into []
+        (map-indexed (fn [i [name x]]
+                       (let [y (- i idx220)]
+                         {:name name
+                          :x    x :sx (straight1 y -2.7)
+                          :y    y}))
+                     frequencies)))
 
 (defn main [divid]
   (set! (.. js/statejs -notes -bnotes2)
         (.. js/JXG
             -JSXGraph
             (initBoard divid
-                       (clj->js {:boundingbox   [120 48 1080 20]
+                       (clj->js {:boundingbox   [120 (- 48 idx220)
+                                                 1080 (- 20 idx220)]
                                  :showCopyright false
                                  :axis          false
                                  :grid          false}))))
@@ -88,44 +83,55 @@
   (plotpoints (.. js/statejs -notes -bnotes2)
               (vpp (js->clj (.-frequencies js/statejs)))))
 
+((js->clj (.-frequencies js/statejs)) 26)
+((vpp (js->clj (.-frequencies js/statejs))) 26)
 
-(def pp (js->clj (.-frequencies js/statejs)))
+(defn octave [y o]
+  (let [bnotes2 (.. js/statejs -notes -bnotes2)
+        pp      (vpp (js->clj (.-frequencies js/statejs)))]
+    (. bnotes2
+       (create "line"
+               (let [p1 (.select bnotes2 (:name (pp y)))
+                     p2 (.select bnotes2 (:name (pp (+ y o))))]
+                 #js[p1
+                     #js[(fn [] (.X p2)) (fn [] (.Y p1))]])
+               #js{:name          (str "oct" (:name (pp y)))
+                   :straightFirst false
+                   :straightLast  false
+                   :strokeWidth   4
+                   :strokeColor   "red"}))))
 
 (defn anim1 []
-  (let [bnotes2 (.. js/statejs -notes -bnotes2)
-        octave  (fn [y o]
-                  (. bnotes2
-                     (create "line"
-                             (let [p1 (.select bnotes2 (first (pp y)))
-                                   p2 (.select bnotes2 (first (pp (+ y o))))]
-                               #js[p1
-                                   #js[(fn [] (.X p2)) (fn [] (.Y p1))]])
-                             #js{:name          (str "oct" (first (pp y)))
-                                 :straightFirst false
-                                 :straightLast  false
-                                 :strokeWidth   4
-                                 :strokeColor   "red"})))]
-    (octave 26 7)
-    (octave 40 -7)))
-
+  (octave 26 7)
+  (octave 40 -7))
 
 (defn anim2 []
-  (let [bnotes2 (.. js/statejs -notes -bnotes2)]
+  (let [bnotes2 (.. js/statejs -notes -bnotes2)
+        pp      (vpp (js->clj (.-frequencies js/statejs)))]
     (doall
       (map-indexed
         (fn [i tu]
           (.. bnotes2
-              (select (first tu))
-              (moveTo #js[(second tu) i] 1500)))
+              (select (:name tu))
+              (moveTo #js[(:x tu) (:y tu)] 1500)))
         pp))))
-
 
 (defn anim3 []
   (let [bnotes2 (.. js/statejs -notes -bnotes2)]
-    (. bnotes2
-       (create "functiongraph"
-               #js["(7 * (log(x) - log(16.35)))/log(2)"]
-               #js{:strokeColor "red" :strokeWidth 2}))))
+    (.create bnotes2
+             "text"
+             #js[220 -1.2 "220 Hz"]
+             #js{:fontsize 20 :color "red"})
+
+    (.create bnotes2
+             "text"
+             #js[440 -1.2 "440 Hz"]
+             #js{:fontsize 20 :color "red"})
+
+    (.create bnotes2
+             "functiongraph"
+             #js["(7 * (log(x) - log(220)))/log(2)"]
+             #js{:strokeColor "red" :strokeWidth 2})))
 
 (set! (.. js/statejs -notes) #js{})
 (set! (.. js/statejs -notes -main) main)
@@ -139,10 +145,8 @@
     #_(anim1)
     #_(anim2)
     #_(anim3)
-
+    (def bnotes2 (.. js/statejs -notes -bnotes2))
     )
 
+  
   :end)
-
-
-
