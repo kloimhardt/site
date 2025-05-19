@@ -98,7 +98,7 @@
                #js{:name          (str "oct" (:name (pp y)))
                    :straightFirst false
                    :straightLast  false
-                   :strokeWidth   4
+                   :strokeWidth   2
                    :strokeColor   "red"}))))
 
 (defn anim1 []
@@ -118,19 +118,16 @@
 
 (defn anim3 []
   (let [bnotes2 (.. js/statejs -notes -bnotes2)]
-    (.create bnotes2
-             "text"
-             #js[220 -1.2 "220 Hz"]
-             #js{:fontsize 20 :color "red"})
-
-    (.create bnotes2
-             "text"
-             #js[440 -1.2 "440 Hz"]
-             #js{:fontsize 20 :color "red"})
+    (run! (fn [[l f]]
+            (.create bnotes2
+                     "text"
+                     #js[f -1.2 (str l f " Hz")]
+                     #js{:fontsize 20 :color "black"}))
+          [["" 220] ["" 440] ["" 880]])
 
     (.create bnotes2
              "functiongraph"
-             #js["(7 * (log(x) - log(220)))/log(2)"]
+             #js["(7 * log(x / 220)) / log(2)"]
              #js{:strokeColor "red" :strokeWidth 2})))
 
 (set! (.. js/statejs -notes) #js{})

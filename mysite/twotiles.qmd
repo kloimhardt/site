@@ -42,6 +42,21 @@ Blockly.inject(divid,
 Twotiles is a free and open JavaScript libaray for turning code into visual blocks. The library can be used in any website.
 
 ## Example
+The following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.
+
+### Symbolic computation in Python: SymPy
+
+```{python}
+#| code-summary: "Code Preamble"
+from sympy import symbols,diff,log
+from functools import partial
+x=symbols("x")
+b=symbols("b")
+y=symbols("y")
+
+def call(f, x):
+    return f(x)
+```
 
 ```{python}
 #| output: asis
@@ -69,8 +84,6 @@ nofreq = [item
 print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
 print("</script>")
 
-99931
-
 # instead of using the plain js
 # print("<script src='myjs/notes.js'></script>")
 # we load the respective Scittle code
@@ -81,27 +94,43 @@ with open('notes.cljs', 'r') as file:
 print("scittle.core.eval_string('", data, "')")
 print("</script>")
 ```
-
 <div id="divnotes2" class="jxgbox" style="width:750px; height:300px;"></div>
 <script>statejs.notes.main("divnotes2");</script>
-<span onClick="statejs.notes.anim1()" style="color:blue">1</span>
-<span onClick="statejs.notes.anim2()" style="color:blue">2</span>
-<span onClick="statejs.notes.anim3()" style="color:blue">3</span>
 
-The following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.
+<span onClick=statejs.notes.main('divnotes2') style="color:blue">1</span>
+<span onClick="statejs.notes.anim1()" style="color:blue">2</span>
+<span onClick="statejs.notes.anim2()" style="color:blue">3</span>
+<span onClick="statejs.notes.anim3()" style="color:blue">4</span>
 
-### Symbolic computation in Python: SymPy
+<div id="blocklyDivLog2" style="height: 100px;"></div>
+<script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
+
+Every 7th step we want to double the frequency. And we want to start at 220 Hertz.
 
 ```{python}
-#| code-summary: "Code Preamble"
-from sympy import symbols,diff,log
-from functools import partial
-x=symbols("x")
-b=symbols("b")
-y=symbols("y")
+#| output: asis
 
-def call(f, x):
-    return f(x)
+99911
+
+print("<script>")
+with open('log23.cljs', 'r') as file:
+    data = file.read().replace('\n', '')
+print("scittle.core.eval_string('", data, "')")
+print("</script>")
+```
+<div id="divlog23" class="jxgbox" style="width:750px; height:300px;"></div>
+<script>statejs.log23.main("divlog23");</script>
+<span onClick=statejs.log23.main('divlog23') style="color:blue">1</span>
+<span onClick=statejs.log23.anim2() style="color:blue">2</span>
+
+<div id="blocklyDiv21" style="height: 100px;"></div>
+<script>brender("(:tiles/infix (- (:tiles/infix (/ 5 x)) (:tiles/infix (+ 50 14))))", "blocklyDiv21")</script>
+```{python}
+5/x - (50 + 14)
+```
+
+```{python}
+log(x / 220) * 7
 ```
 
 Using SymPy, one can calculate with symbols. Here, `x` is a symbol.
