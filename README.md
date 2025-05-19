@@ -17,6 +17,8 @@ The site was generated once using `quarto create project website mysite`
 ```
 (python_venv) ~/klmtemp/site/mysite$ quarto publish gh-pages
 ```
+https://kloimhardt.github.io/site/
+
 ## Basilisp
 
 ```

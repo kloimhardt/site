@@ -1,0 +1,149 @@
+---
+title: "Log"
+format:
+  html:
+    code-fold: false
+    code-summary: "N.A."
+    echo: true
+    self-contained: false
+jupyter: python3
+execute:
+  cache: false
+---
+
+<script type="text/javascript" charset="UTF-8"
+ src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+
+<script>var SCITTLE_NREPL_WEBSOCKET_PORT = 1340;</script>
+<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js" type="application/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.nrepl.js" type="application/javascript"></script>
+<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+<script src="https://unpkg.com/blockly/msg/en.js"></script>
+<script src="https://kloimhardt.github.io/twotiles/twotiles_core.js"></script>
+
+<script>
+var parse = scittle.core.eval_string(twotiles.parse_clj);
+Blockly.defineBlocksWithJsonArray(twotiles.blocks);
+</script>
+
+<script>
+var brender = (code,divid) =>
+Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)),
+Blockly.inject(divid,
+{"toolbox": twotiles.toolbox,
+"sounds": false,
+"scrollbars": false,
+"trashcan": false}));
+</script>
+
+<script>var statejs = {};</script>
+
+::: {.hidden}
+```{python}
+#|code-fold: true
+#|code-summary: "Code Preamble"
+
+from sympy import symbols,diff
+from sympy.codegen.cfunctions import log2
+from functools import partial
+x=symbols("x")
+b=symbols("b")
+y=symbols("y")
+
+def call(f, x):
+    return f(x)
+```
+:::
+
+::: {.hidden}
+```{python}
+#| output: asis
+
+import numpy as np
+import json
+
+# https://muted.io/note-frequencies/
+data = np.genfromtxt('notes.txt', delimiter='\t', dtype=str)
+row_names = data[:, 0].tolist()
+numerical_data = np.matrix.transpose(data[:, 1:]).astype(float).tolist()
+               
+print("<script>")
+print("statejs['notenames']= ")
+print(json.dumps(row_names))
+print("statejs['frequencies']= ")
+
+nofreq = [item
+    for subl in
+      [list(map(lambda n,f: [n, idx, f], row_names, fs))
+        for idx, fs in enumerate(numerical_data)]
+   for item in subl]
+
+
+print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
+print("</script>")
+
+# instead of using the plain js
+# print("<script src='myjs/notes.js'></script>")
+# we load the respective Scittle code
+
+print("<script>")
+with open('notes.cljs', 'r') as file:
+    data = file.read().replace('\n', '')
+print("scittle.core.eval_string('", data, "')")
+print("</script>")
+```
+:::
+
+<details>
+<summary>1</summary>
+
+<div id="divnotes2" class="jxgbox" style="width:750px; height:300px;"></div>
+<script>statejs.notes.main("divnotes2");</script>
+
+<span onClick=statejs.notes.main('divnotes2') style="color:blue">1</span>
+<span onClick="statejs.notes.anim1()" style="color:blue">2</span>
+<span onClick="statejs.notes.anim2()" style="color:blue">3</span>
+<span onClick="statejs.notes.anim3()" style="color:blue">4</span>
+
+<details>
+<summary>-</summary>
+Every 7th step we want to double the frequency. And we want to start at 220 Hertz.
+</details>
+</details>
+
+
+<details>
+<summary>2</summary>
+<div id="blocklyDivLog2" style="height: 100px;"></div>
+<script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
+</details>
+
+::: {.hidden}
+```{python}
+#| output: asis
+
+99912
+
+print("<script>")
+with open('log23.cljs', 'r') as file:
+    data = file.read().replace('\n', '')
+print("scittle.core.eval_string('", data, "')")
+print("</script>")
+```
+:::
+
+<details>
+<summary>3</summary>
+<div id="divlog23" class="jxgbox" style="width:750px; height:300px;"></div>
+<script>statejs.log23.main("divlog23");</script>
+<span onClick=statejs.log23.main('divlog23') style="color:blue">1</span>
+<span onClick=statejs.log23.anim2() style="color:blue">2</span>
+</details>
+
+<details>
+<summary>4</summary>
+```{python}
+log2(x/220) * 7
+```
+</details>

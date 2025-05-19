@@ -7,17 +7,9 @@ format:
     echo: true
     self-contained: false
 jupyter: python3
-execute:
-  cache: false
 ---
 
-<script type="text/javascript" charset="UTF-8"
- src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
-
-<script>var SCITTLE_NREPL_WEBSOCKET_PORT = 1340;</script>
-<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js" type="application/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.nrepl.js" type="application/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js"></script>
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
 <script src="https://unpkg.com/blockly/msg/en.js"></script>
 <script src="https://kloimhardt.github.io/twotiles/twotiles_core.js"></script>
@@ -37,11 +29,10 @@ Blockly.inject(divid,
 "trashcan": false}));
 </script>
 
-<script>var statejs = {};</script>
-
 Twotiles is a free and open JavaScript libaray for turning code into visual blocks. The library can be used in any website.
 
 ## Example
+
 The following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.
 
 ### Symbolic computation in Python: SymPy
@@ -58,81 +49,6 @@ def call(f, x):
     return f(x)
 ```
 
-```{python}
-#| output: asis
-
-import numpy as np
-import json
-
-# https://muted.io/note-frequencies/
-data = np.genfromtxt('notes.txt', delimiter='\t', dtype=str)
-row_names = data[:, 0].tolist()
-numerical_data = np.matrix.transpose(data[:, 1:]).astype(float).tolist()
-               
-print("<script>")
-print("statejs['notenames']= ")
-print(json.dumps(row_names))
-print("statejs['frequencies']= ")
-
-nofreq = [item
-    for subl in
-      [list(map(lambda n,f: [n, idx, f], row_names, fs))
-        for idx, fs in enumerate(numerical_data)]
-   for item in subl]
-
-
-print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
-print("</script>")
-
-# instead of using the plain js
-# print("<script src='myjs/notes.js'></script>")
-# we load the respective Scittle code
-
-print("<script>")
-with open('notes.cljs', 'r') as file:
-    data = file.read().replace('\n', '')
-print("scittle.core.eval_string('", data, "')")
-print("</script>")
-```
-<div id="divnotes2" class="jxgbox" style="width:750px; height:300px;"></div>
-<script>statejs.notes.main("divnotes2");</script>
-
-<span onClick=statejs.notes.main('divnotes2') style="color:blue">1</span>
-<span onClick="statejs.notes.anim1()" style="color:blue">2</span>
-<span onClick="statejs.notes.anim2()" style="color:blue">3</span>
-<span onClick="statejs.notes.anim3()" style="color:blue">4</span>
-
-<div id="blocklyDivLog2" style="height: 100px;"></div>
-<script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
-
-Every 7th step we want to double the frequency. And we want to start at 220 Hertz.
-
-```{python}
-#| output: asis
-
-99911
-
-print("<script>")
-with open('log23.cljs', 'r') as file:
-    data = file.read().replace('\n', '')
-print("scittle.core.eval_string('", data, "')")
-print("</script>")
-```
-<div id="divlog23" class="jxgbox" style="width:750px; height:300px;"></div>
-<script>statejs.log23.main("divlog23");</script>
-<span onClick=statejs.log23.main('divlog23') style="color:blue">1</span>
-<span onClick=statejs.log23.anim2() style="color:blue">2</span>
-
-<div id="blocklyDiv21" style="height: 100px;"></div>
-<script>brender("(:tiles/infix (- (:tiles/infix (/ 5 x)) (:tiles/infix (+ 50 14))))", "blocklyDiv21")</script>
-```{python}
-5/x - (50 + 14)
-```
-
-```{python}
-log(x / 220) * 7
-```
-
 Using SymPy, one can calculate with symbols. Here, `x` is a symbol.
 
 <div id="blocklyDiv21" style="height: 100px;"></div>
@@ -140,31 +56,6 @@ Using SymPy, one can calculate with symbols. Here, `x` is a symbol.
 ```{python}
 5/x - (50 + 14)
 ```
-<div id="jxg10" class="jxgbox" style="width:750px; height:300px;"></div>
-
-<script>
-statejs['board1'] = JXG.JSXGraph.initBoard('jxg10', {
-            boundingbox: [-20, -54, 20, -74],
-            axis:true
-        });
-statejs['board1'].create('functiongraph', ['5/x - (50 + 14)'], {strokeColor:'red'});
-</script>
-
-<p></p>
-
-<div id="blocklyDivLog" style="height: 100px;"></div>
-<script>brender("(log x)", "blocklyDivLog")</script>
-
-<div id="jxgLog" class="jxgbox" style="width:750px; height:300px;"></div>
-
-<script>
-statejs['board3'] = JXG.JSXGraph.initBoard('jxgLog', {
-            boundingbox: [-5, 10, 70, -10],
-            axis:true
-        });
-statejs['board3'].create('functiongraph', ['log(x)']);
-statejs['board3'].create('line',[[64,0],[64,4.16]], {straightFirst:false, straightLast:false, strokeWidth:5, strokeColor:'#00ff00'});
-</script>
 
 <div id="blocklyDiv1" style="height: 100px;"></div>
 <script>brender("(log 64)", "blocklyDiv1")</script>
@@ -182,78 +73,23 @@ call(log, 64.0)
 
 This makes `call` a special kind of function. Because it takes a function as its first argument, `call` is a function of "higher order". But for now we return to the usual way of making a calculation.
 
+<div id="blocklyDiv22" style="height: 100px;"></div>
+<script>brender("(log (:tiles/infix (* x 5)))", "blocklyDiv22")</script>
+```{python}
+log(x * 5)
+```
+
+<div id="blocklyDiv24" style="height: 100px;"></div>
+<script>brender("(diff (:tiles/infix (* (log x) 5)) x)", "blocklyDiv24")</script>
+```{python}
+diff(log(x) * 5, x)
+```
+
 <div id="blocklyDiv2" style="height: 100px;"></div>
 <script>brender("(diff (log x) x)", "blocklyDiv2")</script>
 ```{python}
 diff(log(x),x)
 ```
-
-<div id="jxgOx" class="jxgbox" style="width:750px; height:300px;"></div>
-
-<script>
-var range = (n) => [...Array(n).keys()];
-
-var points = (nmax, o, f) =>
- range(nmax).map((n) =>
-  [[String(n) + "_1", [n+o, 0]], [String(n) + "_2", [n+o+1, 0]], [String(n) + "_3", [n+o+1, f(n+o+1)]]]);
-
-function triangle() {
-let b2 = statejs["board2"]
-let ps = statejs["points"]
-
-ps.map((tri) => {
-       b2.create('point',tri[0][1], {name:tri[0][0]}).setLabel("")
-       b2.create('point',tri[1][1], {name:tri[1][0], visible: false})
-       b2.create('point',tri[2][1], {name:tri[2][0], visible: false})
-})
-
-ps.map((tri) => b2.create('polygon',[tri[0][0], tri[1][0], tri[2][0]], { borders:{strokeColor:'black'}}))
-
-ps.map((tri) => {
-b2.create('transform',
-  [function(){return b2.select(tri[2][0]).X()-tri[2][1][0];},
-   function(){return b2.select(tri[2][0]).Y()-tri[2][1][1];}],
-   {type:'translate'})
-   .bindTo([b2.select(tri[0][0]),b2.select(tri[1][0])]);
-})
-}
-
-function anim(n) {
-let tri = statejs["points"][n];
- statejs['board2'].select(tri[2][0])
-   .moveTo([tri[2][1][0], Math.log(tri[2][1][0])],1500)
-}
-
-function shrink() {
-let tri = statejs["points"][0];
-let hohe = tri[2][1][1] -  tri[1][1][1];
-let faktor = 0.5;
-let p1 = statejs['board2'].select(tri[0][0]);
-let p2 = statejs['board2'].select(tri[1][0]);
-p1.moveTo([p1.X() + faktor, p1.Y() + faktor * hohe], 1500);
-p2.moveTo([p2.X(), p2.Y() + faktor * hohe], 1500);
-}
-
-</script>
-
-<script>
-statejs["board2"] = JXG.JSXGraph.initBoard('jxgOx', {
-            boundingbox: [-3, 2, 7, -2],
-            axis:true
-        });
-
-statejs["board2"].create('functiongraph', ['log(x)']);
-statejs["board2"].create('functiongraph', ['1 / x'], {strokeColor:'red'});
-statejs["points"] = points(6, 0, (x) => 1 / x).filter((_, index) => index % 2 === 0);
-</script>
-
-<span onClick="triangle()" style="color:blue">t</span>
-<span onClick="anim(0)" style="color:blue">1</span>
-<span onClick="anim(1)" style="color:blue">2</span>
-<span onClick="anim(2)" style="color:blue">3</span>
-<span onClick="shrink()" style="color:blue">s</span>
-
-All of our natural science is based on those triangles. Choosing the position and size of the triangles is the art of the scientist. But the shape of those trianges seems to be universally given by nature.
 
 <div id="blocklyDiv3" style="height: 150px;"></div>
 <script>brender("(def (logarithm b x) (return (:tiles/infix (/ (log x) (log b)))))", "blocklyDiv3")</script>
@@ -291,9 +127,163 @@ diff(call(log_base(8.0),x),x)
 <script src="https://kloimhardt.github.io/blog/js/emmy.js/build/emmy_bundle.js"></script>
 
 <script>
-var loadEnv = (name) => window[name] = emmy[name];
-["div", "mul", "sub", "add", "expt", "log",
-"partial", "symbol", "to_infix"].map(loadEnv);
+ var loadEnv = (name) => window[name] = emmy[name];
+</script>
+
+<script>
+var symbol = emmy.symbol;
+
+var specialchars =
+[["", /\:/g],
+ ["__gt_", /->/g],
+ ["symbol_$1", /\'(\w+)/g],
+ ["$1_dot_$2", /(\d+)\.(\d+)/g],
+ [" minus_$2", /(\s+)\-(\w+)/g],
+ ["$1_", /(\w+)\-/g],
+ ["[ / $1 $2 ],", /(\w+)\/(\d+)/g]];
+
+var post_specialchars =
+[["$1.$2", /(\d+)_dot_(\d+)/g],
+ ["$1e-$2", /(\d+)e_(\d+)/],
+ ["-$1", /minus_(\w+)/g],
+ //case symbol with hat 'v_r^x
+ ["symbol_$1^$2", /symbol_(\w+)expt(\w+)/]]
+
+var mathfns =
+[["div", /\//g],
+ ["mul", /\*/g],
+ ["sub", /\-/g],
+ ["add", /\+/g],
+ ["expt", /\^/g]]
+
+mathfns.map(x=> x[0]).map(loadEnv);
+
+var replaceMath = (txt) =>
+specialchars.concat(mathfns)
+.reduce((s,r) => s.replace(r[1],r[0]), txt);
+
+var swapFirst = (j) =>
+j.constructor == Array && mathfns.map(x=> x[0]).includes(j[1])
+? [j[1], j[0]].concat(j.slice(2)).map(swapFirst)
+: j.constructor == Array
+? j.map(swapFirst)
+: j;
+
+var insertCommas = (txt) =>
+txt.replace(/(\w+)/g,'"$1",')
+.replace(/\,\s+\]/g," ]");
+
+var makeBrackets = (txt) =>
+txt.trim()
+.replace(/\(/g,"[ ")
+           .replace(/\)/g," ],")
+.replace(/,$/,"");
+
+var textToJson = (txt) =>
+insertCommas(replaceMath(makeBrackets(txt)));
+
+var drv = emmy.D;
+
+var replaceD = (j) =>
+j.constructor == Array
+? j.map(replaceD)
+: j.constructor == String && j == "D"
+? "drv"
+: j.constructor == String
+? post_specialchars.reduce((s,r) => s.replace(r[1],r[0]), j)
+: j;
+
+["to_infix", "simplify"].map(loadEnv);
+
+var preAmble = (j) =>
+j[0] != "define" && j[0] != "def"
+? ["to_infix", j]
+: j;
+
+var identity = x => x;
+var retrn = x => x;
+
+var edgeCases = (j) =>
+(j[0] === "define" || j[0] === "def")
+&& j[2].constructor == Array && j[2][0] === "let"
+&& j[1].constructor == String
+? ["identity", "'let not allowed in variable definition'"]
+: j;
+
+var letFlat2 = (j) =>
+j[0] === "let"
+? j[1].concat(letFlat2(j[2]))
+: [j];
+
+var constructLet = (j) =>
+["let", j.slice(0, j.length - 1), j[j.length - 1]]
+
+var letFlat = (j) =>
+j.constructor == Array && j[0] === "let"
+? constructLet(letFlat2(j))
+: j.constructor == Array
+? j.map(letFlat)
+: j;
+
+var modifyJson = (j) =>
+preAmble(replaceD(letFlat(edgeCases(swapFirst(j)))));
+
+var makeFun = (j, callBack) =>
+"var " + j[1][0] + " = (" + j[1].slice(1) + ") => "
++ callBack(j[2]) +";";
+
+var makeFunFun = (j, callBack) =>
+"var " + j[1][0][0] + " = (" + j[1][0].slice(1) + ") => "
++ "(" + j[1].slice(1) +") => " + callBack(j[2]) + ";";
+
+var smap = (f, v) =>
+v.length === 1
+? f(v[0]) +";"
+: f(v[0]) +"; "  + smap(f, v.slice(1));
+
+var makeLet = (j, callBack) =>
+"{" + smap((l) => "let " + l[0] + " = " + callBack(l[1]), j[1])
++ " return " +  callBack(j[2]) + "; }"
+
+var jsonToJs = (j) =>
+j.constructor == Array && j[0] === "let"
+? makeLet(j, jsonToJs)
+:j.constructor == Array && (j[0] === "define" || j[0] === "def")
+&& j[1].constructor == Array
+&& j[1][0].constructor == Array
+? makeFunFun(j, jsonToJs)
+:j.constructor == Array && (j[0] === "define" || j[0] === "def")
+&& j[1].constructor == Array
+? makeFun(j, jsonToJs)
+: j.constructor == Array && j[0] === "lambda"
+? "(" + j[1] + ") => " + jsonToJs(j[2])
+:j.constructor == Array && (j[0] === "define" || j[0] === "def")
+&& j[1].constructor == String
+? "var " + j[1] + " = " + jsonToJs(j[2]) + ";"
+:j.constructor == String && j.substring(0, 7) == "symbol_"
+? 'symbol("' + j.substring(7, j.length) + '")'
+:j.constructor == Array
+? jsonToJs(j[0]) + "("  +  j.slice(1).map(jsonToJs) + ")"
+: j;
+
+var expressionToJs = (expr) =>
+jsonToJs(modifyJson(JSON.parse(textToJson(expr))));
+
+["sin", "cos", "pi", "velocity", "dot_product",
+        "up", "nth", "Gamma", "compose", "literal_function",
+        "definite_integral", "coordinate", "minimize",
+        "linear_interpolants", "multidimensional_minimize",
+        "make_path", "count",
+        "square", "partial", "ref", "sqrt", "atan", "down",
+        "solve_linear_left", "state_advancer", "cross_product",
+        "Rx", "Ry", "Rz", "osculating_path", "log"].map(loadEnv);
+
+var show_expression = simplify;
+var vector_length = count;
+var velocities = velocity;
+var coordinates = coordinate;
+var time = state => nth(state, 0);
+var get = (obj, field) => obj[field.toString()]; null;
 </script>
 
 <script>
@@ -302,10 +292,9 @@ var b = symbol("b")
 var y = symbol("y")
 var call = (f, x) => f(x);
 
-var diff = emmy.D;
+var diff = drv;
 var logarithm = (b,x) => div(log(x),log(b));
 var log_base = (b) => partial(logarithm,b);
-
 </script>
 
 <div id="blocklyDiv8" style="height: 100px;"></div>
@@ -315,6 +304,15 @@ to_infix(
   call(diff(log_base(8.0)), x)
 )
 ```
+
+<div id="schemeDiv1" style="height: 50px;"></div>
+
+<!--
+<script>
+document.getElementById("schemeDiv1").innerHTML =
+eval(expressionToJs("(call (diff (log_base 8.0)) x)"));
+</script>
+-->
 
 <div id="blocklyDiv9" style="height: 100px;"></div>
 <script>brender("(call (diff log) x)", "blocklyDiv9")</script>
@@ -390,4 +388,3 @@ A detailed example of EmmyJS can be found at [sicmutils-as-js-book-part1.html](h
 ### Quarto Notebook of this Page
 
 This page was generated with Quarto out of the file [twotiles.qmd](https://github.com/kloimhardt/site/blob/main/mysite/twotiles.qmd)
-
