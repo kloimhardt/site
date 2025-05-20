@@ -1,20 +1,6 @@
 project:
   type: website
 
-website:
-  sidebar:
-    search: false
-    style: "docked"
-    collapese-level: 0
-    contents:
-      - section: "2tiles"
-        contents:
-          - href: index.qmd
-            text: "Home"
-          - about.qmd
-          - twotiles.qmd
-          - lise.qmd
-          - log.qmd
 format:
   html:
     theme:

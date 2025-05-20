@@ -76,7 +76,7 @@
             (initBoard divid
                        (clj->js {:boundingbox   [120 (- 48 idx220)
                                                  1080 (- 20 idx220)]
-                                 :showCopyright false
+                                 :showCopyright true
                                  :axis          false
                                  :grid          false}))))
 
@@ -144,6 +144,4 @@
     #_(anim3)
     (def bnotes2 (.. js/statejs -notes -bnotes2))
     )
-
-  
   :end)

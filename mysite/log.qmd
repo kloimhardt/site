@@ -95,10 +95,7 @@ print("</script>")
 ```
 :::
 
-<details>
-<summary>1</summary>
-
-<div id="divnotes2" class="jxgbox" style="width:750px; height:300px;"></div>
+<div id="divnotes2" class="jxgbox" style="height:300px;"></div>
 <script>statejs.notes.main("divnotes2");</script>
 
 <span onClick=statejs.notes.main('divnotes2') style="color:blue">1</span>
@@ -107,24 +104,15 @@ print("</script>")
 <span onClick="statejs.notes.anim3()" style="color:blue">4</span>
 
 <details>
-<summary>-</summary>
-Every 7th step we want to double the frequency. And we want to start at 220 Hertz.
-</details>
-</details>
-
-
-<details>
 <summary>2</summary>
-<div id="blocklyDivLog2" style="height: 100px;"></div>
+<div id="blocklyDivLog2" style="height: 300px;"></div>
 <script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
 </details>
+
 
 ::: {.hidden}
 ```{python}
 #| output: asis
-
-99912
-
 print("<script>")
 with open('log23.cljs', 'r') as file:
     data = file.read().replace('\n', '')
@@ -133,13 +121,16 @@ print("</script>")
 ```
 :::
 
+::: {.column-margin}
 <details>
 <summary>3</summary>
-<div id="divlog23" class="jxgbox" style="width:750px; height:300px;"></div>
-<script>statejs.log23.main("divlog23");</script>
-<span onClick=statejs.log23.main('divlog23') style="color:blue">1</span>
-<span onClick=statejs.log23.anim2() style="color:blue">2</span>
+<div id="divlog23" class="jxgbox" style="height:150px; width: 350px"></div>
+<script>
+statejs.log23.main("divlog23");
+statejs.log23.anim2();
+</script>
 </details>
+:::
 
 <details>
 <summary>4</summary>
@@ -147,3 +138,27 @@ print("</script>")
 log2(x/220) * 7
 ```
 </details>
+
+:::{.column-screen-left}
+<details>
+<summary>5 999 1</summary>
+<table>
+<tr>
+<td style="vertical-align: top">
+<div id="blocklyDivLog21" style="height: 150px; width: 230px"></div>
+<script>brender("(log2 x)", "blocklyDivLog21")</script>
+</td>
+<td>
+<div id="divlog2x" class="jxgbox" style="height:300px; width: 800px"></div>
+<script>
+statejs.log23.log3("divlog2x");
+statejs.log23.anim2();
+</script>
+<span onClick=statejs.log23.log3("divlog2x") style="color:blue">1</span>
+<span onClick=statejs.log23.anim2() style="color:blue">2</span>
+</td>
+</tr>
+</table>
+</details>
+:::
+

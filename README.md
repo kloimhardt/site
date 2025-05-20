@@ -37,7 +37,7 @@ To start the nrepl server run `sh ./scittlenrepl.sh` or
 clj -Sdeps "{:deps {io.github.babashka/sci.nrepl {:mvn/version \"0.0.2\"} org.babashka/http-server {:mvn/version \"0.1.13\"}}}" -M -e "(require '[sci.nrepl.browser-server :as nrepl]) (nrepl/start! {:nrepl-port 1339 :websocket-port 1340})"
 ```
 
-The start an http-server (e.g. `python3 cors_server.py` which open server port 8003).
+Then start an http-server (e.g. `python3 cors_server.py` which open server port 8003).
 
 In the browser open: `http://localhost:8003/scittlenrepl.html`
 
