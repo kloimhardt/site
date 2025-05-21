@@ -31,7 +31,7 @@ Blockly.defineBlocksWithJsonArray(twotiles.blocks);
 var brender = (code,divid) =>
 Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)),
 Blockly.inject(divid,
-{"toolbox": twotiles.toolbox,
+{
 "sounds": false,
 "scrollbars": false,
 "trashcan": false}));
@@ -44,7 +44,7 @@ Blockly.inject(divid,
 #|code-fold: true
 #|code-summary: "Code Preamble"
 
-from sympy import symbols,diff
+from sympy import symbols, diff, log
 from sympy.codegen.cfunctions import log2
 from functools import partial
 x=symbols("x")
@@ -53,6 +53,9 @@ y=symbols("y")
 
 def call(f, x):
     return f(x)
+
+def lmap(a, b):
+    return list(map(a, map(lambda x: 1.0 * x, b)))
 ```
 :::
 
@@ -139,9 +142,49 @@ log2(x/220) * 7
 ```
 </details>
 
+<details>
+<summary>5</summary>
+<div id="blocklyDiv5" style="height: 300px;"></div>
+<script>brender("(def (log2a steps intersect x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5")</script>
+</details>
+
+::: {.column-margin}
+<details>
+<summary>6</summary>
+<div style="width: 350px">
+```{python}
+def log2a(steps, intersect, x):
+    return log2(x/intersect) * steps
+```
+
+<div id="blocklyDiv6" class="jxgbox" style="height:150px; width: 350px"></div>
+<script>brender("(log2a 7 220 440)", "blocklyDiv6")</script>
+
+```{python}
+log2a(7, 220, 440)
+```
+</div>
+</details>
+:::
+
+<details>
+<summary>7</summary>
+<div id="blocklyDiv8" style="height: 300px;"></div>
+<script>brender("(:tiles/infix (- (log2a 1 1 x) (log2 x)))", "blocklyDiv8")</script>
+</details>
+
+::: {.column-margin}
+<details>
+<summary>8</summary>
+```{python}
+log2a(1, 1, x) - log2(x)
+```
+</details>
+:::
+
 :::{.column-screen-left}
 <details>
-<summary>5 999 1</summary>
+<summary>9</summary>
 <table>
 <tr>
 <td style="vertical-align: top">
@@ -162,3 +205,197 @@ statejs.log23.anim2();
 </details>
 :::
 
+
+:::{.column-screen-right}
+<details>
+<summary>10</summary>
+<table><tr><td>
+<div id="blocklyDiv10" style="height: 300px; width: 800px"></div>
+<script>brender("(lmap log2 [1 2 4 8])", "blocklyDiv10")</script>
+</td><td style="vertical-align: top">
+<div><pre>lmap</pre>is short for<pre>list(map())</pre></div>
+</td></tr></table>
+</details>
+:::
+<details>
+<summary>11</summary>
+```{python}
+lmap(log2, [1, 2, 4, 8])
+```
+</details>
+
+<details>
+<summary>12</summary>
+<div id="blocklyDivLog12" style="height: 300px;"></div>
+<script>brender("(log2a 7 220 x)", "blocklyDivLog12")</script>
+</details>
+
+::: {.column-margin}
+<details>
+<summary>13</summary>
+<div id="divlog213" class="jxgbox" style="height:150px; width: 350px"></div>
+<script>
+statejs.log23.main("divlog213");
+statejs.log23.anim2();
+</script>
+</details>
+:::
+
+<details>
+<summary>14</summary>
+<div id="blocklyDiv14" style="height: 300px;"></div>
+<script>brender("(lmap (partial log2a 7 220) [110 220 440 880])", "blocklyDiv14")</script>
+</details>
+
+<details>
+<summary>15</summary>
+```{python}
+lmap(partial(log2a, 7, 220), [110, 220, 440, 880])
+```
+</details>
+
+<details>
+<summary>16</summary>
+<div id="blocklyDiv16" style="height: 300px;"></div>
+<script>brender("(def (log2b steps) (return (partial (log2a steps 1))))", "blocklyDiv16")</script>
+</details>
+
+::: {.column-margin}
+<details>
+<summary>17</summary>
+<div style="width: 350px">
+```{python}
+def log2b(steps):
+    return partial(log2a, steps, 1)
+```
+
+<div id="blocklyDiv17" class="jxgbox" style="height:150px; width: 350px"></div>
+<script>brender("(:tiles/vert (lmap (log2b 7) [1 2 4]))", "blocklyDiv17")</script>
+
+```{python}
+lmap(log2b(7), [1, 2, 4])
+```
+</div>
+</details>
+:::
+
+<details>
+<summary>18</summary>
+<div id="blocklyDiv18" style="height: 300px;"></div>
+<script>brender("(call (log2b 7) 2)", "blocklyDiv18")</script>
+</details>
+
+::: {.column-margin}
+<details>
+<summary>19</summary>
+```{python}
+call(log2b(7), 2)
+```
+</details>
+:::
+
+:::{.column-screen-left}
+<details>
+<summary>20</summary>
+<table><tr><td style="vertical-align: top">
+<div id="blocklyDivLog20_2" style="height: 150px; width: 230px"></div>
+<script>brender("(call (log2b n) x)", "blocklyDivLog20_2")</script>
+</td><td>
+<div id="divlog20_2" class="jxgbox" style="height:300px; width: 800px"></div>
+<script>
+statejs.log23.log2b("divlog20_2");
+</script>
+<span onClick=statejs.log23.log3("divlog2x") style="color:blue">1</span>
+<span onClick=statejs.log23.anim2() style="color:blue">2</span>
+</td></tr></table>
+</details>
+:::
+
+```{python}
+diff(call(log2b(0.7), x),x)
+```
+
+::: {.column-margin}
+<details>
+<summary>xxx</summary>
+<div style="width: 350px">
+```{python}
+log(2.0)
+```
+</div>
+</details>
+:::
+
+
+
+<script>
+document.querySelectorAll("details")
+.forEach(d => d.setAttribute("open", ""))
+</script>
+
+
+<div id="jxgOx" class="jxgbox" style="width:750px; height:300px;"></div>
+
+<script>
+var state = {};
+var range = (n) => [...Array(n).keys()];
+
+var points = (nmax, o, f) =>
+ range(nmax).map((n) =>
+  [[String(n) + "_1", [n+o, 0]], [String(n) + "_2", [n+o+1, 0]], [String(n) + "_3", [n+o+1, f(n+o+1)]]]);
+
+function triangle() {
+let b2 = state["board2"]
+let ps = state["points"]
+
+ps.map((tri) => {
+       b2.create('point',tri[0][1], {name:tri[0][0]}).setLabel("")
+       b2.create('point',tri[1][1], {name:tri[1][0], visible: false})
+       b2.create('point',tri[2][1], {name:tri[2][0], visible: false})
+})
+
+ps.map((tri) => b2.create('polygon',[tri[0][0], tri[1][0], tri[2][0]], { borders:{strokeColor:'black'}}))
+
+ps.map((tri) => {
+b2.create('transform',
+  [function(){return b2.select(tri[2][0]).X()-tri[2][1][0];},
+   function(){return b2.select(tri[2][0]).Y()-tri[2][1][1];}],
+   {type:'translate'})
+   .bindTo([b2.select(tri[0][0]),b2.select(tri[1][0])]);
+})
+}
+
+function anim(n) {
+let tri = state["points"][n];
+ state['board2'].select(tri[2][0])
+   .moveTo([tri[2][1][0], Math.log(tri[2][1][0])],1500)
+}
+
+function shrink() {
+let tri = state["points"][0];
+let hohe = tri[2][1][1] -  tri[1][1][1];
+let faktor = 0.5;
+let p1 = state['board2'].select(tri[0][0]);
+let p2 = state['board2'].select(tri[1][0]);
+p1.moveTo([p1.X() + faktor, p1.Y() + faktor * hohe], 1500);
+p2.moveTo([p2.X(), p2.Y() + faktor * hohe], 1500);
+}
+
+</script>
+
+<script>
+state["board2"] = JXG.JSXGraph.initBoard('jxgOx', {
+            boundingbox: [-3, 2, 7, -2],
+            axis:true
+        });
+
+state["board2"].create('functiongraph', ['log(x)']);
+state["board2"].create('functiongraph', ['1 / x'], {strokeColor:'red'});
+state["points"] = points(6, 0, (x) => 1 / x).filter((_, index) => index % 2 === 0);
+</script>
+
+<span onClick="triangle()" style="color:blue">t</span>
+<span onClick="anim(0)" style="color:blue">1</span>
+<span onClick="anim(1)" style="color:blue">2</span>
+<span onClick="anim(2)" style="color:blue">3</span>
+<span onClick="shrink()" style="color:blue">s</span>

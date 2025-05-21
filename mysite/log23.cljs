@@ -88,6 +88,43 @@
 
 (set! (.. js/statejs -log23 -log3) log3)
 
+(defn log2b [divid]
+  (let [bb [-1 5
+            5 -3]
+        am (am divid "" "" bb)]
+
+    (set! (.. js/statejs -log23 -brd2b)
+          (.. js/JXG
+              -JSXGraph
+              (initBoard divid (clj->js am)))))
+
+  (let [brd (.. js/statejs -log23 -brd2b)]
+    (.create brd
+             "functiongraph"
+             #js["7 * log(x) / log(2)"]
+             #js{:strokeColor "red"
+                 :strokeWidth 2})
+
+    (.create brd
+             "functiongraph"
+             #js["3 * log(x) / log(2)"]
+             #js{:strokeColor "red"
+                 :strokeWidth 2})
+
+    (.create brd
+             "functiongraph"
+             #js["log(x) / log(2)"]
+             #js{:strokeColor "green"
+                 :strokeWidth 2})
+
+    (.create brd
+             "functiongraph"
+             #js["0.7 * log(x) / log(2)"]
+             #js{:strokeColor "green"
+                 :strokeWidth 2})))
+
+(set! (.. js/statejs -log23 -log2b) log2b)
+
 (comment
   (do
     (main "divlog23")
@@ -97,4 +134,8 @@
     (log3 "divlog2x")
     (def brd3 (.. js/statejs -log23 -brd3)))
 
-  )
+  (do
+    (log2b "divlog20_2")
+    (def brd2b (.. js/statejs -log23 -brd2b)))
+
+  :end)
