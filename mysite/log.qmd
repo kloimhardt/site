@@ -44,7 +44,8 @@ Blockly.inject(divid,
 #|code-fold: true
 #|code-summary: "Code Preamble"
 
-from sympy import symbols, diff, log
+import sympy
+from sympy import symbols, diff, ln
 from sympy.codegen.cfunctions import log2
 from functools import partial
 x=symbols("x")
@@ -56,6 +57,13 @@ def call(f, x):
 
 def lmap(a, b):
     return list(map(a, map(lambda x: 1.0 * x, b)))
+
+def D(f):
+    x1 = symbols("x1")
+    return sympy.lambdify([x1], diff(f(x1), x1), "sympy")
+
+def rnd(expr):
+     return expr.xreplace({n: round(n, 3) for n in expr.atoms(sympy.Number)})
 ```
 :::
 
@@ -311,28 +319,6 @@ statejs.log23.log2b("divlog20_2");
 </details>
 :::
 
-```{python}
-diff(call(log2b(0.7), x),x)
-```
-
-::: {.column-margin}
-<details>
-<summary>xxx</summary>
-<div style="width: 350px">
-```{python}
-log(2.0)
-```
-</div>
-</details>
-:::
-
-
-
-<script>
-document.querySelectorAll("details")
-.forEach(d => d.setAttribute("open", ""))
-</script>
-
 
 <div id="jxgOx" class="jxgbox" style="width:750px; height:300px;"></div>
 
@@ -399,3 +385,23 @@ state["points"] = points(6, 0, (x) => 1 / x).filter((_, index) => index % 2 === 
 <span onClick="anim(1)" style="color:blue">2</span>
 <span onClick="anim(2)" style="color:blue">3</span>
 <span onClick="shrink()" style="color:blue">s</span>
+
+<details>
+<summary>xxx</summary>
+```{python}
+call(D(log2b(0.7)), x).evalf()
+```
+</details>
+
+<details>
+<summary>xxx</summary>
+```{python}
+call(D(ln), x)
+```
+</details>
+
+<script>
+document.querySelectorAll("details")
+.forEach(d => d.setAttribute("open", ""))
+</script>
+
