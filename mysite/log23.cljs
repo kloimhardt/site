@@ -125,6 +125,98 @@
 
 (set! (.. js/statejs -log23 -log2b) log2b)
 
+(defn logtri [divid]
+  (let [bb [-3 2
+            7 -2]
+        am (am divid "" "" bb)]
+
+    (set! (.. js/statejs -log23 -brdtri)
+          (.. js/JXG
+              -JSXGraph
+              (initBoard divid (clj->js am)))))
+
+  (let [brd (.. js/statejs -log23 -brdtri)]
+    (.create brd
+             "functiongraph"
+             #js["log(x)"])))
+
+(set! (.. js/statejs -log23 -logtri) logtri)
+
+(defn triangles [b x dx f & [argzero]]
+    (let [zero (or argzero (f x))
+          t0 (.create b "point" #js[x zero])
+          t1 (.create b "point"
+                      #js[(fn [] (+ (.X t0) dx))
+                                     (fn [] (.Y t0))]
+                      #js{:visible false})
+          t2 (.create b "point"
+                      #js[(fn [] (+ (.X t0) dx))
+                                     (fn [] (+ (.Y t0)
+                                               (- (f (+ x dx)) zero)))]
+                      #js{:visible false})]
+      (run! (fn [p] (.setLabel p "")) [t0 t1 t2])
+      [t0 t1 t2 (.create b "polygon" #js[t0 t1 t2])]))
+
+  (defn repl-poly [b t]
+    (let [xys  (map (fn [p] [(.X p) (.Y p)]) (butlast t))
+          npts (mapv (fn [xy] (.create b "point" (clj->js xy) #js{:visible false})) xys)
+          nply (.create b "polygon" (clj->js npts))
+          ]
+
+      (.setLabel (first npts) "")
+      (.setAttribute (first npts) #js{:visible true})
+
+      (run! (fn [o] (.removeObject b o)) (reverse t))
+      (conj npts nply)))
+
+  (defn shrink [b t]
+    (let [tn (repl-poly b t)
+          faktor 0.5
+          hohe   (- (.Y (tn 2)) (.Y (tn 1)))]
+      (.moveTo (tn 0) #js[(+ (.X (tn 0)) faktor) (+ (.Y (tn 0)) (* faktor hohe))] 1500)
+      (.moveTo (tn 1) #js[(.X (tn 1)) (+ (.Y (tn 1)) (* faktor hohe))] 1500)))
+
+  (defn trianim2 []
+    (set! (.. js/statejs -log23 -tri_ts)
+          (doall (map (fn [x] (triangles
+                                (.. js/statejs -log23 -brdtri)
+                                x
+                                1
+                                js/Math.log))
+                      [2 4]))))
+
+  (defn trianim3 []
+    (run! (fn [[t]] (.moveTo t #js[(.X t) 0] 1500))
+          (.. js/statejs -log23 -tri_ts)))
+
+  (defn trianim4 []
+    (.create (.. js/statejs -log23 -brdtri)
+             "functiongraph"
+             #js["1/x"]
+             #js{:strokeColor "red"
+                 :strokeWidth 1}))
+
+(defn trianim5 []
+  (set! (.. js/statejs -log23 -tri_t0)
+        (triangles (.. js/statejs -log23 -brdtri)
+                   0
+                   1
+                   (fn [x] (/ 1 x))
+                   0)))
+
+(defn trianim6 []
+  (.moveTo (first (.. js/statejs -log23 -tri_t0)) #js[0 -1] 1500))
+
+(defn trianim7 []
+  (shrink (.. js/statejs -log23 -brdtri) (.. js/statejs -log23 -tri_t0)))
+
+(set! (.. js/statejs -log23 -trianim2) trianim2)
+(set! (.. js/statejs -log23 -trianim3) trianim3)
+(set! (.. js/statejs -log23 -trianim4) trianim4)
+(set! (.. js/statejs -log23 -trianim5) trianim5)
+(set! (.. js/statejs -log23 -trianim6) trianim6)
+(set! (.. js/statejs -log23 -trianim7) trianim7)
+
 (comment
   (do
     (main "divlog23")
@@ -138,4 +230,16 @@
     (log2b "divlog20_2")
     (def brd2b (.. js/statejs -log23 -brd2b)))
 
+  (do
+    (logtri "divlogtri")
+    (def brdtri (.. js/statejs -log23 -brdtri))
+
+    :end)
+
+  (trianim2)
+  (trianim3)
+  (trianim4)
+  (trianim5)
+  (trianim6)
+  (trianim7)
   :end)

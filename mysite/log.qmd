@@ -319,6 +319,14 @@ statejs.log23.log2b("divlog20_2");
 </details>
 :::
 
+<div id="divlogtri" class="jxgbox" style="width:750px; height:300px;"></div>
+<script>statejs.log23.logtri("divlogtri")</script>
+<span onClick="statejs.log23.trianim2()" style="color:blue">2</span>
+<span onClick="statejs.log23.trianim3()" style="color:blue">3</span>
+<span onClick="statejs.log23.trianim4()" style="color:blue">4</span>
+<span onClick="statejs.log23.trianim5()" style="color:blue">5</span>
+<span onClick="statejs.log23.trianim6()" style="color:blue">6</span>
+<span onClick="statejs.log23.trianim7()" style="color:blue">7</span>
 
 <div id="jxgOx" class="jxgbox" style="width:750px; height:300px;"></div>
 
