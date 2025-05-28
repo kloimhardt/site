@@ -10,7 +10,6 @@ jupyter: python3
 execute:
   cache: false
 ---
-
 <script type="text/javascript" charset="UTF-8"
  src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
@@ -38,6 +37,10 @@ Blockly.inject(divid,
 </script>
 
 <script>var statejs = {};</script>
+
+<script>
+const delay = ms => new Promise(res => setTimeout(res, ms));
+</script>
 
 ::: {.hidden}
 ```{python}
@@ -106,6 +109,11 @@ print("</script>")
 ```
 :::
 
+> The discovery, due to Pythagoras, that the pitch of a note depends on the length of the chord (with the octave being produced by the ratio two to one) was the first occurrence of a number being used to describe human experience. It was the beginning of science.
+> -Arthur Koestler, the Sleepwalkers
+
+<details>
+<summary>1</summary>
 <div id="divnotes2" class="jxgbox" style="height:300px;"></div>
 <script>statejs.notes.main("divnotes2");</script>
 
@@ -113,6 +121,8 @@ print("</script>")
 <span onClick="statejs.notes.anim1()" style="color:blue">2</span>
 <span onClick="statejs.notes.anim2()" style="color:blue">3</span>
 <span onClick="statejs.notes.anim3()" style="color:blue">4</span>
+<span onClick="statejs.notes.anim5()" style="color:blue">5</span>
+</details>
 
 <details>
 <summary>2</summary>
@@ -151,9 +161,33 @@ log2(x/220) * 7
 </details>
 
 <details>
+<summary>5a</summary>
+<div id="divmanylogs" class="jxgbox" style="height:300px"></div>
+<script>
+statejs.log23.many("divmanylogs");
+
+const mywait = async () => {
+ for (let i = 0; i < 20; i++) {
+  statejs.log23.manyanim2();
+  await delay(500);
+ }
+};
+</script>
+
+<span onClick=statejs.log23.many("divmanylogs") style="color:blue">1</span>
+<span onClick=mywait() style="color:blue">2</span>
+</details>
+
+<details>
 <summary>5</summary>
 <div id="blocklyDiv5" style="height: 300px;"></div>
-<script>brender("(def (log2a steps intersect x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5")</script>
+<script>brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5")</script>
+</details>
+
+<details>
+<summary>5a</summary>
+<div id="blocklyDiv5a" style="height: 300px;"></div>
+<script>brender("(def (log2a steps intersect x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5a")</script>
 </details>
 
 ::: {.column-margin}
@@ -321,6 +355,7 @@ statejs.log23.log2b("divlog20_2");
 
 <div id="divlogtri" class="jxgbox" style="width:750px; height:300px;"></div>
 <script>statejs.log23.logtri("divlogtri")</script>
+<span onClick=statejs.log23.logtri("divlogtri") style="color:blue">1</span>
 <span onClick="statejs.log23.trianim2()" style="color:blue">2</span>
 <span onClick="statejs.log23.trianim3()" style="color:blue">3</span>
 <span onClick="statejs.log23.trianim4()" style="color:blue">4</span>
@@ -328,81 +363,15 @@ statejs.log23.log2b("divlog20_2");
 <span onClick="statejs.log23.trianim6()" style="color:blue">6</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">7</span>
 
-<div id="jxgOx" class="jxgbox" style="width:750px; height:300px;"></div>
-
-<script>
-var state = {};
-var range = (n) => [...Array(n).keys()];
-
-var points = (nmax, o, f) =>
- range(nmax).map((n) =>
-  [[String(n) + "_1", [n+o, 0]], [String(n) + "_2", [n+o+1, 0]], [String(n) + "_3", [n+o+1, f(n+o+1)]]]);
-
-function triangle() {
-let b2 = state["board2"]
-let ps = state["points"]
-
-ps.map((tri) => {
-       b2.create('point',tri[0][1], {name:tri[0][0]}).setLabel("")
-       b2.create('point',tri[1][1], {name:tri[1][0], visible: false})
-       b2.create('point',tri[2][1], {name:tri[2][0], visible: false})
-})
-
-ps.map((tri) => b2.create('polygon',[tri[0][0], tri[1][0], tri[2][0]], { borders:{strokeColor:'black'}}))
-
-ps.map((tri) => {
-b2.create('transform',
-  [function(){return b2.select(tri[2][0]).X()-tri[2][1][0];},
-   function(){return b2.select(tri[2][0]).Y()-tri[2][1][1];}],
-   {type:'translate'})
-   .bindTo([b2.select(tri[0][0]),b2.select(tri[1][0])]);
-})
-}
-
-function anim(n) {
-let tri = state["points"][n];
- state['board2'].select(tri[2][0])
-   .moveTo([tri[2][1][0], Math.log(tri[2][1][0])],1500)
-}
-
-function shrink() {
-let tri = state["points"][0];
-let hohe = tri[2][1][1] -  tri[1][1][1];
-let faktor = 0.5;
-let p1 = state['board2'].select(tri[0][0]);
-let p2 = state['board2'].select(tri[1][0]);
-p1.moveTo([p1.X() + faktor, p1.Y() + faktor * hohe], 1500);
-p2.moveTo([p2.X(), p2.Y() + faktor * hohe], 1500);
-}
-
-</script>
-
-<script>
-state["board2"] = JXG.JSXGraph.initBoard('jxgOx', {
-            boundingbox: [-3, 2, 7, -2],
-            axis:true
-        });
-
-state["board2"].create('functiongraph', ['log(x)']);
-state["board2"].create('functiongraph', ['1 / x'], {strokeColor:'red'});
-state["points"] = points(6, 0, (x) => 1 / x).filter((_, index) => index % 2 === 0);
-</script>
-
-<span onClick="triangle()" style="color:blue">t</span>
-<span onClick="anim(0)" style="color:blue">1</span>
-<span onClick="anim(1)" style="color:blue">2</span>
-<span onClick="anim(2)" style="color:blue">3</span>
-<span onClick="shrink()" style="color:blue">s</span>
-
 <details>
-<summary>xxx</summary>
+<summary>21</summary>
 ```{python}
 call(D(log2b(0.7)), x).evalf()
 ```
 </details>
 
 <details>
-<summary>xxx</summary>
+<summary>22</summary>
 ```{python}
 call(D(ln), x)
 ```
@@ -412,4 +381,3 @@ call(D(ln), x)
 document.querySelectorAll("details")
 .forEach(d => d.setAttribute("open", ""))
 </script>
-

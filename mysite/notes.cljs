@@ -123,8 +123,10 @@
                      "text"
                      #js[f -1.2 (str l f " Hz")]
                      #js{:fontsize 20 :color "black"}))
-          [["" 220] ["" 440] ["" 880]])
+          [["" 220] ["" 440] ["" 880]])))
 
+(defn anim5 []
+  (let [bnotes2 (.. js/statejs -notes -bnotes2)]
     (.create bnotes2
              "functiongraph"
              #js["(7 * log(x / 220)) / log(2)"]
@@ -135,6 +137,7 @@
 (set! (.. js/statejs -notes -anim1) anim1)
 (set! (.. js/statejs -notes -anim2) anim2)
 (set! (.. js/statejs -notes -anim3) anim3)
+(set! (.. js/statejs -notes -anim5) anim5)
 
 (comment
   (do

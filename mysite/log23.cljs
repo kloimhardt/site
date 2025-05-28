@@ -1,6 +1,6 @@
 (ns log23)
 
-(defn am [divid xname yname bbox]
+(defn am [xname yname bbox]
   {:boundingbox    bbox
    :showCopyright  false
    :axis           true
@@ -27,7 +27,7 @@
 (defn mainlog [divid name]
   (let [bb [120 (- 48 notes/idx220)
             1080 (- 20 notes/idx220)]
-        am (am divid "Frequency [Hz]" name bb)]
+        am (am "Frequency [Hz]" name bb)]
 
     (set! (.. js/statejs -log23 -brd)
           (.. js/JXG
@@ -71,7 +71,7 @@
 (defn log3 [divid]
   (let [bb [-1 5
             5 -3]
-        am (am divid "" "" bb)]
+        am (am "" "" bb)]
 
     (set! (.. js/statejs -log23 -brd3)
           (.. js/JXG
@@ -91,7 +91,7 @@
 (defn log2b [divid]
   (let [bb [-1 5
             5 -3]
-        am (am divid "" "" bb)]
+        am (am "" "" bb)]
 
     (set! (.. js/statejs -log23 -brd2b)
           (.. js/JXG
@@ -108,19 +108,19 @@
     (.create brd
              "functiongraph"
              #js["3 * log(x) / log(2)"]
-             #js{:strokeColor "red"
-                 :strokeWidth 2})
+             #js{:strokeColor "yellow"
+                 :strokeWidth 1})
 
     (.create brd
              "functiongraph"
              #js["log(x) / log(2)"]
              #js{:strokeColor "green"
-                 :strokeWidth 2})
+                 :strokeWidth 1})
 
     (.create brd
              "functiongraph"
              #js["0.7 * log(x) / log(2)"]
-             #js{:strokeColor "green"
+             #js{:strokeColor "blue"
                  :strokeWidth 2})))
 
 (set! (.. js/statejs -log23 -log2b) log2b)
@@ -128,7 +128,7 @@
 (defn logtri [divid]
   (let [bb [-3 2
             7 -2]
-        am (am divid "" "" bb)]
+        am (am "" "" bb)]
 
     (set! (.. js/statejs -log23 -brdtri)
           (.. js/JXG
@@ -138,7 +138,9 @@
   (let [brd (.. js/statejs -log23 -brdtri)]
     (.create brd
              "functiongraph"
-             #js["log(x)"])))
+             #js["0.7 * log(x) / log(2)"]
+             #js{:strokeColor "blue"
+                 :strokeWidth 2})))
 
 (set! (.. js/statejs -log23 -logtri) logtri)
 
@@ -242,4 +244,45 @@
   (trianim5)
   (trianim6)
   (trianim7)
+
+  (apply mapv vector [[1 2] [3 4]])
+  :end)
+
+(defn log2a [steps intersect x]
+  (* (/ (js/Math.log (/ x intersect)) (js/Math.log 2)) steps))
+
+(defn many [divid]
+  (let [bb [-320 33
+            1480 -18]
+        am (am "Frequency [Hz]" "log2" bb)]
+
+    (set! (.. js/statejs -log23 -brdmany)
+          (.. js/JXG
+              -JSXGraph
+              (initBoard divid (clj->js am)))))
+
+  (let [brd (.. js/statejs -log23 -brdmany)]
+    (.create brd
+             "functiongraph"
+             #js[(partial log2a 7 220)]
+             #js{:strokeColor "red"
+                 :strokeWidth 2})))
+
+(defn manyanim2 []
+  (let [brd (.. js/statejs -log23 -brdmany)]
+    (.create brd
+             "functiongraph"
+             #js[(partial log2a
+                          (+ 4 (rand-int 10))
+                          (+ 170 (rand-int 100)))]
+             #js{:strokeColor "green"
+                 :strokeWidth 1})))
+
+(set! (.. js/statejs -log23 -many) many)
+(set! (.. js/statejs -log23 -manyanim2) manyanim2)
+
+(comment
+  (many "divmanylogs")
+  (manyanim2)
+
   :end)
