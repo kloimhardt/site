@@ -58,7 +58,7 @@ y=symbols("y")
 def call(f, x):
     return f(x)
 
-def lmap(a, b):
+def mapv(a, b):
     return list(map(a, map(lambda x: 1.0 * x, b)))
 
 def D(f):
@@ -76,6 +76,7 @@ def rnd(expr):
 
 import numpy as np
 import json
+import inspect
 
 # https://muted.io/note-frequencies/
 data = np.genfromtxt('notes.txt', delimiter='\t', dtype=str)
@@ -122,6 +123,13 @@ print("</script>")
 <span onClick="statejs.notes.anim2()" style="color:blue">3</span>
 <span onClick="statejs.notes.anim3()" style="color:blue">4</span>
 <span onClick="statejs.notes.anim5()" style="color:blue">5</span>
+</details>
+
+<details>
+<summary>1a</summary>
+```{python}
+inspect.getdoc(  log2  )
+```
 </details>
 
 <details>
@@ -179,31 +187,35 @@ const mywait = async () => {
 </details>
 
 <details>
-<summary>5</summary>
+<summary>5b</summary>
 <div id="blocklyDiv5" style="height: 300px;"></div>
 <script>brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5")</script>
 </details>
 
 <details>
-<summary>5a</summary>
+<summary>5c</summary>
 <div id="blocklyDiv5a" style="height: 300px;"></div>
 <script>brender("(def (log2a steps intersect x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5a")</script>
 </details>
+
+::: {.hidden}
+```{python}
+def log2a(steps, intersect, x):
+    return log2(x/intersect) * steps
+```
+:::
 
 ::: {.column-margin}
 <details>
 <summary>6</summary>
 <div style="width: 350px">
-```{python}
-def log2a(steps, intersect, x):
-    return log2(x/intersect) * steps
-```
+
 
 <div id="blocklyDiv6" class="jxgbox" style="height:150px; width: 350px"></div>
-<script>brender("(log2a 7 220 440)", "blocklyDiv6")</script>
+<script>brender("(log2a 7 220 880)", "blocklyDiv6")</script>
 
 ```{python}
-log2a(7, 220, 440)
+log2a(7, 220, 880)
 ```
 </div>
 </details>
@@ -247,22 +259,24 @@ statejs.log23.anim2();
 </details>
 :::
 
-
-:::{.column-screen-right}
+:::{.column-screen-left}
 <details>
 <summary>10</summary>
-<table><tr><td>
+<table><tr>
+<td style="vertical-align: top">
+<div><img src="myjs/xkcd.jpg"></img></div>
+</td>
+<td style="vertical-align: top">
 <div id="blocklyDiv10" style="height: 300px; width: 800px"></div>
-<script>brender("(lmap log2 [1 2 4 8])", "blocklyDiv10")</script>
-</td><td style="vertical-align: top">
-<div><pre>lmap</pre>is short for<pre>list(map())</pre></div>
-</td></tr></table>
+<script>brender("(mapv log2 [1 2 4 8])", "blocklyDiv10")</script>
+</td>
+</tr></table>
 </details>
 :::
 <details>
 <summary>11</summary>
 ```{python}
-lmap(log2, [1, 2, 4, 8])
+mapv(log2, [1, 2, 4, 8])
 ```
 </details>
 
@@ -286,13 +300,13 @@ statejs.log23.anim2();
 <details>
 <summary>14</summary>
 <div id="blocklyDiv14" style="height: 300px;"></div>
-<script>brender("(lmap (partial log2a 7 220) [110 220 440 880])", "blocklyDiv14")</script>
+<script>brender("(mapv (partial log2a 7 220) [110 220 440 880])", "blocklyDiv14")</script>
 </details>
 
 <details>
 <summary>15</summary>
 ```{python}
-lmap(partial(log2a, 7, 220), [110, 220, 440, 880])
+mapv(partial(log2a, 7, 220), [110, 220, 440, 880])
 ```
 </details>
 
@@ -312,10 +326,10 @@ def log2b(steps):
 ```
 
 <div id="blocklyDiv17" class="jxgbox" style="height:150px; width: 350px"></div>
-<script>brender("(:tiles/vert (lmap (log2b 7) [1 2 4]))", "blocklyDiv17")</script>
+<script>brender("(:tiles/vert (mapv (log2b 7) [1 2 4]))", "blocklyDiv17")</script>
 
 ```{python}
-lmap(log2b(7), [1, 2, 4])
+mapv(log2b(7), [1, 2, 4])
 ```
 </div>
 </details>

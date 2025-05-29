@@ -16,9 +16,14 @@ That is: A3 is at the frequency of 220Hz, A4 is at 440Hz and A5 is at 880Hz
 ## 5
 The function that fits the notes is the logarithm
 
+# 1a
+The red graph is drawn with a standard Python function called log2. It is the logarithm function, as described in the docstring of this function. But I'd like to close this and move to a pictorial reprersentation of code.
+
 # 2
-The exact formula is log2 of x divided by 220 times 7.
-Open up the formua to get a deeper understanding.
+The exact formula to draw the red graph is the following: log2 of x divided by 220 times 7.
+
+You might want to open up the formua to get a deeper understanding. --P4--
+
 x is the frequency
 It is divided by 220
 Then the logarithm is taken.
@@ -34,10 +39,28 @@ You can see this again in the graph for the formla. The graph crosses the x-axis
 # 4
 You can also easily type this formula into Python. It will understand it when you use the SymPy package. Essentialy SymPy means that you can print nice formulas that contain the symbol x.
 
-# 5
-kkk bb
+# 5a
+There is of course not only one Log, there are many of them with different step sizes and intersections. I can draw some of them.
+
+# 5b
+In order do be able to draw them, a general formula is needed
+
+# 5c
+But not only that, we also need to define a function, called log2a
+
+# 6
+To proof that my new function indeed reproduces the note-log, I calculate the pitch-step for 880Hz. It is step 14. Which is correct, because it takes 14 to go from not A3 to note A5. So my new function log2a passes this sanity check.
+One more comment: in my new function, the parameters for the steps and intersection are on an equal footing with the variable x that stand for the frequency. I will change that later on.
+
 # 7
-can be quite confusing, but will get better
+If you choose a step-size of one and also choose the intersection point as one, then you get the standard log2 function of Python.
+
+So I choose the step size of one --1
+and the intersection as one --1
+and subtract the standard function log2
+
+# 8
+and get the result zero
 
 # 20
 Solution to 7
