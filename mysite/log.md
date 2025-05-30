@@ -60,9 +60,47 @@ and the intersection as one --1
 and subtract the standard function log2
 
 # 8
-and get the result zero
+and get the result zero. For the following it is important to notice, that the standard log2 function takes a single argument only. In contrast to this, my log2a function takes three arguments, that is first the number of steps, second the point of intersection and third the frequency x itself. The standard function log2 only takes one argument, namely the frequency x.
+
+# 9
+One way to show that the standard log2 function indeed has step size 1 is to plot the log2 function. And you can see that the intersection at point x = 1 is very plausible by looking at the graph. But to be sure, you have to do the calculations. There a new function arrives on the scene: the mapv function.
+
+# 10a
+In this episode, the log2 steps down in its main role and leaves the center stage to mapv. The new and main protagonist in this episode is mapv.
+
+# 10b
+mapv is a function that takes two arguments. --2
+The first argument is - and that is new - the first argument of mapv is itself a function. --1
+The second argument is a vector of numbers. --4
+Here this vector contains the numbers 1 2 4 8 --4
+What mapv does is that it calculates the log2 of those numbers
+So mapv returns a vector of numbers.
+
+# 11
+As you can see, the log2 of 1 is indeed zero. This means that the graph really intersects at exactly zero. Also, the step size is exacty one, the steps are zero, one, two, three.
+
+# 12
+The main protagonist of this eposiode, mapv, takes functions with only one single argument. The function of the previous episode, log2a, takes three arguments. So those two do not fit together. But  log2a can be transformed in a way that makes it acceptable by mapv. This transformation is done by a helper function  called partial.
+
+# 14
+The function partial takes a function as its first parameter (like mapv). It feeds this function partially with numbers, but leaves the last one open. Thus partial takes a function and returns a new function that actually has no name on its own. We will give it a name in due course. But in priciple, such an anonymous function is not a problem, as this new function is taken under its umbrella by mapv.
+
+# 15
+Using this combination of mapv and partial, we verify the step-size 7
+
+# 16a
+Always calling the partial function is cumbersome. So you'd like to give the new function a name after all. I babtize it log2b and set the intersection at the fixed point zero, only the steps can be set as a parameter.
+
+# 17
+I check that this new log2b function behaves as expected. I use mapv to call the function now names log2b with a vector of three numbers.
+
+# 18
+To call log2b with only one number, I use the function with the name call.
 
 # 20
 Solution to 7
 
+# Random
 All of our natural science is based on those triangles. Choosing the position and size of the triangles is the art of the scientist. But the shape of those trianges seems to be universally given by nature.
+
+Writing the text takes long

@@ -1,10 +1,10 @@
 (ns log23)
 
-(defn am [xname yname bbox]
+(defn am [xname yname bbox &[grid]]
   {:boundingbox    bbox
    :showCopyright  false
    :axis           true
-   :grid           false
+   :grid           (or grid false)
    :showNavigation false
    :defaultAxes
    {:x {:name      xname
@@ -82,7 +82,7 @@
     (.create brd
              "functiongraph"
              #js["log(x)"]
-             #js{:strokeColor "red"
+             #js{:strokeColor "green"
                  :strokeWidth 2}))
   )
 
@@ -105,11 +105,7 @@
              #js{:strokeColor "red"
                  :strokeWidth 2})
 
-    (.create brd
-             "functiongraph"
-             #js["3 * log(x) / log(2)"]
-             #js{:strokeColor "yellow"
-                 :strokeWidth 1})
+    (.create brd "text" #js[1.35 3 "n=7"])
 
     (.create brd
              "functiongraph"
@@ -117,18 +113,23 @@
              #js{:strokeColor "green"
                  :strokeWidth 1})
 
+    (.create brd "text" #js[2 1.2 "n=1"])
+    #_(log2b "divlog20_2")
+
     (.create brd
              "functiongraph"
              #js["0.7 * log(x) / log(2)"]
              #js{:strokeColor "blue"
-                 :strokeWidth 2})))
+                 :strokeWidth 2})
+
+    (.create brd "text" #js[2 0.6 "n=0.7"])))
 
 (set! (.. js/statejs -log23 -log2b) log2b)
 
 (defn logtri [divid]
   (let [bb [-3 2
             7 -2]
-        am (am "" "" bb)]
+        am (am "" "" bb true)]
 
     (set! (.. js/statejs -log23 -brdtri)
           (.. js/JXG
@@ -195,7 +196,7 @@
     (.create (.. js/statejs -log23 -brdtri)
              "functiongraph"
              #js["1/x"]
-             #js{:strokeColor "red"
+             #js{:strokeColor "yellow"
                  :strokeWidth 1}))
 
 (defn trianim5 []
@@ -254,7 +255,7 @@
 (defn many [divid]
   (let [bb [-320 33
             1480 -18]
-        am (am "Frequency [Hz]" "log2" bb)]
+        am (am "Frequency [Hz]" "" bb)]
 
     (set! (.. js/statejs -log23 -brdmany)
           (.. js/JXG

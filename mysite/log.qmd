@@ -133,7 +133,12 @@ inspect.getdoc(  log2  )
 </details>
 
 <details>
-<summary>2</summary>
+<summary>2a</summary>
+## The log2 Function
+</details>
+
+<details>
+<summary>2b</summary>
 <div id="blocklyDivLog2" style="height: 300px;"></div>
 <script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
 </details>
@@ -259,12 +264,18 @@ statejs.log23.anim2();
 </details>
 :::
 
+<details>
+<summary>10a</summary>
+## The mapv Function
+</details>
+
 :::{.column-screen-left}
 <details>
-<summary>10</summary>
+<summary>10b</summary>
 <table><tr>
 <td style="vertical-align: top">
-<div><img src="myjs/xkcd.jpg"></img></div>
+<div style="height: 300px; width:230px; text-align: right">
+<img src="myjs/xkcd_mapv.jpg"></img></div>
 </td>
 <td style="vertical-align: top">
 <div id="blocklyDiv10" style="height: 300px; width: 800px"></div>
@@ -273,6 +284,7 @@ statejs.log23.anim2();
 </tr></table>
 </details>
 :::
+
 <details>
 <summary>11</summary>
 ```{python}
@@ -297,11 +309,20 @@ statejs.log23.anim2();
 </details>
 :::
 
+:::{.column-screen-left}
 <details>
 <summary>14</summary>
-<div id="blocklyDiv14" style="height: 300px;"></div>
+<table><tr>
+<td style="vertical-align: top">
+<div style="height: 150px; width: 230px"><img src="myjs/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
+</td>
+<td style="vertical-align: top">
+<div id="blocklyDiv14" style="height: 300px; width: 800px"></div>
 <script>brender("(mapv (partial log2a 7 220) [110 220 440 880])", "blocklyDiv14")</script>
+</td>
+</tr></table>
 </details>
+:::
 
 <details>
 <summary>15</summary>
@@ -311,20 +332,27 @@ mapv(partial(log2a, 7, 220), [110, 220, 440, 880])
 </details>
 
 <details>
-<summary>16</summary>
+<summary>16a</summary>
+## The log2b function
+</details>
+
+<details>
+<summary>16b</summary>
 <div id="blocklyDiv16" style="height: 300px;"></div>
 <script>brender("(def (log2b steps) (return (partial (log2a steps 1))))", "blocklyDiv16")</script>
 </details>
+
+::: {.hidden}
+```{python}
+def log2b(steps):
+    return partial(log2a, steps, 1)
+```
+:::
 
 ::: {.column-margin}
 <details>
 <summary>17</summary>
 <div style="width: 350px">
-```{python}
-def log2b(steps):
-    return partial(log2a, steps, 1)
-```
-
 <div id="blocklyDiv17" class="jxgbox" style="height:150px; width: 350px"></div>
 <script>brender("(:tiles/vert (mapv (log2b 7) [1 2 4]))", "blocklyDiv17")</script>
 
@@ -335,11 +363,21 @@ mapv(log2b(7), [1, 2, 4])
 </details>
 :::
 
+:::{.column-screen-left}
 <details>
 <summary>18</summary>
-<div id="blocklyDiv18" style="height: 300px;"></div>
+<table><tr>
+<td style="vertical-align: top">
+<div style="height: 300px; width:230px; text-align: right">
+<img src="myjs/xkcd_call.jpg" style="height: 300px"></img></div>
+</td>
+<td style="vertical-align: top">
+<div id="blocklyDiv18" style="height: 300px; width: 800px"></div>
 <script>brender("(call (log2b 7) 2)", "blocklyDiv18")</script>
+</td>
+</tr></table>
 </details>
+:::
 
 ::: {.column-margin}
 <details>
@@ -352,7 +390,7 @@ call(log2b(7), 2)
 
 :::{.column-screen-left}
 <details>
-<summary>20</summary>
+<summary>20a</summary>
 <table><tr><td style="vertical-align: top">
 <div id="blocklyDivLog20_2" style="height: 150px; width: 230px"></div>
 <script>brender("(call (log2b n) x)", "blocklyDivLog20_2")</script>
@@ -367,6 +405,8 @@ statejs.log23.log2b("divlog20_2");
 </details>
 :::
 
+<details>
+<summary>20b</summary>
 <div id="divlogtri" class="jxgbox" style="width:750px; height:300px;"></div>
 <script>statejs.log23.logtri("divlogtri")</script>
 <span onClick=statejs.log23.logtri("divlogtri") style="color:blue">1</span>
@@ -376,6 +416,7 @@ statejs.log23.log2b("divlog20_2");
 <span onClick="statejs.log23.trianim5()" style="color:blue">5</span>
 <span onClick="statejs.log23.trianim6()" style="color:blue">6</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">7</span>
+</details>
 
 <details>
 <summary>21</summary>
