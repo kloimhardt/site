@@ -63,7 +63,10 @@ and subtract the standard function log2
 and get the result zero. For the following it is important to notice, that the standard log2 function takes a single argument only. In contrast to this, my log2a function takes three arguments, that is first the number of steps, second the point of intersection and third the frequency x itself. The standard function log2 only takes one argument, namely the frequency x.
 
 # 9
-One way to show that the standard log2 function indeed has step size 1 is to plot the log2 function. And you can see that the intersection at point x = 1 is very plausible by looking at the graph. But to be sure, you have to do the calculations. There a new function arrives on the scene: the mapv function.
+One way to show that the standard log2 function indeed has step size 1 is to plot the log2 function. And you can see that the intersection at point x = 1 is very plausible by looking at the graph. 
+Also, it looks like step 3 is 8 and step 4 is 16 and step 5 is 32.
+
+But to be sure, you have to do the calculations. There a new function arrives on the scene: the mapv function.
 
 # 10a
 In this episode, the log2 steps down in its main role and leaves the center stage to mapv. The new and main protagonist in this episode is mapv.
@@ -91,8 +94,11 @@ Using this combination of mapv and partial, we verify the step-size 7
 # 16a
 Always calling the partial function is cumbersome. So you'd like to give the new function a name after all. I babtize it log2b and set the intersection at the fixed point zero, only the steps can be set as a parameter.
 
+# 17a
+We must not forget that this all not only works with numbers but with symbols as well.
+
 # 17
-I check that this new log2b function behaves as expected. I use mapv to call the function now names log2b with a vector of three numbers.
+I check that this new log2b function behaves as expected. I use mapv to call the function now names log2b with a vector of three numbers. I feed the steps of seven and indeed there are always seven steps when the x doubles.
 
 # 18
 To call log2b with only one number, I use the function with the name call.

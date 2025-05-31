@@ -54,6 +54,7 @@ from functools import partial
 x=symbols("x")
 b=symbols("b")
 y=symbols("y")
+z=symbols("z")
 
 def call(f, x):
     return f(x)
@@ -110,8 +111,8 @@ print("</script>")
 ```
 :::
 
-> The discovery, due to Pythagoras, that the pitch of a note depends on the length of the chord (with the octave being produced by the ratio two to one) was the first occurrence of a number being used to describe human experience. It was the beginning of science.
-> -Arthur Koestler, the Sleepwalkers
+> The Pythagoreans had shown that the pitch of a tone depends on the length of its cord and that intervals are produced by simple numerical ratios. This was the first successful reduction of quality to quantity and therefore the beginning of Science.  
+> - Arthur Koestler, the Sleepwalkers
 
 <details>
 <summary>1</summary>
@@ -200,12 +201,12 @@ const mywait = async () => {
 <details>
 <summary>5c</summary>
 <div id="blocklyDiv5a" style="height: 300px;"></div>
-<script>brender("(def (log2a steps intersect x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5a")</script>
+<script>brender("(def (log2a intersect steps x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5a")</script>
 </details>
 
 ::: {.hidden}
 ```{python}
-def log2a(steps, intersect, x):
+def log2a(intersect, steps, x):
     return log2(x/intersect) * steps
 ```
 :::
@@ -217,10 +218,10 @@ def log2a(steps, intersect, x):
 
 
 <div id="blocklyDiv6" class="jxgbox" style="height:150px; width: 350px"></div>
-<script>brender("(log2a 7 220 880)", "blocklyDiv6")</script>
+<script>brender("(log2a 220 7 880)", "blocklyDiv6")</script>
 
 ```{python}
-log2a(7, 220, 880)
+log2a(220, 7, 880)
 ```
 </div>
 </details>
@@ -279,7 +280,7 @@ statejs.log23.anim2();
 </td>
 <td style="vertical-align: top">
 <div id="blocklyDiv10" style="height: 300px; width: 800px"></div>
-<script>brender("(mapv log2 [1 2 4 8])", "blocklyDiv10")</script>
+<script>brender("(mapv log2 [8 16 32])", "blocklyDiv10")</script>
 </td>
 </tr></table>
 </details>
@@ -288,26 +289,9 @@ statejs.log23.anim2();
 <details>
 <summary>11</summary>
 ```{python}
-mapv(log2, [1, 2, 4, 8])
+mapv(log2, [8, 16, 32])
 ```
 </details>
-
-<details>
-<summary>12</summary>
-<div id="blocklyDivLog12" style="height: 300px;"></div>
-<script>brender("(log2a 7 220 x)", "blocklyDivLog12")</script>
-</details>
-
-::: {.column-margin}
-<details>
-<summary>13</summary>
-<div id="divlog213" class="jxgbox" style="height:150px; width: 350px"></div>
-<script>
-statejs.log23.main("divlog213");
-statejs.log23.anim2();
-</script>
-</details>
-:::
 
 :::{.column-screen-left}
 <details>
@@ -318,7 +302,7 @@ statejs.log23.anim2();
 </td>
 <td style="vertical-align: top">
 <div id="blocklyDiv14" style="height: 300px; width: 800px"></div>
-<script>brender("(mapv (partial log2a 7 220) [110 220 440 880])", "blocklyDiv14")</script>
+<script>brender("(mapv (partial log2a 1 1) [8 16 32])", "blocklyDiv14")</script>
 </td>
 </tr></table>
 </details>
@@ -327,7 +311,7 @@ statejs.log23.anim2();
 <details>
 <summary>15</summary>
 ```{python}
-mapv(partial(log2a, 7, 220), [110, 220, 440, 880])
+mapv(partial(log2a, 1, 1), [8, 16, 32])
 ```
 </details>
 
@@ -339,75 +323,64 @@ mapv(partial(log2a, 7, 220), [110, 220, 440, 880])
 <details>
 <summary>16b</summary>
 <div id="blocklyDiv16" style="height: 300px;"></div>
-<script>brender("(def (log2b steps) (return (partial (log2a steps 1))))", "blocklyDiv16")</script>
+<script>brender("(def (log2b intersect steps) (return (partial (log2a intersect steps))))", "blocklyDiv16")</script>
 </details>
 
 ::: {.hidden}
 ```{python}
-def log2b(steps):
-    return partial(log2a, steps, 1)
+def log2b(intersect, steps):
+    return partial(log2a, intersect, steps)
 ```
 :::
 
+<details>
+<summary>17a</summary>
+<div id="blocklyDiv17a" style="height:100px"></div>
+<script>brender("(mapv (log2b 1 1) [x y z])", "blocklyDiv17a")</script>
+</details>
+
 ::: {.column-margin}
 <details>
-<summary>17</summary>
+<summary>17b</summary>
 <div style="width: 350px">
-<div id="blocklyDiv17" class="jxgbox" style="height:150px; width: 350px"></div>
-<script>brender("(:tiles/vert (mapv (log2b 7) [1 2 4]))", "blocklyDiv17")</script>
-
 ```{python}
-mapv(log2b(7), [1, 2, 4])
+mapv(log2b(1, 1), [x, y, z])
 ```
 </div>
 </details>
 :::
 
-:::{.column-screen-left}
 <details>
-<summary>18</summary>
-<table><tr>
-<td style="vertical-align: top">
-<div style="height: 300px; width:230px; text-align: right">
-<img src="myjs/xkcd_call.jpg" style="height: 300px"></img></div>
-</td>
-<td style="vertical-align: top">
-<div id="blocklyDiv18" style="height: 300px; width: 800px"></div>
-<script>brender("(call (log2b 7) 2)", "blocklyDiv18")</script>
-</td>
-</tr></table>
+<summary>18a</summary>
+<div id="blocklyDiv18a" style="height:100px"></div>
+<script>brender("(mapv (log2b 1 1) [8 16 32])", "blocklyDiv18a")</script>
 </details>
-:::
 
 ::: {.column-margin}
 <details>
-<summary>19</summary>
+<summary>18b</summary>
+<div style="width: 350px">
 ```{python}
-call(log2b(7), 2)
+mapv(log2b(1, 1), [8, 16, 32])
 ```
+</div>
 </details>
 :::
 
-:::{.column-screen-left}
 <details>
 <summary>20a</summary>
-<table><tr><td style="vertical-align: top">
-<div id="blocklyDivLog20_2" style="height: 150px; width: 230px"></div>
-<script>brender("(call (log2b n) x)", "blocklyDivLog20_2")</script>
-</td><td>
-<div id="divlog20_2" class="jxgbox" style="height:300px; width: 800px"></div>
+<div id="divlog20_2" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.log2b("divlog20_2");
 </script>
-<span onClick=statejs.log23.log3("divlog2x") style="color:blue">1</span>
-<span onClick=statejs.log23.anim2() style="color:blue">2</span>
-</td></tr></table>
+<span onClick=statejs.log23.log2b("divlog20_2") style="color:blue">1</span>
+<span onClick=statejs.log23.log2banim2() style="color:blue">2</span>
 </details>
-:::
 
+</details>
 <details>
-<summary>20b</summary>
-<div id="divlogtri" class="jxgbox" style="width:750px; height:300px;"></div>
+<summary>20d</summary>
+<div id="divlogtri" class="jxgbox" style="height:300px;"></div>
 <script>statejs.log23.logtri("divlogtri")</script>
 <span onClick=statejs.log23.logtri("divlogtri") style="color:blue">1</span>
 <span onClick="statejs.log23.trianim2()" style="color:blue">2</span>
@@ -419,16 +392,24 @@ statejs.log23.log2b("divlog20_2");
 </details>
 
 <details>
-<summary>21</summary>
-```{python}
-call(D(log2b(0.7)), x).evalf()
-```
+<summary>21a</summary>
+<div id="blocklyDiv21a" class="jxgbox" style="height:300px"></div>
+<script>brender("(mapv (D (log2b 1 0.7)) [x y z])", "blocklyDiv21a")</script>
 </details>
 
 <details>
-<summary>22</summary>
+<summary>21b</summary>
 ```{python}
-call(D(ln), x)
+#|code-fold: true
+#|code-summary: "code"
+result = mapv(D(log2b(1, 0.7)), [x, y, z])
+[e.evalf() for e in result]
+```
+
+<div id="blocklyDiv22a" class="jxgbox" style="height:100px"></div>
+<script>brender("(mapv (D ln) [x y z])", "blocklyDiv22a")</script>
+```{python}
+mapv(D(ln), [x, y, z])
 ```
 </details>
 

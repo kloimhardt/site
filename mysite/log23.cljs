@@ -69,9 +69,10 @@
 (set! (.. js/statejs -log23 -anim2) anim2)
 
 (defn log3 [divid]
-  (let [bb [-1 5
-            5 -3]
-        am (am "" "" bb)]
+  #_(log3 "divlog2x")
+  (let [bb [-5 6
+            35 -3]
+        am (am "" "" bb true)]
 
     (set! (.. js/statejs -log23 -brd3)
           (.. js/JXG
@@ -81,7 +82,7 @@
   (let [brd (.. js/statejs -log23 -brd3)]
     (.create brd
              "functiongraph"
-             #js["log(x)"]
+             #js["log(x) / log(2)"]
              #js{:strokeColor "green"
                  :strokeWidth 2}))
   )
@@ -89,9 +90,9 @@
 (set! (.. js/statejs -log23 -log3) log3)
 
 (defn log2b [divid]
-  (let [bb [-1 5
-            5 -3]
-        am (am "" "" bb)]
+  (let [bb [-5 6
+            35 -3]
+        am (am "" "" bb true)]
 
     (set! (.. js/statejs -log23 -brd2b)
           (.. js/JXG
@@ -101,30 +102,26 @@
   (let [brd (.. js/statejs -log23 -brd2b)]
     (.create brd
              "functiongraph"
-             #js["7 * log(x) / log(2)"]
-             #js{:strokeColor "red"
-                 :strokeWidth 2})
-
-    (.create brd "text" #js[1.35 3 "n=7"])
-
-    (.create brd
-             "functiongraph"
              #js["log(x) / log(2)"]
              #js{:strokeColor "green"
-                 :strokeWidth 1})
+                 :strokeWidth 2})
 
-    (.create brd "text" #js[2 1.2 "n=1"])
+    (.create brd "text" #js[2.1 2.4 "steps=1"])
     #_(log2b "divlog20_2")
+))
 
+(defn log2banim2 []
+  (let [brd (.. js/statejs -log23 -brd2b)]
     (.create brd
              "functiongraph"
              #js["0.7 * log(x) / log(2)"]
              #js{:strokeColor "blue"
                  :strokeWidth 2})
 
-    (.create brd "text" #js[2 0.6 "n=0.7"])))
+    (.create brd "text" #js[6 1.5 "steps=0.7"])))
 
 (set! (.. js/statejs -log23 -log2b) log2b)
+(set! (.. js/statejs -log23 -log2banim2) log2banim2)
 
 (defn logtri [divid]
   (let [bb [-3 2
