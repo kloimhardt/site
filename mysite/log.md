@@ -110,3 +110,5 @@ Solution to 7
 All of our natural science is based on those triangles. Choosing the position and size of the triangles is the art of the scientist. But the shape of those trianges seems to be universally given by nature.
 
 Writing the text takes long
+
+zwei Blockgruppen untereinander mit zweimal Aufruf "brender"

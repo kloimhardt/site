@@ -90,7 +90,7 @@
 (set! (.. js/statejs -log23 -log3) log3)
 
 (defn log2b [divid]
-  (let [bb [-5 6
+  (let [bb [-2.5 6
             35 -3]
         am (am "" "" bb true)]
 
@@ -124,8 +124,8 @@
 (set! (.. js/statejs -log23 -log2banim2) log2banim2)
 
 (defn logtri [divid]
-  (let [bb [-3 2
-            7 -2]
+  (let [bb [-0.4 2
+            6 -2]
         am (am "" "" bb true)]
 
     (set! (.. js/statejs -log23 -brdtri)
@@ -183,7 +183,7 @@
                                 x
                                 1
                                 js/Math.log))
-                      [2 4]))))
+                      [2 3 4]))))
 
   (defn trianim3 []
     (run! (fn [[t]] (.moveTo t #js[(.X t) 0] 1500))
@@ -193,8 +193,14 @@
     (.create (.. js/statejs -log23 -brdtri)
              "functiongraph"
              #js["1/x"]
-             #js{:strokeColor "yellow"
-                 :strokeWidth 1}))
+             #js{:strokeColor "black"
+                 :strokeWidth 1})
+
+    #_(trianim4)
+    (.create (.. js/statejs -log23 -brdtri)
+             "text"
+             #js[1.2 1.2 "$$\\frac{1}{x}$$"]
+             #js{:useMathJax true :fontSize 24}))
 
 (defn trianim5 []
   (set! (.. js/statejs -log23 -tri_t0)

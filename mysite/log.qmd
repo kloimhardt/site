@@ -111,7 +111,7 @@ print("</script>")
 ```
 :::
 
-> The Pythagoreans had shown that the pitch of a tone depends on the length of its cord and that intervals are produced by simple numerical ratios. This was the first successful reduction of quality to quantity and therefore the beginning of Science.  
+> Pythagoras has shown that the pitch of a tone depends on the length of its cord. Intervals are produced by simple numerical ratios of this length. This was the first successful reduction of quality to quantity and therefore the beginning of Science.  
 > - Arthur Koestler, the Sleepwalkers
 
 <details>
@@ -124,6 +124,7 @@ print("</script>")
 <span onClick="statejs.notes.anim2()" style="color:blue">3</span>
 <span onClick="statejs.notes.anim3()" style="color:blue">4</span>
 <span onClick="statejs.notes.anim5()" style="color:blue">5</span>
+<span onClick="statejs.notes.anim6()" style="color:blue">6</span>
 </details>
 
 <details>

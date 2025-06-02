@@ -37,14 +37,16 @@
 
 (def idx220 26)
 
-(defn plotpoints [bnotes2 vpp]
-  (plotpoints1 bnotes2 vpp)
-
-  (drawlines bnotes2 ["E4" "G4" "B4" "D5" "F5"])
-  (. bnotes2 (create "image"
+(defn drawclef [brd]
+  (drawlines brd ["E4" "G4" "B4" "D5" "F5"])
+  (. brd (create "image"
                      #js["https://upload.wikimedia.org/wikipedia/commons/f/ff/GClef.svg"
                          #js[166 0.5]
-                         #js[76 -15]]))
+                         #js[76 -15]])))
+
+(defn plotpoints [bnotes2 vpp]
+  (plotpoints1 bnotes2 vpp)
+  (drawclef bnotes2)
 
   (run! (fn [name]
           (.. bnotes2 (select name) (setAttribute #js{:size 9})))
@@ -56,9 +58,7 @@
   (run! (drawstiel1 bnotes2 -9 -7)
         ["B4" "C5" "D5" "E5" "F5" "G5"]))
 
-
 (defn straight1 [y d] (* (- y d) (/ 440 7)))
-
 
 (defn vpp [frequencies]
   (into []
@@ -69,16 +69,37 @@
                           :y    y}))
                      frequencies)))
 
+(defn brdspec [bb &[axis]]
+  {:boundingbox   bb
+   :showNavigation false
+   :showCopyright true
+   :axis          (or axis false)
+   :grid          false
+   :defaultAxes
+   {:x {:name      ""
+        :withLabel true
+        :label     {:position "rt"
+                    :offset   [-5 15]
+                    :anchorX  "right"}
+        :ticks     {:visible     true
+                    :majorHeight 5}}
+    :y {:withLabel true
+        :name      ""
+        :label     {:position "rt"
+                    :offset   [5 -5]
+                    :anchorY  "top"}
+
+        :ticks {:visible     true
+                :majorHeight 5} }}}
+  )
+
 (defn main [divid]
   (set! (.. js/statejs -notes -bnotes2)
         (.. js/JXG
             -JSXGraph
             (initBoard divid
-                       (clj->js {:boundingbox   [120 (- 48 idx220)
-                                                 1080 (- 20 idx220)]
-                                 :showCopyright true
-                                 :axis          false
-                                 :grid          false}))))
+                       (clj->js (brdspec [120 (- 48 idx220)
+                                          1080 (- 20 idx220)])))))
 
   (plotpoints (.. js/statejs -notes -bnotes2)
               (vpp (js->clj (.-frequencies js/statejs)))))
@@ -108,20 +129,20 @@
 (defn anim2 []
   (let [bnotes2 (.. js/statejs -notes -bnotes2)
         pp      (vpp (js->clj (.-frequencies js/statejs)))]
-    (doall
-      (map-indexed
-        (fn [i tu]
-          (.. bnotes2
-              (select (:name tu))
-              (moveTo #js[(:x tu) (:y tu)] 1500)))
-        pp))))
+    (run!
+      (fn [tu]
+        (.. bnotes2
+            (select (:name tu))
+            (moveTo #js[(:x tu) (:y tu)] 1500)))
+      pp)))
 
 (defn anim3 []
+  #_(anim3)
   (let [bnotes2 (.. js/statejs -notes -bnotes2)]
     (run! (fn [[l f]]
             (.create bnotes2
                      "text"
-                     #js[f -1.2 (str l f " Hz")]
+                     #js[f -2 (str l f " Hz")]
                      #js{:fontsize 20 :color "black"}))
           [["" 220] ["" 440] ["" 880]])))
 
@@ -132,19 +153,51 @@
              #js["(7 * log(x / 220)) / log(2)"]
              #js{:strokeColor "red" :strokeWidth 2})))
 
+(defn anim6 []
+  (set! (.. js/statejs -notes -bnotes2)
+        (.. js/JXG
+            -JSXGraph
+            (initBoard "divnotes2"
+                       (clj->js (brdspec [-320 33
+                                          1480 -18]
+                                         true)))))
+
+  (run! (fn [d]
+          (.. js/statejs -notes -bnotes2
+              (create "point"
+                      #js[(:x d) (:y d)]
+                      #js{:name  (:name d)
+                          :color "black"
+                          })
+              (setLabel "")))
+        (vpp (js->clj (.-frequencies js/statejs))))
+
+  (drawclef (.. js/statejs -notes -bnotes2))
+
+  (.create (.. js/statejs -notes -bnotes2)
+           "functiongraph"
+           #js["(7 * log(x / 220)) / log(2)"]
+           #js{:strokeColor "red" :strokeWidth 2})
+  (anim1))
+
+
 (set! (.. js/statejs -notes) #js{})
 (set! (.. js/statejs -notes -main) main)
 (set! (.. js/statejs -notes -anim1) anim1)
 (set! (.. js/statejs -notes -anim2) anim2)
 (set! (.. js/statejs -notes -anim3) anim3)
 (set! (.. js/statejs -notes -anim5) anim5)
+(set! (.. js/statejs -notes -anim6) anim6)
 
 (comment
   (do
     (main "divnotes2")
-    #_(anim1)
-    #_(anim2)
-    #_(anim3)
     (def bnotes2 (.. js/statejs -notes -bnotes2))
     )
+  (anim1)
+  (anim2)
+  (anim3)
+  (anim5)
+  (anim6)
+
   :end)
