@@ -14,12 +14,12 @@ But if you draw the notes according to their frequencies, then the distance from
 That is: A3 is at the frequency of 220Hz, A4 is at 440Hz and A5 is at 880Hz
 
 ## 5
-The function that fits the notes is the logarithm
+The function that fits the notes is the logarithm, a standard function.
 
-# 1a
-The red graph is drawn with a standard Python function called log2. It is the logarithm function, as described in the docstring of this function. But I'd like to close this and move to a pictorial reprersentation of code.
+# 2a
+So our main protagonist is the log2 function
 
-# 2
+# 2b
 The exact formula to draw the red graph is the following: log2 of x divided by 220 times 7.
 
 You might want to open up the formua to get a deeper understanding. --P4--
@@ -33,17 +33,20 @@ So if we start at A4, which is at 440 Hertz, and go upwards 7 steps 1 2 3 4 5 6 
 
 The division by 220 means that the ground floor starts counting at zero and is at 220 Hertz.
 
-# 3
-You can see this again in the graph for the formla. The graph crosses the x-axis, our ground floor, at 220 and gets flatter and flatter out to the right so that it reaches double the frequency every 7th step.
+The graph crosses the x-axis, our ground floor, at 220 and gets flatter and flatter out to the right so that it reaches double the frequency every 7th step.
 
 # 4
 You can also easily type this formula into Python. It will understand it when you use the SymPy package. Essentialy SymPy means that you can print nice formulas that contain the symbol x.
 
 # 5a
-There is of course not only one Log, there are many of them with different step sizes and intersections. I can draw some of them.
+## 1
+There is of course not only this one Log that intersects at 220 and doubles at every seventh step.
+
+## 2
+There are many of them with different step sizes and intersections. As a demonstration, I draw some of those other variants.
 
 # 5b
-In order do be able to draw them, a general formula is needed
+In order do be able to draw them, a general formula is needed. It contains two parameters called intersect and steps.
 
 # 5c
 But not only that, we also need to define a function, called log2a

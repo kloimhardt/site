@@ -27,13 +27,16 @@ Blockly.defineBlocksWithJsonArray(twotiles.blocks);
 </script>
 
 <script>
-var brender = (code,divid) =>
-Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)),
-Blockly.inject(divid,
-{
-"sounds": false,
+var brender = (code,divid) => {
+let ws = Blockly.inject(divid,
+{"sounds": false,
 "scrollbars": false,
-"trashcan": false}));
+"trashcan": false});
+
+Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)), ws);
+
+return ws;
+}
 </script>
 
 <script>var statejs = {};</script>
@@ -128,13 +131,6 @@ print("</script>")
 </details>
 
 <details>
-<summary>1a</summary>
-```{python}
-inspect.getdoc(  log2  )
-```
-</details>
-
-<details>
 <summary>2a</summary>
 ## The log2 Function
 </details>
@@ -157,6 +153,7 @@ print("</script>")
 ```
 :::
 
+<!--
 ::: {.column-margin}
 <details>
 <summary>3</summary>
@@ -167,6 +164,7 @@ statejs.log23.anim2();
 </script>
 </details>
 :::
+-->
 
 <details>
 <summary>4</summary>
@@ -196,7 +194,10 @@ const mywait = async () => {
 <details>
 <summary>5b</summary>
 <div id="blocklyDiv5" style="height: 300px;"></div>
-<script>brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5")</script>
+<script>
+let ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
+// Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse("(def (log2a intersect steps x) :tiles/slot)")), ws5);
+</script>
 </details>
 
 <details>
@@ -256,10 +257,9 @@ log2a(1, 1, x) - log2(x)
 <div id="divlog2x" class="jxgbox" style="height:300px; width: 800px"></div>
 <script>
 statejs.log23.log3("divlog2x");
-statejs.log23.anim2();
 </script>
 <span onClick=statejs.log23.log3("divlog2x") style="color:blue">1</span>
-<span onClick=statejs.log23.anim2() style="color:blue">2</span>
+<span onClick=statejs.log23.log3anim2() style="color:blue">2</span>
 </td>
 </tr>
 </table>
@@ -382,7 +382,10 @@ statejs.log23.log2b("divlog20_2");
 <details>
 <summary>20d</summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;"></div>
-<script>statejs.log23.logtri("divlogtri")</script>
+<script>
+statejs.log23.strfrac1ovX = "$$\\frac{1}{x}$$";
+statejs.log23.logtri("divlogtri");
+</script>
 <span onClick=statejs.log23.logtri("divlogtri") style="color:blue">1</span>
 <span onClick="statejs.log23.trianim2()" style="color:blue">2</span>
 <span onClick="statejs.log23.trianim3()" style="color:blue">3</span>

@@ -69,14 +69,14 @@
                           :y    y}))
                      frequencies)))
 
-(defn brdspec [bb &[axis]]
+(defn brdspec [bb &[axis xname yname]]
   {:boundingbox   bb
    :showNavigation false
    :showCopyright true
    :axis          (or axis false)
    :grid          false
    :defaultAxes
-   {:x {:name      ""
+   {:x {:name      (or xname "")
         :withLabel true
         :label     {:position "rt"
                     :offset   [-5 15]
@@ -84,7 +84,7 @@
         :ticks     {:visible     true
                     :majorHeight 5}}
     :y {:withLabel true
-        :name      ""
+        :name      (or yname "")
         :label     {:position "rt"
                     :offset   [5 -5]
                     :anchorY  "top"}
@@ -160,7 +160,9 @@
             (initBoard "divnotes2"
                        (clj->js (brdspec [-320 33
                                           1480 -18]
-                                         true)))))
+                                         true
+                                         "Frequency"
+                                         "log2")))))
 
   (run! (fn [d]
           (.. js/statejs -notes -bnotes2
@@ -172,12 +174,16 @@
               (setLabel "")))
         (vpp (js->clj (.-frequencies js/statejs))))
 
-  (drawclef (.. js/statejs -notes -bnotes2))
-
-  (.create (.. js/statejs -notes -bnotes2)
-           "functiongraph"
-           #js["(7 * log(x / 220)) / log(2)"]
-           #js{:strokeColor "red" :strokeWidth 2})
+  (doto (.. js/statejs -notes -bnotes2)
+    (drawclef )
+    (.create
+      "functiongraph"
+      #js["(7 * log(x / 220)) / log(2)"]
+      #js{:strokeColor "red" :strokeWidth 2})
+    (.create
+      "text"
+      #js[1100 22 "Logarithm"]
+      #js{:fontSize 24}))
   (anim1))
 
 

@@ -87,7 +87,25 @@
                  :strokeWidth 2}))
   )
 
+(defn log3anim2 []
+  (run! (fn [l]
+          (.. js/statejs -log23 -brd3
+              (create "line"
+                      (clj->js l)
+                      #js{:straightFirst false
+                          :straightLast  false
+                          :strokeWidth   1
+                          :strokeColor   "black"})))
+        [[[0 3] [8 3]]
+         [[8 3] [8 0]]
+         [[0 4] [16 4]]
+         [[16 4] [16 0]]
+         [[0 5] [32 5]]
+         [[32 5] [32 0]]
+         ]))
+
 (set! (.. js/statejs -log23 -log3) log3)
+(set! (.. js/statejs -log23 -log3anim2) log3anim2)
 
 (defn log2b [divid]
   (let [bb [-2.5 6
@@ -199,7 +217,7 @@
     #_(trianim4)
     (.create (.. js/statejs -log23 -brdtri)
              "text"
-             #js[1.2 1.2 "$$\\frac{1}{x}$$"]
+             #js[1.2 1.2 js/statejs.log23.strfrac1ovX]
              #js{:useMathJax true :fontSize 24}))
 
 (defn trianim5 []
@@ -231,6 +249,8 @@
   (do
     (log3 "divlog2x")
     (def brd3 (.. js/statejs -log23 -brd3)))
+
+  (log3anim2)
 
   (do
     (log2b "divlog20_2")
