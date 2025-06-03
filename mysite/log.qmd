@@ -21,6 +21,14 @@ execute:
 <script src="https://unpkg.com/blockly/msg/en.js"></script>
 <script src="https://kloimhardt.github.io/twotiles/twotiles_core.js"></script>
 
+<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/assets/bootstrap/css/bootstrap.css">
+
+<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/assets/css/style.css">
+
+<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/assets/inline-edit/css/style.css">
+
 <script>
 var parse = scittle.core.eval_string(twotiles.parse_clj);
 Blockly.defineBlocksWithJsonArray(twotiles.blocks);
@@ -196,9 +204,32 @@ const mywait = async () => {
 <div id="blocklyDiv5" style="height: 300px;"></div>
 <script>
 let ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
-// Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse("(def (log2a intersect steps x) :tiles/slot)")), ws5);
+
+var addBlocks = (s) =>
+Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s.replaceAll("_", " "))), ws5);
 </script>
 </details>
+
+<div id="jjjobs">
+<div class="cljs-editor-new"><pre>(do (defn add-blocks [s] (display-html (str "&lt;h1 onClick=addBlocks(&#39;&#34; (clojure.string/replace (str s) &#35;&#34;\s&#34; &#34;_&#34;) &#34;&#39;)&gt; 3  &lt;/h1&gt;</h1>")))
+
+(add-blocks &#39;(def (log2a intersect steps x) :tiles/slot)))</pre></div>
+</div>
+
+<script src="https://rigsomelight.com/assets/inline-edit/main.js"></script>
+
+<script>
+const observer = new MutationObserver((mutationsList) => {
+    mutationsList.forEach((mutation) => {
+        if (mutation.target.className == "cljs-html-display active" &&
+            mutation.type == "childList") {
+        console.log(mutation.target.childNodes[0].innerText);}
+    });
+});
+const targetNode = document.getElementById("jjjobs");
+const config = { attributes: true, childList: true, subtree: true };
+observer.observe(targetNode, config);
+</script>
 
 <details>
 <summary>5c</summary>
