@@ -97,8 +97,18 @@
                           :strokeWidth   1
                           :strokeColor   "black"})))
         [[[0 3] [8 3]]
-         [[8 3] [8 0]]
-         [[0 4] [16 4]]
+         [[8 3] [8 0]]]))
+
+(defn log3anim3 []
+  (run! (fn [l]
+          (.. js/statejs -log23 -brd3
+              (create "line"
+                      (clj->js l)
+                      #js{:straightFirst false
+                          :straightLast  false
+                          :strokeWidth   1
+                          :strokeColor   "black"})))
+        [[[0 4] [16 4]]
          [[16 4] [16 0]]
          [[0 5] [32 5]]
          [[32 5] [32 0]]
@@ -106,6 +116,7 @@
 
 (set! (.. js/statejs -log23 -log3) log3)
 (set! (.. js/statejs -log23 -log3anim2) log3anim2)
+(set! (.. js/statejs -log23 -log3anim3) log3anim3)
 
 (defn log2b [divid]
   (let [bb [-2.5 6

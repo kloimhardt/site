@@ -47,9 +47,23 @@ There are many of them with different step sizes and intersections. As a demonst
 
 # 5b
 In order do be able to draw them, a general formula is needed. It contains two parameters called intersect and steps.
+If we set the steps and intersect to one, what remains is the simple plain log2.
+
+again, the really important point is that you practice yourself.
 
 # 5c
 But not only that, we also need to define a function, called log2a
+880 Hertz happens to be step 14
+of course we can calculate much simpler stuff 1 1 8
+and if we set step and interect to one, they cancel out of the formula and we are left with the simple log2(8)
+if we set the steps wo one, we do not need this block anymore.
+Also intersect is not needed.
+
+So if we demand there there are 7 steps if we double the frequency and we go from 220 to 440 the result is indeed 7. That is reassuring.
+
+You can also make a chekc of a much simpler case. going from 1 to 2 with stepsize 1. The result is 1.
+This case actually reduces to the simple log2 function. (show in blocks)
+
 
 # 6
 To proof that my new function indeed reproduces the note-log, I calculate the pitch-step for 880Hz. It is step 14. Which is correct, because it takes 14 to go from not A3 to note A5. So my new function log2a passes this sanity check.
@@ -77,6 +91,7 @@ In this episode, the log2 steps down in its main role and leaves the center stag
 # 10b
 mapv is a function that takes two arguments. --2
 The first argument is - and that is new - the first argument of mapv is itself a function. --1
+mapv takes a function of exactly one parameter, this is good, because the simple log2 fits this
 The second argument is a vector of numbers. --4
 Here this vector contains the numbers 1 2 4 8 --4
 What mapv does is that it calculates the log2 of those numbers
@@ -89,6 +104,9 @@ As you can see, the log2 of 1 is indeed zero. This means that the graph really i
 The main protagonist of this eposiode, mapv, takes functions with only one single argument. The function of the previous episode, log2a, takes three arguments. So those two do not fit together. But  log2a can be transformed in a way that makes it acceptable by mapv. This transformation is done by a helper function  called partial.
 
 # 14
+
+Ultimately, we'd like to get back to arbitrary step sizes, not just 1 but mybe 7 like with the notes before.
+
 The function partial takes a function as its first parameter (like mapv). It feeds this function partially with numbers, but leaves the last one open. Thus partial takes a function and returns a new function that actually has no name on its own. We will give it a name in due course. But in priciple, such an anonymous function is not a problem, as this new function is taken under its umbrella by mapv.
 
 # 15

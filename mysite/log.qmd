@@ -122,7 +122,7 @@ print("</script>")
 ```
 :::
 
-> Pythagoras has shown that the pitch of a tone depends on the length of its cord. Intervals are produced by simple numerical ratios of this length. This was the first successful reduction of quality to quantity and therefore the beginning of Science.  
+> Pythagoras has shown that the pitch of a tone depends on the length of a cord. Intervals are produced by simple numerical ratios of this length. This was the first successful reduction of quality to quantity and therefore the beginning of Science.  
 > - Arthur Koestler, the Sleepwalkers
 
 <details>
@@ -175,13 +175,6 @@ statejs.log23.anim2();
 -->
 
 <details>
-<summary>4</summary>
-```{python}
-log2(x/220) * 7
-```
-</details>
-
-<details>
 <summary>5a</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
@@ -203,39 +196,42 @@ const mywait = async () => {
 <summary>5b</summary>
 <div id="blocklyDiv5" style="height: 300px;"></div>
 <script>
-let ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
+var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
 
-var addBlocks = (s) =>
-Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s.replaceAll("_", " "))), ws5);
+var addBlocks = (ws) => (s) =>
+Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 </script>
 </details>
 
+<details>
+<summary>5c</summary>
 <div id="jjjobs">
-<div class="cljs-editor-new"><pre>(do (defn add-blocks [s] (display-html (str "&lt;h1 onClick=addBlocks(&#39;&#34; (clojure.string/replace (str s) &#35;&#34;\s&#34; &#34;_&#34;) &#34;&#39;)&gt; 3  &lt;/h1&gt;</h1>")))
+<div class="cljs-editor-new"><pre>(do (defn add-blocks [s] (display-html (str "&lt;tiles&gt;" s "&lt;/tiles&gt;")) :tiles)
 
-(add-blocks &#39;(def (log2a intersect steps x) :tiles/slot)))</pre></div>
+(add-blocks '(def (log2a intersect steps x) :tiles/slot)))
+(add-blocks '(log2a 220 7 440))
+(add-blocks '(log2a 1 1 2))</pre></div>
 </div>
+</details>
 
 <script src="https://rigsomelight.com/assets/inline-edit/main.js"></script>
 
 <script>
-const observer = new MutationObserver((mutationsList) => {
-    mutationsList.forEach((mutation) => {
+function mutationCallback(customFn, mutationsList, observer) {
+      mutationsList.forEach((mutation) => {
         if (mutation.target.className == "cljs-html-display active" &&
             mutation.type == "childList") {
-        console.log(mutation.target.childNodes[0].innerText);}
+        console.log(customFn(mutation.target.childNodes[0].innerText));
+        console.log(mutation.target.childNodes[0].innerText);
+        }
     });
-});
+}
+
+const observer = new MutationObserver(mutationCallback.bind(null, addBlocks(ws5)));
 const targetNode = document.getElementById("jjjobs");
 const config = { attributes: true, childList: true, subtree: true };
 observer.observe(targetNode, config);
 </script>
-
-<details>
-<summary>5c</summary>
-<div id="blocklyDiv5a" style="height: 300px;"></div>
-<script>brender("(def (log2a intersect steps x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5a")</script>
-</details>
 
 ::: {.hidden}
 ```{python}
@@ -245,34 +241,22 @@ def log2a(intersect, steps, x):
 :::
 
 ::: {.column-margin}
+<div>
 <details>
-<summary>6</summary>
+<summary>---</summary>
 <div style="width: 350px">
-
-
-<div id="blocklyDiv6" class="jxgbox" style="height:150px; width: 350px"></div>
-<script>brender("(log2a 220 7 880)", "blocklyDiv6")</script>
-
 ```{python}
-log2a(220, 7, 880)
+log2a(220, 7, 440)
 ```
 </div>
 </details>
-:::
-
 <details>
-<summary>7</summary>
-<div id="blocklyDiv8" style="height: 300px;"></div>
-<script>brender("(:tiles/infix (- (log2a 1 1 x) (log2 x)))", "blocklyDiv8")</script>
-</details>
-
-::: {.column-margin}
-<details>
-<summary>8</summary>
+<summary>---</summary>
 ```{python}
-log2a(1, 1, x) - log2(x)
+log2a(1, 1, 2)
 ```
 </details>
+</div>
 :::
 
 :::{.column-screen-left}
@@ -287,10 +271,12 @@ log2a(1, 1, x) - log2(x)
 <td>
 <div id="divlog2x" class="jxgbox" style="height:300px; width: 800px"></div>
 <script>
+999
 statejs.log23.log3("divlog2x");
 </script>
 <span onClick=statejs.log23.log3("divlog2x") style="color:blue">1</span>
 <span onClick=statejs.log23.log3anim2() style="color:blue">2</span>
+<span onClick=statejs.log23.log3anim3() style="color:blue">3</span>
 </td>
 </tr>
 </table>
@@ -365,22 +351,6 @@ def log2b(intersect, steps):
 ```
 :::
 
-<details>
-<summary>17a</summary>
-<div id="blocklyDiv17a" style="height:100px"></div>
-<script>brender("(mapv (log2b 1 1) [x y z])", "blocklyDiv17a")</script>
-</details>
-
-::: {.column-margin}
-<details>
-<summary>17b</summary>
-<div style="width: 350px">
-```{python}
-mapv(log2b(1, 1), [x, y, z])
-```
-</div>
-</details>
-:::
 
 <details>
 <summary>18a</summary>
@@ -410,6 +380,7 @@ statejs.log23.log2b("divlog20_2");
 </details>
 
 </details>
+
 <details>
 <summary>20d</summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;"></div>
@@ -427,18 +398,29 @@ statejs.log23.logtri("divlogtri");
 </details>
 
 <details>
-<summary>21a</summary>
-<div id="blocklyDiv21a" class="jxgbox" style="height:300px"></div>
-<script>brender("(mapv (D (log2b 1 0.7)) [x y z])", "blocklyDiv21a")</script>
+<summary>17a</summary>
+<div id="blocklyDiv17a" style="height:300px"></div>
+<script>var ws17a = brender("(mapv (log2b 1 0.7) [x y z])", "blocklyDiv17a")
+var ab = addBlocks(ws17a);
+</script>
+<span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 </details>
+
+::: {.column-margin}
+<details>
+<summary>17b</summary>
+<div style="width: 350px">
+```{python}
+mapv(log2b(1, 0.7), [x, y, z])
+```
+</div>
+</details>
+:::
 
 <details>
 <summary>21b</summary>
 ```{python}
-#|code-fold: true
-#|code-summary: "code"
-result = mapv(D(log2b(1, 0.7)), [x, y, z])
-[e.evalf() for e in result]
+[e.evalf() for e in        mapv(D(log2b(1, 0.7)), [x, y, z])]
 ```
 
 <div id="blocklyDiv22a" class="jxgbox" style="height:100px"></div>
