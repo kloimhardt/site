@@ -1,48 +1,63 @@
 # 1
 ## 1
-Here you see the notes. Thy span two octaves.
+Here you see the musical scale. The black dots are the notes from A3 to A5. Thy span two octaves.
 https://www.youtube.com/watch?v=SArAehjpMyk
 /Users/kloimhardt/klmtemp/site/mysite/audio/violinA3A5.m4a
 
 ## 2
-Here the distance from A to A are equal
+From A3 to A4 is one octave, and from A4 to A5 is also an octave. This is indicated by the red lines.
+You look at this and find it quite natural that the length of the red lines is equal. How could that be otherwise, you think.
+You might have guessed that I chose this example because this now gives me the excuse to resort back to the old greeks. I thought this gives a bite of splendor to my presentation.
 
 ## 3
-But if you draw the notes according to their frequencies, then the distance from A3 to A4 is half the distance from A4 to A5
+It was the Pythagoreans who found out that to play an octave, the ratio of the cords must not be equal. They found out that the ratio of the cords for the octave must be two to one.
+
+From today's perspective this becomes clear if we draw the notes of the musical scale according to their frequency. Then the distance from A3 to A4 is half the distance from A4 to A5.
 
 ## 4
-That is: A3 is at the frequency of 220Hz, A4 is at 440Hz and A5 is at 880Hz
+That is: the note A3 vibrates at the frequency of 220Hz. If you double those 220 cycles per second, you land at 440 Hz which is the frequency of the note A4. A5 is accordingly at 880Hz.
 
 ## 5
-The function that fits the notes is the logarithm, a standard function.
+What Pythagoras did not know is that the notes of the muscal scale follow the log2 function. Log2 is the red curve you see, it is the curve that connects the dots.
+
+## 6
+The name log2 is the name we give this curve today. How the Indian monk Virasena called it, I do not know. He lived in the year 800 of our common era, that is some one thousend years after Pythagoras. It is this monk Virasena who produced the first tables of log2.
 
 # 2a
-So our main protagonist is the log2 function
+So the main protagonist I'd like to present to you is log2.
 
 # 2b
-The exact formula to draw the red graph is the following: log2 of x divided by 220 times 7.
+It is easy to quote the number of years in history. A bit trickier is the presentaion of the numbers in the actual formula that fits the notes. The trick I have chosen to present the numbers is a special pictorial form.
 
-You might want to open up the formua to get a deeper understanding. --P4--
+To draw the log2 curve fitting the notes, I was using the following formula: log2 of x divided by 220 times 7.
 
-x is the frequency
+You might want to take asunder the formula to get a deeper understanding. --P4--
+
+the independent variable I call x stands for the frequency
 It is divided by 220
-Then the logarithm is taken.
-The whole thing is multiplied by seven.
-The 2 in the logarithm and the multiplication by 7  means that the frequency is doubled every 7th step.
-So if we start at A4, which is at 440 Hertz, and go upwards 7 steps 1 2 3 4 5 6 7, we land at at A5 which is 880 Hertz. Double frequency every 7 steps. Log two times 7.
+Of this value, the log2 is determined. In ancient times, it was the indian monks who provided the tables to do this.
 
-The division by 220 means that the ground floor starts counting at zero and is at 220 Hertz.
+Then the result is multiplied by seven. This multiplication by 7  means that the frequency is doubled every 7th step.
 
-The graph crosses the x-axis, our ground floor, at 220 and gets flatter and flatter out to the right so that it reaches double the frequency every 7th step.
+If you hear the word octave, the number eight is what springs to mind. But if you expend the effort, you will realize that an octave is made of seven steps.
+So you start at A4, which is at 440 Hertz. Then you go upwards 7 steps: 1 2 3 4 5 6 7. You land at A5 which is 880 Hertz. Double the frequency every 7 steps. Log two times 7.
 
-# 4
-You can also easily type this formula into Python. It will understand it when you use the SymPy package. Essentialy SymPy means that you can print nice formulas that contain the symbol x.
+The division by 220 means that I chose the overall counting to start at 220 Hertz.
+
+The whole exposition to this point has been very dense. I recommend that you switch to the exercise environment. Work on the example to understand it.
+
+# 3
+Cljtiles
+The exercise environmet is where you gain a thorough understanding of the example. Like in the presentation space, you can take asunder the formula. Moreover you can execute and see the result. You can also inspect the different parts of the formula.
+What assists you the most on your path to understanding are the puzzles. Solve them in the easy mode first to see how the formula comes about. You are helped by the coloring of the code. Then shuffle the puzzle and try again until you know the formula.
 
 # 5a
 ## 1
-There is of course not only this one Log that intersects at 220 and doubles at every seventh step.
+
+In other words, the specific log2 curve I chose to fit the notes of the musical scale crosses the x axis at 220. But this choice was arbitrary. 2 Parallel 3 step size.
 
 ## 2
+
 There are many of them with different step sizes and intersections. As a demonstration, I draw some of those other variants.
 
 # 5b
@@ -64,6 +79,9 @@ So if we demand there there are 7 steps if we double the frequency and we go fro
 You can also make a chekc of a much simpler case. going from 1 to 2 with stepsize 1. The result is 1.
 This case actually reduces to the simple log2 function. (show in blocks)
 
+You can also easily type this formula into Python. It will understand it when you use the SymPy package. Essentialy SymPy means that you can print nice formulas that contain the symbol x.
+
+
 
 # 6
 To proof that my new function indeed reproduces the note-log, I calculate the pitch-step for 880Hz. It is step 14. Which is correct, because it takes 14 to go from not A3 to note A5. So my new function log2a passes this sanity check.
@@ -80,7 +98,7 @@ and subtract the standard function log2
 and get the result zero. For the following it is important to notice, that the standard log2 function takes a single argument only. In contrast to this, my log2a function takes three arguments, that is first the number of steps, second the point of intersection and third the frequency x itself. The standard function log2 only takes one argument, namely the frequency x.
 
 # 9
-One way to show that the standard log2 function indeed has step size 1 is to plot the log2 function. And you can see that the intersection at point x = 1 is very plausible by looking at the graph. 
+One way to show that the standard log2 function indeed has step size 1 is to plot the log2 function. And you can see that the intersection at point x = 1 is very plausible by looking at the graph.
 Also, it looks like step 3 is 8 and step 4 is 16 and step 5 is 32.
 
 But to be sure, you have to do the calculations. There a new function arrives on the scene: the mapv function.
@@ -127,9 +145,15 @@ To call log2b with only one number, I use the function with the name call.
 # 20
 Solution to 7
 
+# 21b
+Wile log2 was invented in India during Europs middle ages, The ln is due Euler in the 17th century.
+
 # Random
 All of our natural science is based on those triangles. Choosing the position and size of the triangles is the art of the scientist. But the shape of those trianges seems to be universally given by nature.
 
 Writing the text takes long
 
-zwei Blockgruppen untereinander mit zweimal Aufruf "brender"
+# Todo
+offline use of blockly
+copy
+https://raw.githubusercontent.com/mentat-collective/fdg-book/main/clojure/org/chapter001.org

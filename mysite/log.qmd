@@ -1,5 +1,5 @@
 ---
-title: "Log"
+title: "Log2 and the Musical Scale"
 format:
   html:
     code-fold: false
@@ -122,7 +122,7 @@ print("</script>")
 ```
 :::
 
-> The Pythagoreans have shown that the pitch of a tone depends on the length of a cord and that intervals are produced by simple numerical ratios of this length. This was the first successful reduction of quality to quantity and therefore the beginning of science.  
+> The Pythagoreans have shown that the pitch of a tone depends on the length of a cord and that intervals are produced by simple numerical ratios of its length. This was the first successful reduction of quality to quantity and therefore the beginning of science.
 > - Arthur Koestler, the Sleepwalkers
 
 <details>
@@ -149,6 +149,10 @@ print("</script>")
 <script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
 </details>
 
+<details>
+<summary>3</summary>
+[Link to Cljtiles](https://kloimhardt.github.io/cljtiles.html)
+</details>
 
 ::: {.hidden}
 ```{python}

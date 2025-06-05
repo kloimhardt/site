@@ -26,14 +26,15 @@
 
 (defn drawlines [bnotes2 names]
   (run! (fn [name]
-         (let [p (.select bnotes2 name)]
-           (. bnotes2 (create "line"
-                              #js[#js[150 (.Y p)] #js[1050 (.Y p)]]
-                              #js{:straightFirst false
-                                  :straightLast  false
-                                  :strokeWidth   1
-                                  :strokeColor   "black"}))))
-       names))
+          (let [p (.select bnotes2 name)]
+            (. bnotes2 (create "line"
+                               #js[#js[150 (.Y p)] #js[1050 (.Y p)]]
+                               #js{:straightFirst false
+                                   :straightLast  false
+                                   :strokeWidth   1
+                                   :strokeColor   "black"}))))
+        names)
+  (.. bnotes2 (select "G3") (setLabel "")))
 
 (def idx220 26)
 
