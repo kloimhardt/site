@@ -153,6 +153,7 @@
 (set! (.. js/statejs -log23 -log2banim2) log2banim2)
 
 (defn logtri [divid]
+  #_(logtri "divlogtri")
   (let [bb [-0.4 2
             6 -2]
         am (am "" "" bb true)]
@@ -167,7 +168,10 @@
              "functiongraph"
              #js["0.7 * log(x) / log(2)"]
              #js{:strokeColor "blue"
-                 :strokeWidth 2})))
+                 :strokeWidth 2})
+    (.create brd "text" #js[0.3 -1.3 "steps=0.7"])
+    )
+  )
 
 (set! (.. js/statejs -log23 -logtri) logtri)
 
@@ -228,7 +232,7 @@
     #_(trianim4)
     (.create (.. js/statejs -log23 -brdtri)
              "text"
-             #js[1.2 1.2 js/statejs.log23.strfrac1ovX]
+             #js[1.2 1.2 (.. js/statejs -strfrac1ovX)]
              #js{:useMathJax true :fontSize 24}))
 
 (defn trianim5 []
