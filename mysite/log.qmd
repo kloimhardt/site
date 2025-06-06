@@ -11,23 +11,24 @@ execute:
   cache: false
 ---
 <script type="text/javascript" charset="UTF-8"
- src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+999 4
+ src="jsfiles/jsxgraph/distrib/jsxgraphcore.js"></script>
+<link rel="stylesheet" type="text/css" href="jsfiles/jsxgraph/distrib/jsxgraph.css" />
 
 <script>var SCITTLE_NREPL_WEBSOCKET_PORT = 1340;</script>
-<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.js" type="application/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/scittle@0.6.22/dist/scittle.nrepl.js" type="application/javascript"></script>
-<script src="https://unpkg.com/blockly/blockly.min.js"></script>
-<script src="https://unpkg.com/blockly/msg/en.js"></script>
-<script src="https://kloimhardt.github.io/twotiles/twotiles_core.js"></script>
+<script src="jsfiles/scittle/dist/scittle.js" type="application/javascript"></script>
+<script src="jsfiles/scittle/dist/scittle.nrepl.js" type="application/javascript"></script>
+<script src="jsfiles/blockly/blockly_compressed.js"></script>
+<script src="jsfiles/blockly/msg/en.js"></script>
+<script src="jsfiles/twotiles/twotiles_core.js"></script>
 
-<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/css/syntax.css">
 
-<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/assets/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/assets/bootstrap/css/bootstrap.css">
 
-<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/assets/css/style.css">
 
-<link rel="stylesheet" type="text/css" href="https://rigsomelight.com/assets/inline-edit/css/style.css">
+<link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/assets/inline-edit/css/style.css">
 
 <script>
 var parse = scittle.core.eval_string(twotiles.parse_clj);
@@ -111,7 +112,7 @@ print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].ends
 print("</script>")
 
 # instead of using the plain js
-# print("<script src='myjs/notes.js'></script>")
+# print("<script src='jsfiles/notes.js'></script>")
 # we load the respective Scittle code
 
 print("<script>")
@@ -218,7 +219,7 @@ Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 </div>
 </details>
 
-<script src="https://rigsomelight.com/assets/inline-edit/main.js"></script>
+<script src="jsfiles/rigsomelight.com/assets/inline-edit/main.js"></script>
 
 <script>
 function mutationCallback(customFn, mutationsList, observer) {
@@ -296,7 +297,7 @@ statejs.log23.log3("divlog2x");
 <table><tr>
 <td style="vertical-align: top">
 <div style="height: 300px; width:230px; text-align: right">
-<img src="myjs/xkcd_mapv.jpg"></img></div>
+<img src="jsfiles/xkcd_mapv.jpg"></img></div>
 </td>
 <td style="vertical-align: top">
 <div id="blocklyDiv10" style="height: 300px; width: 800px"></div>
@@ -318,7 +319,7 @@ mapv(log2, [8, 16, 32])
 <summary>14</summary>
 <table><tr>
 <td style="vertical-align: top">
-<div style="height: 150px; width: 230px"><img src="myjs/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
+<div style="height: 150px; width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
 </td>
 <td style="vertical-align: top">
 <div id="blocklyDiv14" style="height: 300px; width: 800px"></div>
