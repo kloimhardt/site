@@ -1,4 +1,7 @@
-(ns sci.nrepl.browser-server
+(ns browser-server
+;;original name: sci.nrepl.browser-server
+;;original file https://github.com/babashka/sci.nrepl/blob/main/src/sci/nrepl/browser_server.clj
+
   (:require
    [bencode.core :as bencode]
    [clojure.edn :as edn]

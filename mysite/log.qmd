@@ -11,7 +11,7 @@ execute:
   cache: false
 ---
 <script type="text/javascript" charset="UTF-8"
-999 4
+999 6
  src="jsfiles/jsxgraph/distrib/jsxgraphcore.js"></script>
 <link rel="stylesheet" type="text/css" href="jsfiles/jsxgraph/distrib/jsxgraph.css" />
 
@@ -123,7 +123,7 @@ print("</script>")
 ```
 :::
 
-> The Pythagoreans have shown that the pitch of a tone depends on the length of a cord and that intervals are produced by simple numerical ratios of its length. This was the first successful reduction of quality to quantity and therefore the beginning of science.
+> The Pythagoreans have shown that the pitch of a tone depends on the length of a cord and that intervals are produced by simple numerical ratios of its length. This was the first successful reduction of quality to quantity and therefore the beginning of science.  
 > - Arthur Koestler, the Sleepwalkers
 
 <details>
@@ -213,7 +213,7 @@ Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 <div id="jjjobs">
 <div class="cljs-editor-new"><pre>(do (defn add-blocks [s] (display-html (str "&lt;tiles&gt;" s "&lt;/tiles&gt;")) :tiles)
 
-(add-blocks '(def (log2a intersect steps x) :tiles/slot)))
+(add-blocks '(def (log2a intersect steps x) (return :tiles/slot))))
 (add-blocks '(log2a 220 7 440))
 (add-blocks '(log2a 1 1 2))</pre></div>
 </div>
