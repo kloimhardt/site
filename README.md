@@ -32,7 +32,12 @@ https://kloimhardt.github.io/site/
 ## Scittle
 
 To start the nrepl server run `sh ./scittlenrepl.sh` or
+```
+/site$ bb -cp . -e "(require '[sci.nrepl.browser-server :as nrepl]) (nrepl/start! {:nrepl-port 1339 :websocket-port 1340}) (deref (promise))"
+```
+This depends on `browser-server.clj` being in `sci/nrepl` directory.
 
+Also possible with Java:
 ```
 clj -Sdeps "{:deps {io.github.babashka/sci.nrepl {:mvn/version \"0.0.2\"} org.babashka/http-server {:mvn/version \"0.1.13\"}}}" -M -e "(require '[sci.nrepl.browser-server :as nrepl]) (nrepl/start! {:nrepl-port 1339 :websocket-port 1340})"
 ```
