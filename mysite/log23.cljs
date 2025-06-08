@@ -287,8 +287,24 @@
   (apply mapv vector [[1 2] [3 4]])
   :end)
 
-(defn log2a [steps intersect x]
+(defn log2a [intersect steps x]
   (* (/ (js/Math.log (/ x intersect)) (js/Math.log 2)) steps))
+
+(defn graphp [brd fs fun colf colp]
+  (let [pts1 (notes/vpp fs)
+        pts2 (filter (fn [n]
+                       (get #{"A3" "B3" "C4" "D4" "E4" "F4" "G4" "A4" "B4" "C5" "D5" "E5" "F5" "G5" "A5"} (:name n))) pts1)]
+    (.create brd
+             "functiongraph"
+             #js[fun]
+             #js{:strokeColor colf
+                 :strokeWidth 2})
+    (run! (fn [p] (.. brd
+                      (create "point"
+                              #js[(:x p) (fun (:x p))]
+                              #js{:color colp})
+                      (setLabel "")))
+          pts2)))
 
 (defn many [divid]
   (let [bb [-320 33
@@ -300,28 +316,17 @@
               -JSXGraph
               (initBoard divid (clj->js am)))))
 
-  (let [brd (.. js/statejs -log23 -brdmany)]
-    (.create brd
-             "functiongraph"
-             #js[(partial log2a 7 220)]
-             #js{:strokeColor "red"
-                 :strokeWidth 2})))
+  (graphp (.. js/statejs -log23 -brdmany) (js->clj (.-frequencies js/statejs)) (partial log2a 220 7) "red" "black"))
 
-(defn manyanim2 []
-  (let [brd (.. js/statejs -log23 -brdmany)]
-    (.create brd
-             "functiongraph"
-             #js[(partial log2a
-                          (+ 4 (rand-int 10))
-                          (+ 170 (rand-int 100)))]
-             #js{:strokeColor "green"
-                 :strokeWidth 1})))
+(defn manyanim2 [intersect steps]
+  #_(manyanim2 330 7)
+  (graphp (.. js/statejs -log23 -brdmany) (js->clj (.-frequencies js/statejs)) (partial log2a intersect steps) "green" "green"))
 
 (set! (.. js/statejs -log23 -many) many)
 (set! (.. js/statejs -log23 -manyanim2) manyanim2)
 
 (comment
   (many "divmanylogs")
-  (manyanim2)
+  (manyanim2 330 7)
 
   :end)

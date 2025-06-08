@@ -180,21 +180,27 @@ statejs.log23.anim2();
 -->
 
 <details>
-<summary>5a</summary>
+<summary>4</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.many("divmanylogs");
 
 const mywait = async () => {
- for (let i = 0; i < 20; i++) {
-  statejs.log23.manyanim2();
+  statejs.log23.manyanim2(110, 7);
   await delay(500);
- }
+  statejs.log23.manyanim2(440, 7);
+  await delay(500);
+  statejs.log23.manyanim2(880, 7);
 };
 </script>
 
 <span onClick=statejs.log23.many("divmanylogs") style="color:blue">1</span>
 <span onClick=mywait() style="color:blue">2</span>
+</details>
+
+<details>
+<summary>5a</summary>
+## Functions
 </details>
 
 <details>
@@ -209,7 +215,7 @@ Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 </details>
 
 <details>
-<summary>5c</summary>
+<summary>5c5d5e</summary>
 <div id="jjjobs">
 <div class="cljs-editor-new"><pre>(do (defn add-blocks [s] (display-html (str "&lt;tiles&gt;" s "&lt;/tiles&gt;")) :tiles)
 
