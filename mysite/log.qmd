@@ -150,11 +150,6 @@ print("</script>")
 <script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
 </details>
 
-<details>
-<summary>3</summary>
-[Link to Cljtiles](https://kloimhardt.github.io/cljtiles.html)
-</details>
-
 ::: {.hidden}
 ```{python}
 #| output: asis
@@ -199,21 +194,40 @@ const mywait = async () => {
 </details>
 
 <details>
-<summary>5a</summary>
-## Functions
-</details>
-
-<details>
 <summary>5b</summary>
 <div id="blocklyDiv5" style="height: 300px;"></div>
 <script>
-var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
-
+var ws5=null;
+function brws5() {
+ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
+}
+brws5();
 var addBlocks = (ws) => (s) =>
 Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
+var abws5 = addBlocks(ws5);
 </script>
+
+<span onClick="" style="color:blue">1</span>
+<span onClick="abws5('(def (log2a intersect steps x) (return :tiles/slot))')" style="color:blue">2</span>
+<span onClick="abws5('(log2a 220 7 440)')" style="color:blue">3</span>
+<span onClick="abws5('(log2a 1 1 2)')" style="color:blue">4</span>
+
 </details>
 
+::: {.column-margin}
+<details>
+<summary>---</summary>
+<div style="width: 350px">
+```{python}
+def log2a(intersect, steps, x):
+    return log2(x/intersect) * steps
+```
+</div>
+</details>
+:::
+
+
+<!--
 <details>
 <summary>5c5d5e</summary>
 <div id="jjjobs">
@@ -243,12 +257,7 @@ const config = { attributes: true, childList: true, subtree: true };
 observer.observe(targetNode, config);
 </script>
 
-::: {.hidden}
-```{python}
-def log2a(intersect, steps, x):
-    return log2(x/intersect) * steps
-```
-:::
+-->
 
 ::: {.column-margin}
 <div>
@@ -260,6 +269,7 @@ log2a(220, 7, 440)
 ```
 </div>
 </details>
+
 <details>
 <summary>---</summary>
 ```{python}

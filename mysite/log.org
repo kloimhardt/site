@@ -66,48 +66,6 @@ The division by 220 means that I chose the overall counting to start at 220 Hert
 
 The whole exposition to this point has been very dense. I recommend that you switch to the exercise environment. Work on the example to understand it.
 
-* 3
-
-There is also an exercise environemt which we will come to later in more detail.
-
-#+begin_src clojure
-   (:tiles/infix (* (log2 (:tiles/infix (/ 'x 220))) 7))
-#+end_src
-
-#+begin_src clojure :exports none
-  (defn walk [inner outer form]
-    (cond
-      (list? form) (outer (apply list (map inner form)))
-      (seq? form)  (outer (doall (map inner form)))
-      (coll? form) (outer (into (empty form) (map inner form)))
-      :else        (outer form)))
-  (defn postwalk [f form]
-    (walk (partial postwalk f) f form))
-  (defn postwalk-replace [smap form]
-    (postwalk (fn [x] (if (contains? smap x) (smap x) x)) form))
-  (defmacro let-scheme [b & e]
-    (concat (list 'let (into [] (apply concat b))) e))
-  (defmacro define-1 [h & b]
-    (let [body (postwalk-replace {'let 'let-scheme} b)]
-      (if (coll? h)
-        (if (coll? (first h))
-          (list 'defn (ffirst h) (into [] (rest (first h)))
-                (concat (list 'fn (into [] (rest h))) body))
-          (concat (list 'defn (first h) (into [] (rest h)))
-                  body))
-        (concat (list 'def h) body))))
-  (defmacro define [h & b]
-    (if (and (coll? h) (= (first h) 'tex-inspect))
-      (list 'do
-            (concat ['define-1 (second h)] b)
-            h)
-      (concat ['define-1 h] b)))
-  (defmacro lambda [h b]
-    (list 'fn (into [] h) b))
-  (defn time [state] (first state))
-  (def return identity)
-#+end_src
-
 * 4
 
 ** 1
@@ -120,67 +78,29 @@ Instead of 220, you can choose the intersection wherever you like. The musical s
 
 As a demonstration, I chose to draw some other possible choices for the intersection.
 
-* 5a
+To draw the red curve, I used the above formula.  That formula contains concrete numbers. Intersection at 220 and 7 steps to double the frequency.
 
-At this point I'd like to switch gears. I'd like to explain how to draw graphs. The central point is that you cannot draw a formula. What you draw is functions.
+For the green curves, I needed a more general formula.
 
 * 5b
-In order to be able to draw them, a general formula is needed. It contains two parameters called intersect and steps.
 
-A function is something like a general formula. It does not contains numbers but parameters. They are called intersect and steps.
+The formula used to draw the green graphs does not contain numbers anymore. Instead, the new formula contains two parameters. The first parameter is called intersect. The second parameter is called steps.
+
+But still, to draw some graph, you need to make a particular choice for the parameters. Graphs are nothing but concrete computations with numbers.
+
+To make possible concrete calculations with abstract formulas, you need to wrap the formula into a function.
 
 * 5c5d5e
+** c
+I call this new function log2a. The head of the function states that the formula contains the two parameters intersect and steps and also the variable x.
 
-But not only that, we also need to define a function, called log2a. The head of the function states that the formula contains the parameters intersect and steps and the variable x.
+In the return statement, you simple insert the formula itself.
 
-The function returns the formula.
+The syntax to define the function is Python syntax. In plain text it looks like this.
 
-If you use this new function log2a to calculate the frequency 440 we get the number 7.
+If you use this new function log2a to calculate the frequency 440 we get the number 7. It takes 7 steps to get from 220 to 440.
 
-880 Hertz happens to be step 14
-of course we can calculate much simpler stuff 1 1 8
-and if we set step and interect to one, they cancel out of the formula and we are left with the simple log2(8)
-if we set the steps wo one, we do not need this block anymore.
-Also intersect is not needed.
-
-So if we demand there there are 7 steps if we double the frequency and we go from 220 to 440 the result is indeed 7. That is reassuring.
-
-You can also make a chekc of a much simpler case. going from 1 to 2 with stepsize 1. The result is 1.
-This case actually reduces to the simple log2 function. (show in blocks)
-
-You can also easily type this formula into Python. It will understand it when you use the SymPy package. Essentialy SymPy means that you can print nice formulas that contain the symbol x.
-
-If we set the steps and intersect to one, what remains is the simple plain log2.
-* 6
-
-you can inspect and look at values
-
-The exercise environmet is where you gain a thorough understanding of the example. Like in the presentation space, you can take asunder the formula. Moreover you can execute and see the result. You can also inspect the different parts of the formula.
-What assists you the most on your path to understanding are the puzzles. Solve them in the easy mode first to see how the formula comes about. You are helped by the coloring of the code. Then shuffle the puzzle and try again until you know the formula.
-
-#+begin_src clojure
-  (define (log2a intersect steps x)
-    (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))
-  (log2a 220 7 440)
-  (log2a 1 1 2)
-#+end_src
-
-* 7a
-
-To proof that my new function indeed reproduces the note-log, I calculate the pitch-step for 880Hz. It is step 14. Which is correct, because it takes 14 to go from not A3 to note A5. So my new function log2a passes this sanity check.
-One more comment: in my new function, the parameters for the steps and intersection are on an equal footing with the variable x that stand for the frequency. I will change that later on.
-
-* 7b
-
-If you choose a step-size of one and also choose the intersection point as one, then you get the standard log2 function of Python.
-
-So I choose the step size of one --1
-and the intersection as one --1
-and subtract the standard function log2
-
-* 8
-
-and get the result zero. For the following it is important to notice, that the standard log2 function takes a single argument only. In contrast to this, my log2a function takes three arguments, that is first the number of steps, second the point of intersection and third the frequency x itself. The standard function log2 only takes one argument, namely the frequency x.
+Of course we can calculate much simpler stuff 1 1 2
 
 * 9
 
@@ -266,6 +186,95 @@ Writing the text takes long
 cure Clef
 copy
 https://raw.githubusercontent.com/mentat-collective/fdg-book/main/clojure/org/chapter001.org
+
+** 3 cljtiles
+
+There is also an exercise environemt which we will use later on and show in much more detail.
+
+#+begin_src clojure
+   (:tiles/infix (* (log2 (:tiles/infix (/ 'x 220))) 7))
+#+end_src
+
+#+begin_src clojure :exports none
+  (defn walk [inner outer form]
+    (cond
+      (list? form) (outer (apply list (map inner form)))
+      (seq? form)  (outer (doall (map inner form)))
+      (coll? form) (outer (into (empty form) (map inner form)))
+      :else        (outer form)))
+  (defn postwalk [f form]
+    (walk (partial postwalk f) f form))
+  (defn postwalk-replace [smap form]
+    (postwalk (fn [x] (if (contains? smap x) (smap x) x)) form))
+  (defmacro let-scheme [b & e]
+    (concat (list 'let (into [] (apply concat b))) e))
+  (defmacro define-1 [h & b]
+    (let [body (postwalk-replace {'let 'let-scheme} b)]
+      (if (coll? h)
+        (if (coll? (first h))
+          (list 'defn (ffirst h) (into [] (rest (first h)))
+                (concat (list 'fn (into [] (rest h))) body))
+          (concat (list 'defn (first h) (into [] (rest h)))
+                  body))
+        (concat (list 'def h) body))))
+  (defmacro define [h & b]
+    (if (and (coll? h) (= (first h) 'tex-inspect))
+      (list 'do
+            (concat ['define-1 (second h)] b)
+            h)
+      (concat ['define-1 h] b)))
+  (defmacro lambda [h b]
+    (list 'fn (into [] h) b))
+  (defn time [state] (first state))
+  (def return identity)
+#+end_src
+
+** cljtiles
+
+you can inspect and look at values
+
+The exercise environmet is where you gain a thorough understanding of the example. Like in the presentation space, you can take asunder the formula. Moreover you can execute and see the result. You can also inspect the different parts of the formula.
+What assists you the most on your path to understanding are the puzzles. Solve them in the easy mode first to see how the formula comes about. You are helped by the coloring of the code. Then shuffle the puzzle and try again until you know the formula.
+
+** 6 cljtiles
+
+Also in the playground we can prove that it takes 7 steps to get to 440.
+
+If we calculate the simple log2a 1 1 2, we get the result 1.
+
+if we set the steps wo one, we do not need this block anymore.
+Also intersect is not needed.
+
+and if we set step and interect to one, they cancel out of the formula and we are left with the simple log2 function.
+
+Now that I changed the function log2a, the result for the first expression is not 7 anymore.
+
+But the second result still remains one. Thus we rediscovered the simple log2 function.
+
+#+begin_src clojure
+  (define (log2a intersect steps x)
+    (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))
+  (log2a 220 7 440)
+  (log2a 1 1 2)
+#+end_src
+
+
+** 7a
+
+To proof that my new function indeed reproduces the note-log, I calculate the pitch-step for 880Hz. It is step 14. Which is correct, because it takes 14 to go from not A3 to note A5. So my new function log2a passes this sanity check.
+One more comment: in my new function, the parameters for the steps and intersection are on an equal footing with the variable x that stand for the frequency. I will change that later on.
+
+** 7b
+
+If you choose a step-size of one and also choose the intersection point as one, then you get the standard log2 function of Python.
+
+So I choose the step size of one --1
+and the intersection as one --1
+and subtract the standard function log2
+
+** 8
+
+and get the result zero. For the following it is important to notice, that the standard log2 function takes a single argument only. In contrast to this, my log2a function takes three arguments, that is first the number of steps, second the point of intersection and third the frequency x itself. The standard function log2 only takes one argument, namely the frequency x.
 
  #+begin_src clojure
 "end"
