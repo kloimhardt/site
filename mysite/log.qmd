@@ -62,11 +62,11 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 import sympy
 from sympy import symbols, diff, ln
 from sympy.codegen.cfunctions import log2
-from functools import partial
-x=symbols("x")
-b=symbols("b")
-y=symbols("y")
-z=symbols("z")
+import functools
+import matplotlib.pyplot as plt
+
+x0=symbols("x0")
+x1=symbols("x1")
 
 def call(f, x):
     return f(x)
@@ -74,12 +74,26 @@ def call(f, x):
 def mapv(a, b):
     return list(map(a, map(lambda x: 1.0 * x, b)))
 
+class HigherOrder(object):
+    def __init__(self, func):
+        self.func = func
+    def __or__(self, other):
+        return self.func(other)
+    def __call__(self, x):
+        return self.func(x)
+
+def partial(*args):
+    return HigherOrder(functools.partial(*args))
+
 def D(f):
-    x1 = symbols("x1")
-    return sympy.lambdify([x1], diff(f(x1), x1), "sympy")
+  var = symbols("var")
+  return HigherOrder(sympy.lambdify([var], diff(f(var), var), "sympy"))
 
 def rnd(expr):
      return expr.xreplace({n: round(n, 3) for n in expr.atoms(sympy.Number)})
+
+def plot(f, x):
+    plt.plot(x, mapv(f, x), "o")
 ```
 :::
 
@@ -131,21 +145,16 @@ print("</script>")
 <div id="divnotes2" class="jxgbox" style="height:300px;"></div>
 <script>statejs.notes.main("divnotes2");</script>
 
-<span onClick=statejs.notes.main('divnotes2') style="color:blue">1</span>
-<span onClick="statejs.notes.anim1()" style="color:blue">2</span>
-<span onClick="statejs.notes.anim2()" style="color:blue">3</span>
-<span onClick="statejs.notes.anim3()" style="color:blue">4</span>
-<span onClick="statejs.notes.anim5()" style="color:blue">5</span>
-<span onClick="statejs.notes.anim6()" style="color:blue">6</span>
+<span onClick=statejs.notes.main('divnotes2') style="color:blue">A</span>
+<span onClick="statejs.notes.anim1()" style="color:blue">B</span>
+<span onClick="statejs.notes.anim2()" style="color:blue">C</span>
+<span onClick="statejs.notes.anim3()" style="color:blue">D</span>
+<span onClick="statejs.notes.anim5()" style="color:blue">E</span>
+<span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 </details>
 
 <details>
-<summary>2a</summary>
-## The log2 Function
-</details>
-
-<details>
-<summary>2b</summary>
+<summary>2</summary>
 <div id="blocklyDivLog2" style="height: 300px;"></div>
 <script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
 </details>
@@ -164,7 +173,7 @@ print("</script>")
 <!--
 ::: {.column-margin}
 <details>
-<summary>3</summary>
+<summary>--</summary>
 <div id="divlog23" class="jxgbox" style="height:150px; width: 350px"></div>
 <script>
 statejs.log23.main("divlog23");
@@ -175,7 +184,7 @@ statejs.log23.anim2();
 -->
 
 <details>
-<summary>4</summary>
+<summary>3</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.many("divmanylogs");
@@ -189,35 +198,32 @@ const mywait = async () => {
 };
 </script>
 
-<span onClick=statejs.log23.many("divmanylogs") style="color:blue">1</span>
-<span onClick=mywait() style="color:blue">2</span>
+<span onClick=statejs.log23.many("divmanylogs") style="color:blue">A</span>
+<span onClick=mywait() style="color:blue">B</span>
 </details>
 
 <details>
-<summary>5b</summary>
-<div id="blocklyDiv5" style="height: 300px;"></div>
+<summary>4</summary>
+<div id="blocklyDiv5" style="height: 350px;"></div>
 <script>
-var ws5=null;
-function brws5() {
-ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
-}
-brws5();
+var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
+
 var addBlocks = (ws) => (s) =>
 Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 var abws5 = addBlocks(ws5);
 </script>
 
-<span onClick="" style="color:blue">1</span>
-<span onClick="abws5('(def (log2a intersect steps x) (return :tiles/slot))')" style="color:blue">2</span>
-<span onClick="abws5('(log2a 220 7 440)')" style="color:blue">3</span>
-<span onClick="abws5('(log2a 1 1 2)')" style="color:blue">4</span>
+<span onClick="" style="color:blue">A</span>
+<span onClick="abws5('(def (log2a intersect steps x) (return :tiles/slot))')" style="color:blue">B</span>
+<span onClick="abws5('(log2a 220 7 440)')" style="color:blue">C</span>
+<span onClick="abws5('(log2a 1 1 2)')" style="color:blue">D</span>
 
 </details>
 
 ::: {.column-margin}
 <details>
-<summary>---</summary>
-<div style="width: 350px">
+<summary>B</summary>
+<div style="width: 300px">
 ```{python}
 def log2a(intersect, steps, x):
     return log2(x/intersect) * steps
@@ -229,7 +235,7 @@ def log2a(intersect, steps, x):
 
 <!--
 <details>
-<summary>5c5d5e</summary>
+<summary>--</summary>
 <div id="jjjobs">
 <div class="cljs-editor-new"><pre>(do (defn add-blocks [s] (display-html (str "&lt;tiles&gt;" s "&lt;/tiles&gt;")) :tiles)
 
@@ -262,8 +268,8 @@ observer.observe(targetNode, config);
 ::: {.column-margin}
 <div>
 <details>
-<summary>---</summary>
-<div style="width: 350px">
+<summary>C</summary>
+<div style="width: 300px">
 ```{python}
 log2a(220, 7, 440)
 ```
@@ -271,14 +277,18 @@ log2a(220, 7, 440)
 </details>
 
 <details>
-<summary>---</summary>
+<summary>D</summary>
+
+<div style="width: 300px">
 ```{python}
 log2a(1, 1, 2)
 ```
+</div>
 </details>
 </div>
 :::
 
+<!--
 :::{.column-screen-left}
 <details>
 <summary>9</summary>
@@ -301,64 +311,49 @@ statejs.log23.log3("divlog2x");
 </table>
 </details>
 :::
+-->
 
 <details>
-<summary>10a</summary>
-## The mapv Function
+<summary>5</summary>
+<div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
+<script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
 </details>
 
-:::{.column-screen-left}
 <details>
-<summary>10b</summary>
-<table><tr>
-<td style="vertical-align: top">
-<div style="height: 300px; width:230px; text-align: right">
-<img src="jsfiles/xkcd_mapv.jpg"></img></div>
-</td>
-<td style="vertical-align: top">
-<div id="blocklyDiv10" style="height: 300px; width: 800px"></div>
-<script>brender("(mapv log2 [8 16 32])", "blocklyDiv10")</script>
-</td>
-</tr></table>
-</details>
-:::
-
-<details>
-<summary>11</summary>
+<summary>6</summary>
 ```{python}
-mapv(log2, [8, 16, 32])
+plot(log2, [1, 2, 4, 8])
 ```
 </details>
 
 :::{.column-screen-left}
 <details>
-<summary>14</summary>
+<summary>7</summary>
 <table><tr>
 <td style="vertical-align: top">
-<div style="height: 150px; width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
+<div style="width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
 </td>
 <td style="vertical-align: top">
 <div id="blocklyDiv14" style="height: 300px; width: 800px"></div>
-<script>brender("(mapv (partial log2a 1 1) [8 16 32])", "blocklyDiv14")</script>
+<script>brender("(plot (partial log2a 1 1) [1 2 4 8])", "blocklyDiv14")</script>
 </td>
 </tr></table>
 </details>
 :::
 
+::: {.column-margin}
 <details>
-<summary>15</summary>
+<summary>A</summary>
+<div style="width: 300px">
 ```{python}
-mapv(partial(log2a, 1, 1), [8, 16, 32])
+plot(partial(log2a, 1, 1), [1, 2, 4, 8])
 ```
+</div>
 </details>
+:::
 
 <details>
-<summary>16a</summary>
-## The log2b function
-</details>
-
-<details>
-<summary>16b</summary>
+<summary>8</summary>
 <div id="blocklyDiv16" style="height: 300px;"></div>
 <script>brender("(def (log2b intersect steps) (return (partial (log2a intersect steps))))", "blocklyDiv16")</script>
 </details>
@@ -370,56 +365,106 @@ def log2b(intersect, steps):
 ```
 :::
 
-
 <details>
-<summary>18a</summary>
-<div id="blocklyDiv18a" style="height:100px"></div>
-<script>brender("(mapv (log2b 1 1) [8 16 32])", "blocklyDiv18a")</script>
+<summary>9</summary>
+<div id="blocklyDiv16c" style="height:300px"></div>
+<script>brender("(plot (log2b 1 1) [1 2 4 8])", "blocklyDiv16c")</script>
 </details>
 
 ::: {.column-margin}
 <details>
-<summary>18b</summary>
-<div style="width: 350px">
+<summary>A</summary>
+<div style="width: 300px">
 ```{python}
-mapv(log2b(1, 1), [8, 16, 32])
+plot(log2b(1, 1), [1, 2, 4, 8])
 ```
 </div>
 </details>
 :::
 
 <details>
-<summary>20a</summary>
+<summary>10</summary>
+<div id="blocklyDiv19" style="height: 500px;"></div>
+<script>
+var ws19 = brender(" (call (log2b 1 1) 2)", "blocklyDiv19");
+var abws19 = addBlocks(ws19);
+</script>
+
+<span onClick="" style="color:blue">A</span>
+<span onClick="abws19('(call (log2b 1 1) x0)')" style="color:blue">B</span>
+<span onClick="abws19('(call (log2b 1 1) x1)')" style="color:blue">C</span>
+<span onClick="abws19('(call (log2b 1 0.7) x1)')" style="color:blue">D</span>
+
+</details>
+
+::: {.column-margin}
+<details>
+<summary>A</summary>
+<div style="width: 300px">
+```{python}
+call(log2b(1, 1), 2)
+```
+</div>
+</details>
+
+<details>
+<summary>B</summary>
+<div style="width: 300px">
+```{python}
+call(log2b(1, 1), x0)
+```
+</div>
+</details>
+
+<details>
+<summary>C</summary>
+<div style="width: 300px">
+```{python}
+call(log2b(1, 1), x1)
+```
+</div>
+</details>
+
+<details>
+<summary>D</summary>
+<div style="width: 300px">
+```{python}
+call(log2b(1, 0.7), x1)
+```
+</div>
+</details>
+:::
+
+<details>
+<summary>11</summary>
 <div id="divlog20_2" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.log2b("divlog20_2");
 </script>
-<span onClick=statejs.log23.log2b("divlog20_2") style="color:blue">1</span>
-<span onClick=statejs.log23.log2banim2() style="color:blue">2</span>
-</details>
-
+<span onClick=statejs.log23.log2b("divlog20_2") style="color:blue">C</span>
+<span onClick=statejs.log23.log2banim2() style="color:blue">D</span>
 </details>
 
 <details>
-<summary>20d</summary>
+<summary>12</summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;"></div>
 <script>
 statejs.strfrac1ovX = "$$\\frac{1}{x}$$";
 statejs.log23.logtri("divlogtri");
 </script>
-<span onClick=statejs.log23.logtri("divlogtri") style="color:blue">1</span>
-<span onClick="statejs.log23.trianim2()" style="color:blue">2</span>
-<span onClick="statejs.log23.trianim3()" style="color:blue">3</span>
-<span onClick="statejs.log23.trianim4()" style="color:blue">4</span>
-<span onClick="statejs.log23.trianim5()" style="color:blue">5</span>
-<span onClick="statejs.log23.trianim6()" style="color:blue">6</span>
-<span onClick="statejs.log23.trianim7()" style="color:blue">7</span>
+<span onClick=statejs.log23.logtri("divlogtri") style="color:blue">A</span>
+<span onClick="statejs.log23.trianim2()" style="color:blue">B</span>
+<span onClick="statejs.log23.trianim3()" style="color:blue">C</span>
+<span onClick="statejs.log23.trianim4()" style="color:blue">D</span>
+<span onClick="statejs.log23.trianim5()" style="color:blue">E</span>
+<span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
+<span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
 </details>
 
 <details>
-<summary>17a</summary>
+<summary>13</summary>
 <div id="blocklyDiv17a" style="height:300px"></div>
-<script>var ws17a = brender("(mapv (log2b 1 0.7) [x y z])", "blocklyDiv17a")
+<script>var ws17a = brender("(call (log2b 1 0.7) x0)", "blocklyDiv17a")
 var ab = addBlocks(ws17a);
 </script>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
@@ -427,25 +472,50 @@ var ab = addBlocks(ws17a);
 
 ::: {.column-margin}
 <details>
-<summary>17b</summary>
+<summary>A</summary>
 <div style="width: 350px">
 ```{python}
-mapv(log2b(1, 0.7), [x, y, z])
+call(log2b(1, 0.7), x0)
 ```
 </div>
 </details>
 :::
 
 <details>
-<summary>21b</summary>
+<summary>14</summary>
 ```{python}
-[e.evalf() for e in        mapv(D(log2b(1, 0.7)), [x, y, z])]
+call(D(log2b(1, 0.7)), x0).evalf()
 ```
 
 <div id="blocklyDiv22a" class="jxgbox" style="height:100px"></div>
-<script>brender("(mapv (D ln) [x y z])", "blocklyDiv22a")</script>
+<script>brender("(call (D ln) x0)", "blocklyDiv22a")</script>
 ```{python}
-mapv(D(ln), [x, y, z])
+call(D(ln), x0)
+```
+</details>
+
+<details>
+<summary>15</summary>
+$$\left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
+</details>
+
+<details>
+<summary>16</summary>
+<div id="blocklyDivpipe" class="jxgbox" style="height:100px"></div>
+<script>brender("((D ln) x0)", "blocklyDivpipe")</script>
+
+```{python}
+(D(ln) | x0)
+```
+</details>
+
+<details>
+<summary>17</summary>
+<div id="blocklyDivpipe2" class="jxgbox" style="height:100px"></div>
+<script>brender("((log2b 220 7) 440)", "blocklyDivpipe2")</script>
+
+```{python}
+(log2b(220, 7) | 440)
 ```
 </details>
 
