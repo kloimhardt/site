@@ -175,6 +175,10 @@ Wile log2 was invented in India during Europs middle ages, The ln is due Euler i
 
 Indeed the log2 is implemented as log(x)/log(2) as we can see if we return to the playground.
 
+* 16 new
+
+For Python, I have not figured out yet how partial derivatives can be done within this scheme. I guess it will involve some ingenious appliaction of the partial function I showed you above.
+
 * Random
 
 All of our natural science is based on those triangles. Choosing the position and size of the triangles is the art of the scientist. But the shape of those trianges seems to be universally given by nature.

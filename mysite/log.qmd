@@ -1,5 +1,5 @@
 ---
-title: "Log2 and the Musical Scale"
+title: "Drawing on the Logarithmic Scale"
 format:
   html:
     code-fold: false
@@ -11,7 +11,6 @@ execute:
   cache: false
 ---
 <script type="text/javascript" charset="UTF-8"
-999 6
  src="jsfiles/jsxgraph/distrib/jsxgraphcore.js"></script>
 <link rel="stylesheet" type="text/css" href="jsfiles/jsxgraph/distrib/jsxgraph.css" />
 
@@ -74,7 +73,7 @@ def call(f, x):
 def mapv(a, b):
     return list(map(a, map(lambda x: 1.0 * x, b)))
 
-class HigherOrder(object):
+class PipeAsCall(object):
     def __init__(self, func):
         self.func = func
     def __or__(self, other):
@@ -83,11 +82,12 @@ class HigherOrder(object):
         return self.func(x)
 
 def partial(*args):
-    return HigherOrder(functools.partial(*args))
+    return PipeAsCall(
+        functools.partial(*args))
 
 def D(f):
   var = symbols("var")
-  return HigherOrder(sympy.lambdify([var], diff(f(var), var), "sympy"))
+  return PipeAsCall(sympy.lambdify([var], diff(f(var), var), "sympy"))
 
 def rnd(expr):
      return expr.xreplace({n: round(n, 3) for n in expr.atoms(sympy.Number)})
@@ -141,7 +141,7 @@ print("</script>")
 > - Arthur Koestler, the Sleepwalkers
 
 <details>
-<summary>1</summary>
+<summary id="1">1</summary>
 <div id="divnotes2" class="jxgbox" style="height:300px;"></div>
 <script>statejs.notes.main("divnotes2");</script>
 
@@ -153,8 +153,12 @@ print("</script>")
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 </details>
 
+::: {.column-margin}
+<a href="#1">_</a>
+:::
+
 <details>
-<summary>2</summary>
+<summary id="2">2</summary>
 <div id="blocklyDivLog2" style="height: 300px;"></div>
 <script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
 </details>
@@ -217,7 +221,6 @@ var abws5 = addBlocks(ws5);
 <span onClick="abws5('(def (log2a intersect steps x) (return :tiles/slot))')" style="color:blue">B</span>
 <span onClick="abws5('(log2a 220 7 440)')" style="color:blue">C</span>
 <span onClick="abws5('(log2a 1 1 2)')" style="color:blue">D</span>
-
 </details>
 
 ::: {.column-margin}
@@ -473,7 +476,7 @@ var ab = addBlocks(ws17a);
 ::: {.column-margin}
 <details>
 <summary>A</summary>
-<div style="width: 350px">
+<div style="width: 300px">
 ```{python}
 call(log2b(1, 0.7), x0)
 ```
@@ -496,7 +499,7 @@ call(D(ln), x0)
 
 <details>
 <summary>15</summary>
-$$\left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
+$$\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
 </details>
 
 <details>
@@ -519,7 +522,31 @@ $$\left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
 ```
 </details>
 
+::: {.column-margin}
+<details>
+<summary>18</summary>
+<div style="width: 300px">
+```{python}
+#| eval: false
+class PipeAsCall(object):
+    def __init__(self, func):
+        self.func = func
+    def __or__(self, other):
+        return self.func(other)
+    def __call__(self, x):
+        return self.func(x)
+
+def partial(*args):
+    return PipeAsCall(
+        functools.partial(*args))
+```
+</div>
+</details>
+:::
+
+<!--
 <script>
 document.querySelectorAll("details")
 .forEach(d => d.setAttribute("open", ""))
 </script>
+-->
