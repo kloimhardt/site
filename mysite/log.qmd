@@ -36,6 +36,8 @@ Blockly.defineBlocksWithJsonArray(twotiles.blocks);
 
 <script>
 var brender = (code,divid) => {
+const el = document.getElementById(divid);
+while (el.firstChild) el.removeChild(el.firstChild);
 let ws = Blockly.inject(divid,
 {"sounds": false,
 "scrollbars": false,
@@ -45,6 +47,7 @@ Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)
 
 return ws;
 }
+
 </script>
 
 <script>var statejs = {};</script>
@@ -137,8 +140,10 @@ print("</script>")
 ```
 :::
 
-> The Pythagoreans have shown that the pitch of a tone depends on the length of a cord and that intervals are produced by simple numerical ratios of its length. This was the first successful reduction of quality to quantity and therefore the beginning of science.  
+<!--
+> The Pythagoreans have shown that the pitch of a tone depends on the length of a cord. This was the first successful reduction of quality to quantity and therefore the beginning of science.  
 > - Arthur Koestler, the Sleepwalkers
+-->
 
 <details>
 <summary id="1">1</summary>
@@ -154,14 +159,23 @@ print("</script>")
 </details>
 
 ::: {.column-margin}
-<a href="#1">_</a>
+<a href="#1" onClick="statejs.notes.anim6()">_</a>
 :::
 
 <details>
 <summary id="2">2</summary>
 <div id="blocklyDivLog2" style="height: 300px;"></div>
-<script>brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2")</script>
+<script>
+function v2() {
+brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2");
+}
+v2();
+</script>
 </details>
+
+::: {.column-margin}
+<a href="#2" onClick=v2()>_</a>
+:::
 
 ::: {.hidden}
 ```{python}

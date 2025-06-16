@@ -181,7 +181,7 @@
       "functiongraph"
       #js["(7 * log(x / 220)) / log(2)"]
       #js{:strokeColor "red" :strokeWidth 2})
-    (.create
+    #_(.create
       "text"
       #js[1100 22 "Logarithm"]
       #js{:fontSize 24}))

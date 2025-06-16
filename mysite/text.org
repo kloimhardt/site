@@ -1,0 +1,16 @@
+* 1_2
+You see a musical scale. You notice that the black dots are the notes from A3 to A5. Thy span two octaves. As you click on the letter B -
+-Two red lines appear. They are of equal length and span one octave each. As you click on the letter C -
+-The black dots start to shift to the left. You notice that the first line becomes half the second. This is because the new arrangement shows the notes according to their frequencies. As you click the letter D -
+-The frequencies of the three A notes appear on the screen.
+As you click the letter E -
+-A curve is revealed. The red line bends upwards and fits the notes. It is the function Log2. As you click the letter F -
+-The function is revealed in its full splendour. -[click 1- move 2]
+
+* 2_3
+As you click Number 2 -
+-You see a pictorial representation of the formula for the curve that fits the musical scale. It is log2 of x divided by 220 times 7. X is the frequency. -[you divide x by 220, take the log2 and multiply by 7.]
+-This multiplication by 7 means that the frequency is doubled every 7th step. If you start at A4 it takes 7 steps to got to A5. -[count to 7]
+-The division by 220 means that the overall counting starts at 220 Hertz -[click 2- move 3]
+
+* 3
