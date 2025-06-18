@@ -29,15 +29,21 @@ execute:
 
 <link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/assets/inline-edit/css/style.css">
 
+<link rel="stylesheet" type="text/css" href="jsfiles/log.css">
+
+
 <script>
 var parse = scittle.core.eval_string(twotiles.parse_clj);
 Blockly.defineBlocksWithJsonArray(twotiles.blocks);
 </script>
 
 <script>
-var brender = (code,divid) => {
+var cleandiv = (divid) => {
 const el = document.getElementById(divid);
 while (el.firstChild) el.removeChild(el.firstChild);
+}
+var brender = (code,divid) => {
+cleandiv(divid);
 let ws = Blockly.inject(divid,
 {"sounds": false,
 "scrollbars": false,
@@ -156,10 +162,14 @@ print("</script>")
 <span onClick="statejs.notes.anim3()" style="color:blue">D</span>
 <span onClick="statejs.notes.anim5()" style="color:blue">E</span>
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
+
+<div class="desc" id="divnotes2_t">
+word
+</div>
 </details>
 
 ::: {.column-margin}
-<a href="#1" onClick="statejs.notes.anim6()">_</a>
+<a href="#1" onClick="statejs.notes.anim6(); cleandiv('divnotes2_t')">_</a>
 :::
 
 <details>
@@ -168,9 +178,13 @@ print("</script>")
 <script>
 function v2() {
 brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2");
+cleandiv("blocklyDivLog2_t")
 }
 v2();
 </script>
+<div class="desc" id="blocklyDivLog2_t">
+word
+</div>
 </details>
 
 ::: {.column-margin}
@@ -202,7 +216,7 @@ statejs.log23.anim2();
 -->
 
 <details>
-<summary>3</summary>
+<summary id="3">3</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.many("divmanylogs");
@@ -214,14 +228,23 @@ const mywait = async () => {
   await delay(500);
   statejs.log23.manyanim2(880, 7);
 };
+
+var clean3 = () => {mywait(); cleandiv("divmanylogs_t")}
 </script>
 
 <span onClick=statejs.log23.many("divmanylogs") style="color:blue">A</span>
 <span onClick=mywait() style="color:blue">B</span>
+<div class="desc" id="divmanylogs_t">
+A The choice of 220 for intersecting the x axis was arbitrary. The musical scale will always fit onto the curve as long as the number of steps is seven. B As a demonstration, I draw some other possible choices for the intersection. For the green curves, I needed a more general formula.
+</div>
+
 </details>
+::: {.column-margin}
+<a href="#3" onClick=clean3()>_</a>
+:::
 
 <details>
-<summary>4</summary>
+<summary id="4">4</summary>
 <div id="blocklyDiv5" style="height: 350px;"></div>
 <script>
 var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
@@ -233,13 +256,26 @@ var abws5 = addBlocks(ws5);
 
 <span onClick="" style="color:blue">A</span>
 <span onClick="abws5('(def (log2a intersect steps x) (return :tiles/slot))')" style="color:blue">B</span>
-<span onClick="abws5('(log2a 220 7 440)')" style="color:blue">C</span>
-<span onClick="abws5('(log2a 1 1 2)')" style="color:blue">D</span>
+<span onClick="abws5('(log2a 220 7 440)')" style="color:blue">D</span>
+<span onClick="abws5('(log2a 1 1 2)')" style="color:blue">F</span>
+<div class="desc" id="blocklyDiv5_t">
+A The formula used to draw the green graphs does not contain numbers anymore. Instead, the new formula contains two parameters. The first parameter is called intersect. The second parameter is called steps. B - I needed to wrap this formula into a function. I called this new function log2a. You simply put the formula into its return statement. - C The syntax to define the function is Python syntax. D I calculate the result for the frequency 440. E As expected, you get the number 7. F I now chose to set both intersection and steps to unity. G I calculate the result for the value 2. The result is the number 1.
+</div>
 </details>
+<script>
+var four_ = () => {
+var ws4u = brender(" (def (log2a intersect steps x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5");
+var abws4u = addBlocks(ws4u);
+abws4u('(log2a 220 7 440)')
+abws4u('(log2a 1 1 2)')
+cleandiv("blocklyDiv5_t")
+}
+</script>
 
 ::: {.column-margin}
+<a href="#4" onClick=four_()>_</a>
 <details>
-<summary>B</summary>
+<summary>C</summary>
 <div style="width: 300px">
 ```{python}
 def log2a(intersect, steps, x):
@@ -285,7 +321,7 @@ observer.observe(targetNode, config);
 ::: {.column-margin}
 <div>
 <details>
-<summary>C</summary>
+<summary>E</summary>
 <div style="width: 300px">
 ```{python}
 log2a(220, 7, 440)
@@ -294,7 +330,7 @@ log2a(220, 7, 440)
 </details>
 
 <details>
-<summary>D</summary>
+<summary>G</summary>
 
 <div style="width: 300px">
 ```{python}
@@ -308,7 +344,7 @@ log2a(1, 1, 2)
 <!--
 :::{.column-screen-left}
 <details>
-<summary>9</summary>
+<summary>xx</summary>
 <table>
 <tr>
 <td style="vertical-align: top">
@@ -331,34 +367,48 @@ statejs.log23.log3("divlog2x");
 -->
 
 <details>
-<summary>5</summary>
+<summary id="5">5</summary>
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
-</details>
-
-<details>
-<summary>6</summary>
+<div class="desc" id="blocklyDiv10_t">
+Word
+</div>
 ```{python}
 plot(log2, [1, 2, 4, 8])
 ```
+<script>
+var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv("blocklyDiv10_t");}
+</script>
+
 </details>
+::: {.column-margin}
+<a href="#5" onClick=clean5()>_</a>
+:::
 
 :::{.column-screen-left}
 <details>
-<summary>7</summary>
+<summary id="6">6</summary>
 <table><tr>
 <td style="vertical-align: top">
 <div style="width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
 </td>
 <td style="vertical-align: top">
 <div id="blocklyDiv14" style="height: 300px; width: 800px"></div>
-<script>brender("(plot (partial log2a 1 1) [1 2 4 8])", "blocklyDiv14")</script>
+<script>
+var r14= () => brender("(plot (partial log2a 1 1) [1 2 4 8])", "blocklyDiv14")
+r14();
+</script>
+<div class="desc" id="blocklyDiv14_t">
+word
+</div>
 </td>
 </tr></table>
+
 </details>
 :::
 
 ::: {.column-margin}
+<a href="#6" onClick="r14(); cleandiv('blocklyDiv14_t')">_</a>
 <details>
 <summary>A</summary>
 <div style="width: 300px">
@@ -370,10 +420,21 @@ plot(partial(log2a, 1, 1), [1, 2, 4, 8])
 :::
 
 <details>
-<summary>8</summary>
+<summary id="7">7</summary>
 <div id="blocklyDiv16" style="height: 300px;"></div>
-<script>brender("(def (log2b intersect steps) (return (partial (log2a intersect steps))))", "blocklyDiv16")</script>
+<script>
+var r16= () => brender("(def (log2b intersect steps) (return (partial (log2a intersect steps))))", "blocklyDiv16")
+r16();
+</script>
+
+<div class="desc" id="blocklyDiv16_t">
+word
+</div>
 </details>
+
+::: {.column-margin}
+<a href="#7" onClick="r16(); cleandiv('blocklyDiv16_t')">_</a>
+:::
 
 ::: {.hidden}
 ```{python}
@@ -383,12 +444,19 @@ def log2b(intersect, steps):
 :::
 
 <details>
-<summary>9</summary>
+<summary id="8">8</summary>
 <div id="blocklyDiv16c" style="height:300px"></div>
-<script>brender("(plot (log2b 1 1) [1 2 4 8])", "blocklyDiv16c")</script>
+<script>
+var r16c= () =>brender("(plot (log2b 1 1) [1 2 4 8])", "blocklyDiv16c")
+r16c();
+</script>
+<div class="desc" id="blocklyDiv16c_t">
+word
+</div>
 </details>
 
 ::: {.column-margin}
+<a href="#8" onClick="r16c(); cleandiv('blocklyDiv16c_t')">_</a>
 <details>
 <summary>A</summary>
 <div style="width: 300px">
@@ -400,10 +468,11 @@ plot(log2b(1, 1), [1, 2, 4, 8])
 :::
 
 <details>
-<summary>10</summary>
+<summary id="9">9</summary>
 <div id="blocklyDiv19" style="height: 500px;"></div>
 <script>
-var ws19 = brender(" (call (log2b 1 1) 2)", "blocklyDiv19");
+r19 = () => brender(" (call (log2b 1 1) 2)", "blocklyDiv19");
+var ws19 = r19();
 var abws19 = addBlocks(ws19);
 </script>
 
@@ -412,9 +481,23 @@ var abws19 = addBlocks(ws19);
 <span onClick="abws19('(call (log2b 1 1) x1)')" style="color:blue">C</span>
 <span onClick="abws19('(call (log2b 1 0.7) x1)')" style="color:blue">D</span>
 
+<div class="desc" id="blocklyDiv19_t">
+word
+</div>
 </details>
 
+<script>
+var fu19 = () => {
+var ws19_E = r19();
+var abws19_E = addBlocks(ws19_E);
+abws19_E('(call (log2b 1 1) x0)')
+abws19_E('(call (log2b 1 1) x1)')
+abws19_E('(call (log2b 1 0.7) x1)')
+}
+</script>
+
 ::: {.column-margin}
+<a href="#9" onClick="fu19(); cleandiv('blocklyDiv19_t');">_</a>
 <details>
 <summary>A</summary>
 <div style="width: 300px">
@@ -453,17 +536,24 @@ call(log2b(1, 0.7), x1)
 :::
 
 <details>
-<summary>11</summary>
+<summary id="10">10</summary>
 <div id="divlog20_2" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.log2b("divlog20_2");
 </script>
 <span onClick=statejs.log23.log2b("divlog20_2") style="color:blue">C</span>
 <span onClick=statejs.log23.log2banim2() style="color:blue">D</span>
+<div class="desc" id="divlog20_2_t">
+word
+</div>
 </details>
 
+::: {.column-margin}
+<a href="#10" onClick="cleandiv('divlog20_2_t');">_</a>
+:::
+
 <details>
-<summary>12</summary>
+<summary id="11">11</summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;"></div>
 <script>
 statejs.strfrac1ovX = "$$\\frac{1}{x}$$";
@@ -476,18 +566,29 @@ statejs.log23.logtri("divlogtri");
 <span onClick="statejs.log23.trianim5()" style="color:blue">E</span>
 <span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
+<div class="desc" id="divlogtri_t">
+word
+</div>
 </details>
 
+::: {.column-margin}
+<a href="#11" onClick="cleandiv('divlogtri_t');">_</a>
+:::
+
 <details>
-<summary>13</summary>
+<summary id="12">12</summary>
 <div id="blocklyDiv17a" style="height:300px"></div>
 <script>var ws17a = brender("(call (log2b 1 0.7) x0)", "blocklyDiv17a")
 var ab = addBlocks(ws17a);
 </script>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
+<div class="desc" id="blocklyDiv17a_t">
+word
+</div>
 </details>
 
 ::: {.column-margin}
+<a href="#12" onClick="brender('(call (D (log2b 1 0.7)) x0)', 'blocklyDiv17a'); cleandiv('blocklyDiv17a_t');">_</a>
 <details>
 <summary>A</summary>
 <div style="width: 300px">
@@ -499,46 +600,82 @@ call(log2b(1, 0.7), x0)
 :::
 
 <details>
-<summary>14</summary>
+<summary id="13">13</summary>
 ```{python}
 call(D(log2b(1, 0.7)), x0).evalf()
 ```
 
-<div id="blocklyDiv22a" class="jxgbox" style="height:100px"></div>
-<script>brender("(call (D ln) x0)", "blocklyDiv22a")</script>
+<div id="blocklyDiv22a" style="height:100px"></div>
+<script>
+var r13 = () => brender("(call (D ln) x0)", "blocklyDiv22a");
+r13();
+</script>
 ```{python}
 call(D(ln), x0)
 ```
+<div class="desc" id="blocklyDiv22a_t">
+word
+</div>
 </details>
 
+::: {.column-margin}
+<a href="#13" onClick="r13(); cleandiv('blocklyDiv22a_t');">_</a>
+:::
+
 <details>
-<summary>15</summary>
+<summary id="14">14</summary>
 $$\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
+<div class="desc" id="tex14_t">
+word
+</div>
 </details>
 
+::: {.column-margin}
+<a href="#14" onClick="cleandiv('tex14_t');">_</a>
+:::
+
+
 <details>
-<summary>16</summary>
-<div id="blocklyDivpipe" class="jxgbox" style="height:100px"></div>
-<script>brender("((D ln) x0)", "blocklyDivpipe")</script>
+<summary id="15">15</summary>
+<div id="blocklyDivpipe" style="height:100px"></div>
+<script>
+var r15 = () => brender("((D ln) x0)", "blocklyDivpipe");
+r15();
+</script>
 
 ```{python}
 (D(ln) | x0)
 ```
+<div class="desc" id="blocklyDivpipe_t">
+word
+</div>
 </details>
 
+::: {.column-margin}
+<a href="#15" onClick="r15(); cleandiv('blocklyDivpipe_t');">_</a>
+:::
+
 <details>
-<summary>17</summary>
-<div id="blocklyDivpipe2" class="jxgbox" style="height:100px"></div>
-<script>brender("((log2b 220 7) 440)", "blocklyDivpipe2")</script>
+<summary id="16">16</summary>
+<div id="blocklyDivpipe2" style="height:100px"></div>
+<script>
+var r16 = () => brender("((log2b 220 7) 440)", "blocklyDivpipe2");
+r16();
+</script>
 
 ```{python}
 (log2b(220, 7) | 440)
 ```
+<div class="desc" id="blocklyDivpipe2_t">
+word
+</div>
 </details>
 
 ::: {.column-margin}
+<a href="#16" onClick="r16(); cleandiv('blocklyDivpipe2_t');">_</a>
 <details>
-<summary>18</summary>
+
+<summary>17</summary>
 <div style="width: 300px">
 ```{python}
 #| eval: false
@@ -558,9 +695,7 @@ def partial(*args):
 </details>
 :::
 
-<!--
 <script>
 document.querySelectorAll("details")
 .forEach(d => d.setAttribute("open", ""))
 </script>
--->
