@@ -216,7 +216,7 @@ statejs.log23.anim2();
 -->
 
 <details>
-<summary id="5">2b</summary>
+<summary id="5">3</summary>
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
 <div class="desc" id="blocklyDiv10_t">
@@ -235,7 +235,7 @@ var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv(
 :::
 
 <details>
-<summary id="3">3</summary>
+<summary id="3">4</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.many("divmanylogs");
@@ -263,7 +263,7 @@ Now I need to get more to something like this -- I need to scale the log2.
 :::
 
 <details>
-<summary id="4">4</summary>
+<summary id="4">5</summary>
 <div id="blocklyDiv5" style="height: 350px;"></div>
 <script>
 var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDiv5");
@@ -273,11 +273,8 @@ Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 var abws5 = addBlocks(ws5);
 </script>
 
-<span onClick="" style="color:blue">A</span>
-<span onClick="abws5('(def (Poe intersect steps x) (return :tiles/slot))')" style="color:blue">B</span>
-<span onClick="abws5('intersect'); abws5('steps')" style="color:blue">C</span>
-<span onClick="abws5('(Poe :tiles/slot :tiles/slot 440)')" style="color:blue">E</span>
-<span onClick="abws5('(Poe 1 1 2)')" style="color:blue">G</span>
+<span onClick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">B</span>
+
 <div class="desc" id="blocklyDiv5_t">
 I start with the formula that has been found over the centuries by stronger souls then us. The combination of music and math begins 500 BCE with Pythagoras. -- I needed to wrap this formula into a procedure. For this you have to make a decision. You have to choose names. Naming is hard. The procedure itself I give the name Poe. It takes the arguments intersect, steps and the frequency x. The procedure returns the formula. -- You have to replace the numbers by the chosen names. -- I provide the procedure as Python code. -- Now the procedure can be called with the numbers. -- Or with other numbers.
 </div>
@@ -301,6 +298,8 @@ cleandiv("blocklyDiv5_t")
 ```{python}
 def Poe(intersect, steps, x):
     return log2(x/intersect) * steps
+
+Poe(220, 7, 440)
 ```
 </div>
 </details>
@@ -339,29 +338,6 @@ observer.observe(targetNode, config);
 
 -->
 
-::: {.column-margin}
-<div>
-<details>
-<summary>F</summary>
-<div style="width: 300px">
-```{python}
-Poe(220, 7, 440)
-```
-</div>
-</details>
-
-<details>
-<summary>H</summary>
-
-<div style="width: 300px">
-```{python}
-Poe(1, 1, 2)
-```
-</div>
-</details>
-</div>
-:::
-
 <!--
 :::{.column-screen-left}
 <details>
@@ -395,9 +371,9 @@ statejs.log23.log3("divlog2x");
 <div style="width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
 </td>
 <td style="vertical-align: top">
-<div id="blocklyDiv14" style="height: 500px; width: 800px"></div>
+<div id="blocklyDiv14" style="height: 600px; width: 800px"></div>
 <script>
-var r14= () => brender("(plot (partial Poe 1 1) [1 2 4 8])", "blocklyDiv14")
+var r14= () => brender("(plot (partial Poe 220 7) [1 2 4 8])", "blocklyDiv14")
 var ws6 = r14();
 </script>
 
@@ -426,7 +402,7 @@ def log2b(intersect, steps):
 <summary>A</summary>
 <div style="width: 300px">
 ```{python}
-plot(partial(Poe, 1, 1), [1, 2, 4, 8])
+plot(partial(Poe, 220, 7), [1, 2, 4, 8])
 ```
 </div>
 </details>
@@ -435,46 +411,17 @@ plot(partial(Poe, 1, 1), [1, 2, 4, 8])
 <summary>B</summary>
 <div style="width: 300px">
 ```{python}
-plot(log2b(1, 1), [1, 2, 4, 8])
+plot(log2b(220, 7), [1, 2, 4, 8])
 ```
 </div>
 </details>
 :::
 
 <details>
-<summary id="7">7</summary>
-<div id="blocklyDiv16" style="height: 300px;"></div>
-<script>
-var r16= () => brender("(def (log2b intersect steps) (return (partial (Poe intersect steps))))", "blocklyDiv16")
-r16();
-</script>
-
-<div class="desc" id="blocklyDiv16_t">
-word
-</div>
-</details>
-
-::: {.column-margin}
-<a href="#7" onClick="r16(); cleandiv('blocklyDiv16_t')">_</a>
-:::
-
-<details>
-<summary id="8">8</summary>
-<div id="blocklyDiv16c" style="height:300px"></div>
-<script>
-var r16c= () =>brender("(plot (log2b 1 1) [1 2 4 8])", "blocklyDiv16c")
-r16c();
-</script>
-<div class="desc" id="blocklyDiv16c_t">
-word
-</div>
-</details>
-
-<details>
-<summary id="9">9</summary>
+<summary id="9">7</summary>
 <div id="blocklyDiv19" style="height: 500px;"></div>
 <script>
-r19 = () => brender(" (call (log2b 1 1) 2)", "blocklyDiv19");
+r19 = () => brender(" (call (log2b 220 7) 440)", "blocklyDiv19");
 var ws19 = r19();
 var abws19 = addBlocks(ws19);
 </script>
@@ -485,7 +432,7 @@ var abws19 = addBlocks(ws19);
 <span onClick="abws19('(call (log2b 1 0.7) x1)')" style="color:blue">D</span>
 
 <div class="desc" id="blocklyDiv19_t">
-word
+Not only can log2b be plotted. -- It can also be called with a number. The number 440 is the frequency of the standard pitch A. -- What might be surprising is that log2b can also be called with a symbol. I chose x0 as the symbol in this example. But it is arbitrary. It could also have been x1. Remember that log2 does not know anything about x or y or z. --  Also, the step argument does not need to be an integer, it can well be 0 point 7.
 </div>
 </details>
 
@@ -505,7 +452,7 @@ abws19_E('(call (log2b 1 0.7) x1)')
 <summary>A</summary>
 <div style="width: 300px">
 ```{python}
-call(log2b(1, 1), 2)
+call(log2b(220, 7), 440)
 ```
 </div>
 </details>
@@ -539,24 +486,7 @@ call(log2b(1, 0.7), x1)
 :::
 
 <details>
-<summary id="10">10</summary>
-<div id="divlog20_2" class="jxgbox" style="height:300px"></div>
-<script>
-statejs.log23.log2b("divlog20_2");
-</script>
-<span onClick=statejs.log23.log2b("divlog20_2") style="color:blue">C</span>
-<span onClick=statejs.log23.log2banim2() style="color:blue">D</span>
-<div class="desc" id="divlog20_2_t">
-word
-</div>
-</details>
-
-::: {.column-margin}
-<a href="#10" onClick="cleandiv('divlog20_2_t');">_</a>
-:::
-
-<details>
-<summary id="11">11</summary>
+<summary id="11">8</summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;"></div>
 <script>
 statejs.strfrac1ovX = "$$\\frac{1}{x}$$";
@@ -570,7 +500,7 @@ statejs.log23.logtri("divlogtri");
 <span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
 <div class="desc" id="divlogtri_t">
-word
+In fact, the case 0.7 is almost a special one. -- As any curve, it can be approximated by triangles. -- I move the triangles to the ground level. -- Their hight quite nicely fit the curve one over x. -- Or the other way around -- Well not quite as well. The trick is to shrink the area of the triangle while retaining its shape.
 </div>
 </details>
 
@@ -579,31 +509,23 @@ word
 :::
 
 <details>
-<summary id="12">12</summary>
-<div id="blocklyDiv17a" style="height:300px"></div>
+<summary id="12">9</summary>
+<div id="blocklyDiv17a" style="height:150px"></div>
 <script>var ws17a = brender("(call (log2b 1 0.7) x0)", "blocklyDiv17a")
 var ab = addBlocks(ws17a);
 </script>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 <div class="desc" id="blocklyDiv17a_t">
-word
+This triangle business smells of derivatives. -- Taking the derivate is simple and easy.
 </div>
 </details>
 
 ::: {.column-margin}
 <a href="#12" onClick="brender('(call (D (log2b 1 0.7)) x0)', 'blocklyDiv17a'); cleandiv('blocklyDiv17a_t');">_</a>
-<details>
-<summary>A</summary>
-<div style="width: 300px">
-```{python}
-call(log2b(1, 0.7), x0)
-```
-</div>
-</details>
 :::
 
 <details>
-<summary id="13">13</summary>
+<summary id="13">10</summary>
 ```{python}
 call(D(log2b(1, 0.7)), x0).evalf()
 ```
@@ -617,29 +539,28 @@ r13();
 call(D(ln), x0)
 ```
 <div class="desc" id="blocklyDiv22a_t">
-word
+If I do the actual calculation with 0.7, I nearly get one over x for the derivative. To get the exact result, I need to switch to the natural logarithm ln.
 </div>
 </details>
 
 ::: {.column-margin}
-<a href="#13" onClick="r13(); cleandiv('blocklyDiv22a_t');">_</a>
+<a href="#blocklyDiv22a" onClick="r13(); cleandiv('blocklyDiv22a_t');">_</a>
 :::
 
 <details>
-<summary id="14">14</summary>
+<summary id="14">--</summary>
 $$\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
 <div class="desc" id="tex14_t">
-word
+The usual mathematical notation for the derivative at point x0 is by unsing the vertical bar, colloquially called pipe.
 </div>
 </details>
 
 ::: {.column-margin}
-<a href="#14" onClick="cleandiv('tex14_t');">_</a>
+<a href="#blocklyDiv22a" onClick="cleandiv('tex14_t');">_</a>
 :::
 
-
 <details>
-<summary id="15">15</summary>
+<summary id="15">--</summary>
 <div id="blocklyDivpipe" style="height:100px"></div>
 <script>
 var r15 = () => brender("((D ln) x0)", "blocklyDivpipe");
@@ -650,7 +571,7 @@ r15();
 (D(ln) | x0)
 ```
 <div class="desc" id="blocklyDivpipe_t">
-word
+In my pictorial representation, I'd like to do the same. In practice, this does not mean that the D is replace by the pipe, but rather the call procedure.
 </div>
 </details>
 
@@ -659,7 +580,7 @@ word
 :::
 
 <details>
-<summary id="16">16</summary>
+<summary id="16">11</summary>
 <div id="blocklyDivpipe2" style="height:100px"></div>
 <script>
 var r16 = () => brender("((log2b 220 7) 440)", "blocklyDivpipe2");
@@ -670,15 +591,15 @@ r16();
 (log2b(220, 7) | 440)
 ```
 <div class="desc" id="blocklyDivpipe2_t">
-word
+This means that also the call to log2b is colloquially done with a pipe. -- Actually, the implementation of pipe is done quite easily with a few lines of Python.
 </div>
 </details>
 
 ::: {.column-margin}
 <a href="#16" onClick="r16(); cleandiv('blocklyDivpipe2_t');">_</a>
-<details>
 
-<summary>17</summary>
+<details>
+<summary>A</summary>
 <div style="width: 300px">
 ```{python}
 #| eval: false
