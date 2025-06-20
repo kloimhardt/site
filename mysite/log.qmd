@@ -8,7 +8,7 @@ format:
     self-contained: false
 jupyter: python3
 execute:
-  cache: false
+  cache: true
 ---
 <script type="text/javascript" charset="UTF-8"
  src="jsfiles/jsxgraph/distrib/jsxgraphcore.js"></script>
@@ -164,7 +164,7 @@ print("</script>")
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 
 <div class="desc" id="divnotes2_t">
-word
+Sometimes, you need to start with the basics. Especially, when there is more than one way to do things. I'd like to show you how I do plots. I needed to make a choice for the object to plot. It could have been anyone, but I thought I take the logarithm. After all, it is not widely recognized that our musical scale is logarithmic. -- I figured that would make a good start.
 </div>
 </details>
 
@@ -183,7 +183,7 @@ cleandiv("blocklyDivLog2_t")
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-word
+To fit the notes, you need to take the log2 and scale it a bit -- But I have jumped ahead. Let's get to the basics of plotting.
 </div>
 </details>
 
@@ -216,6 +216,25 @@ statejs.log23.anim2();
 -->
 
 <details>
+<summary id="5">2b</summary>
+<div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
+<script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
+<div class="desc" id="blocklyDiv10_t">
+You can readily plot the log2. And I already hit the major point here. It is the log2 that you plot. The log2 is a perfectly good mathematical object. It is not the log2 of x or y or z. It is just log2. People often get confused about this.
+</div>
+```{python}
+plot(log2, [1, 2, 4, 8])
+```
+<script>
+var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv("blocklyDiv10_t");}
+</script>
+</details>
+
+::: {.column-margin}
+<a href="#5" onClick=clean5()>_</a>
+:::
+
+<details>
 <summary id="3">3</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
@@ -235,7 +254,7 @@ var clean3 = () => {mywait(); cleandiv("divmanylogs_t")}
 <span onClick=statejs.log23.many("divmanylogs") style="color:blue">A</span>
 <span onClick=mywait() style="color:blue">B</span>
 <div class="desc" id="divmanylogs_t">
-A The choice of 220 for intersecting the x axis was arbitrary. The musical scale will always fit onto the curve as long as the number of steps is seven. B As a demonstration, I draw some other possible choices for the intersection. For the green curves, I needed a more general formula.
+Now I need to get more to something like this -- I need to scale the log2.
 </div>
 
 </details>
@@ -247,7 +266,7 @@ A The choice of 220 for intersecting the x axis was arbitrary. The musical scale
 <summary id="4">4</summary>
 <div id="blocklyDiv5" style="height: 350px;"></div>
 <script>
-var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))", "blocklyDiv5");
+var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDiv5");
 
 var addBlocks = (ws) => (s) =>
 Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
@@ -255,19 +274,21 @@ var abws5 = addBlocks(ws5);
 </script>
 
 <span onClick="" style="color:blue">A</span>
-<span onClick="abws5('(def (log2a intersect steps x) (return :tiles/slot))')" style="color:blue">B</span>
-<span onClick="abws5('(log2a 220 7 440)')" style="color:blue">D</span>
-<span onClick="abws5('(log2a 1 1 2)')" style="color:blue">F</span>
+<span onClick="abws5('(def (Poe intersect steps x) (return :tiles/slot))')" style="color:blue">B</span>
+<span onClick="abws5('intersect'); abws5('steps')" style="color:blue">C</span>
+<span onClick="abws5('(Poe :tiles/slot :tiles/slot 440)')" style="color:blue">E</span>
+<span onClick="abws5('(Poe 1 1 2)')" style="color:blue">G</span>
 <div class="desc" id="blocklyDiv5_t">
-A The formula used to draw the green graphs does not contain numbers anymore. Instead, the new formula contains two parameters. The first parameter is called intersect. The second parameter is called steps. B - I needed to wrap this formula into a function. I called this new function log2a. You simply put the formula into its return statement. - C The syntax to define the function is Python syntax. D I calculate the result for the frequency 440. E As expected, you get the number 7. F I now chose to set both intersection and steps to unity. G I calculate the result for the value 2. The result is the number 1.
+I start with the formula that has been found over the centuries by stronger souls then us. The combination of music and math begins 500 BCE with Pythagoras. -- I needed to wrap this formula into a procedure. For this you have to make a decision. You have to choose names. Naming is hard. The procedure itself I give the name Poe. It takes the arguments intersect, steps and the frequency x. The procedure returns the formula. -- You have to replace the numbers by the chosen names. -- I provide the procedure as Python code. -- Now the procedure can be called with the numbers. -- Or with other numbers.
 </div>
 </details>
+
 <script>
 var four_ = () => {
-var ws4u = brender(" (def (log2a intersect steps x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5");
+var ws4u = brender(" (def (Poe intersect steps x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5");
 var abws4u = addBlocks(ws4u);
-abws4u('(log2a 220 7 440)')
-abws4u('(log2a 1 1 2)')
+abws4u('(Poe 220 7 440)')
+abws4u('(Poe 1 1 2)')
 cleandiv("blocklyDiv5_t")
 }
 </script>
@@ -275,10 +296,10 @@ cleandiv("blocklyDiv5_t")
 ::: {.column-margin}
 <a href="#4" onClick=four_()>_</a>
 <details>
-<summary>C</summary>
+<summary>D</summary>
 <div style="width: 300px">
 ```{python}
-def log2a(intersect, steps, x):
+def Poe(intersect, steps, x):
     return log2(x/intersect) * steps
 ```
 </div>
@@ -321,20 +342,20 @@ observer.observe(targetNode, config);
 ::: {.column-margin}
 <div>
 <details>
-<summary>E</summary>
+<summary>F</summary>
 <div style="width: 300px">
 ```{python}
-log2a(220, 7, 440)
+Poe(220, 7, 440)
 ```
 </div>
 </details>
 
 <details>
-<summary>G</summary>
+<summary>H</summary>
 
 <div style="width: 300px">
 ```{python}
-log2a(1, 1, 2)
+Poe(1, 1, 2)
 ```
 </div>
 </details>
@@ -366,25 +387,6 @@ statejs.log23.log3("divlog2x");
 :::
 -->
 
-<details>
-<summary id="5">5</summary>
-<div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
-<script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
-<div class="desc" id="blocklyDiv10_t">
-Word
-</div>
-```{python}
-plot(log2, [1, 2, 4, 8])
-```
-<script>
-var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv("blocklyDiv10_t");}
-</script>
-
-</details>
-::: {.column-margin}
-<a href="#5" onClick=clean5()>_</a>
-:::
-
 :::{.column-screen-left}
 <details>
 <summary id="6">6</summary>
@@ -393,18 +395,29 @@ var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv(
 <div style="width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
 </td>
 <td style="vertical-align: top">
-<div id="blocklyDiv14" style="height: 300px; width: 800px"></div>
+<div id="blocklyDiv14" style="height: 500px; width: 800px"></div>
 <script>
-var r14= () => brender("(plot (partial log2a 1 1) [1 2 4 8])", "blocklyDiv14")
-r14();
+var r14= () => brender("(plot (partial Poe 1 1) [1 2 4 8])", "blocklyDiv14")
+var ws6 = r14();
 </script>
+
+<span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">D</span>
+
+
 <div class="desc" id="blocklyDiv14_t">
-word
+The procedure I named Poe cannot be plot directly. Only mathematical objects can be drawn. To make a mathematical object out of Poe, you use a procedure named partial. -- Only then can you plot the log2. -- Here is the main theme in spades. Partial taking a procedure to deliver the math to plot.
 </div>
 </td>
 </tr></table>
 
 </details>
+:::
+
+::: {.hidden}
+```{python}
+def log2b(intersect, steps):
+    return partial(Poe, intersect, steps)
+```
 :::
 
 ::: {.column-margin}
@@ -413,7 +426,16 @@ word
 <summary>A</summary>
 <div style="width: 300px">
 ```{python}
-plot(partial(log2a, 1, 1), [1, 2, 4, 8])
+plot(partial(Poe, 1, 1), [1, 2, 4, 8])
+```
+</div>
+</details>
+
+<details>
+<summary>B</summary>
+<div style="width: 300px">
+```{python}
+plot(log2b(1, 1), [1, 2, 4, 8])
 ```
 </div>
 </details>
@@ -423,7 +445,7 @@ plot(partial(log2a, 1, 1), [1, 2, 4, 8])
 <summary id="7">7</summary>
 <div id="blocklyDiv16" style="height: 300px;"></div>
 <script>
-var r16= () => brender("(def (log2b intersect steps) (return (partial (log2a intersect steps))))", "blocklyDiv16")
+var r16= () => brender("(def (log2b intersect steps) (return (partial (Poe intersect steps))))", "blocklyDiv16")
 r16();
 </script>
 
@@ -434,13 +456,6 @@ word
 
 ::: {.column-margin}
 <a href="#7" onClick="r16(); cleandiv('blocklyDiv16_t')">_</a>
-:::
-
-::: {.hidden}
-```{python}
-def log2b(intersect, steps):
-    return partial(log2a, intersect, steps)
-```
 :::
 
 <details>
@@ -454,18 +469,6 @@ r16c();
 word
 </div>
 </details>
-
-::: {.column-margin}
-<a href="#8" onClick="r16c(); cleandiv('blocklyDiv16c_t')">_</a>
-<details>
-<summary>A</summary>
-<div style="width: 300px">
-```{python}
-plot(log2b(1, 1), [1, 2, 4, 8])
-```
-</div>
-</details>
-:::
 
 <details>
 <summary id="9">9</summary>
