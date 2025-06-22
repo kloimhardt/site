@@ -1,0 +1,232 @@
+.container {
+  width: 650px;
+}
+
+body {
+ background-color: white;
+}
+
+body, p {
+ font-family: medium-content-serif-font,Georgia,Cambria,"Times New Roman",Times,serif;
+
+ /* font-family: "Droid Serif", "Georgia", "Times New Roman", "Palatino", "Hoefler Text", "Baskerville", serif; */
+ font-size: 17px;
+ line-height: 1.85;
+}
+
+
+h1, h2, h3 { 
+line-height: 40px;
+margin-top:0; margin-bottom:0; 
+
+}
+h1 { font-size:1.5em; margin:2.04167em 0; }
+h2 { font-size:1.02em; margin:2em 0; }
+h3 { font-size:1.16667em; margin:2.125em 0; }
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+      
+  text-transform: uppercase;
+  color: #333;
+  font-family: medium-content-sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif
+  /* font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif; */
+ /* font-family: "CartoGothic Std", "Verdana", "Lucida Grande", "Gill Sans", "Arial", "Helvetica", sans-serif; */
+}
+
+pre, p, ul{
+  margin-bottom: 1.75em;
+}
+
+p.meta {
+ color: #999;
+ font-size: 0.8em;
+}
+
+.post_header {
+  margin-top: 8.75em;
+  margin-bottom: 8.75em;
+  text-align: center;
+}
+
+.post_header .title {
+  font-family: "CartoGothic Std", "Verdana", "Lucida Grande", "Gill Sans", "Arial", "Helvetica", sans-serif;
+  font-weight: bold;
+  font-size: 3.0em;
+}
+
+.post_header .author {
+  font-size: 0.75em;
+  color: #666;
+  position: relative;
+  top: -10px;
+}
+
+.post_header .date {
+  color: #aaa;
+  font-style: italic;
+}
+
+code, pre {
+  font-family: "TeX Gyre Cursor", Menlo, Courier New, Courier, Mono, monospace; 
+}
+
+/* tag_box ======================================================== */
+
+.tag_box {
+	list-style:none;
+	margin:0;
+	padding:5px 0 ;
+	overflow:hidden;
+}
+.tag_box li {
+	line-height:28px;
+}
+.tag_box.inline li {
+	float:left;
+}
+.tag_box a {
+	padding: 3px 6px;
+	margin: 2px;
+	background: #eee;
+	color:#005F6B;
+	border-radius: 3px;
+	text-decoration:none;
+}
+.tag_box a span{
+	vertical-align:super;
+	font-size:0.8em;
+}
+.tag_box a.active {
+	background:#57A957;
+	border:1px solid #4C964D;
+	color:#FFF;
+}
+	
+.posts_collation, .contact {
+  font-size: 0.8em;
+}
+
+.posts_collation h4, .contact h4 {
+  padding-bottom: 1em;
+}
+
+.posts_collation a {
+  display: block;
+  padding-bottom: 1em;
+}
+
+.content {
+  margin-bottom: 4em;
+}
+
+footer { 
+  font-size: 0.5em;
+  color: #666;
+  margin-top: 8em;
+}
+
+.posts {
+  margin-top: 1em;
+}
+
+.posts li {
+  margin-bottom: 0.5em;
+}
+
+.footer {
+  margin-top: 4em;
+}
+
+.posts li span.post_date {
+  color: #bbb;
+  width: 100px
+}
+
+.posts li span {
+  display: inline-block;
+  max-width: 463px;
+  vertical-align: top;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 480px){
+    .container { 
+        width: auto;
+    }
+    .posts li span {
+      display: block;
+    }
+   .posts li span.post_date {
+      text-align: center;
+      width: 100%;
+   }
+   .http_request, .node_tree {
+     font-size: 0.7em;
+   }
+
+   .youtube-video {
+     width: 620px;
+     height: 465px;
+   }
+
+}
+
+code {
+   font-size: 16px;
+}
+
+.clojure, .javascript {
+  font-size: 14px;
+}
+
+.devcard-padding-top {
+    padding-top: 14px;
+}
+
+
+@media (max-width: 480px) {
+  .clojure {
+    font-size: 12px;
+  }
+  .highlight pre {
+    word-break: normal;
+    word-wrap: normal;
+    overflow-x: scroll;
+  }
+  .highlight pre code {
+    white-space: pre;
+  }
+}
+
+@media (max-width: 480px) {
+  .highlight, blockquote, .breadcrumb, .example {
+    margin-left: -15px;
+    margin-right: -15px;
+    border-radius: 0px;    
+  }
+  .highlight pre {
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0px;
+  }
+  p code {
+    white-space: normal !important;
+  }
+}
+

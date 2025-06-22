@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://kloimhardt.github.io/site/about.html</loc>
-    <lastmod>2025-05-06T08:56:24.961Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kloimhardt.github.io/site/twotiles.html</loc>
-    <lastmod>2025-05-06T15:08:59.142Z</lastmod>
+    <loc>https://kloimhardt.github.io/site/log.html</loc>
+    <lastmod>2025-06-22T14:46:47.760Z</lastmod>
   </url>
   <url>
     <loc>https://kloimhardt.github.io/site/index.html</loc>
     <lastmod>2025-05-06T08:59:37.747Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kloimhardt.github.io/site/lise.html</loc>
+    <lastmod>2025-06-22T14:46:47.759Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kloimhardt.github.io/site/twotiles.html</loc>
+    <lastmod>2025-06-22T14:46:47.762Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kloimhardt.github.io/site/about.html</loc>
+    <lastmod>2025-05-06T08:56:24.961Z</lastmod>
   </url>
 </urlset>
