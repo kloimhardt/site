@@ -47,18 +47,19 @@ var cleandiv = (divid) => {
 const el = document.getElementById(divid);
 while (el.firstChild) el.removeChild(el.firstChild);
 }
-var brender = (code,divid) => {
+var brenderT = (code,divid, bTrash) => {
 cleandiv(divid);
 let ws = Blockly.inject(divid,
 {"sounds": false,
 "scrollbars": false,
-"trashcan": false});
+"trashcan": bTrash});
 
 Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)), ws);
 
 return ws;
 }
 
+var brender = (code,divid) => brenderT(code,divid, false)
 </script>
 
 <script>var statejs = {};</script>
@@ -169,7 +170,7 @@ print("</script>")
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 
 <div class="desc" id="divnotes2_t">
-Sometimes, you need to start with the basics. I am sure you all have your own ways to do graphs. Now I'd like to show my approach. I needed to make a choice for the mathematical target to plot. It could have been anyone. I chose the musical scale. -- The notes are logarithmic. I figured that would make a good start.
+Sometimes, you need to start with the basics. I am sure you all have your own ways to do graphs. So you don't really need this, but I think my way has its own value. In a minute, I will show the main point for you to decide. But in the first step, I needed to make a choice for the mathematical target to plot. It could have been anyone. I chose the musical scale. -- The notes are logarithmic.
 </div>
 </details>
 
@@ -177,23 +178,24 @@ Sometimes, you need to start with the basics. I am sure you all have your own wa
 <a href="#1" onClick="statejs.notes.anim6(); cleandiv('divnotes2_t')">_</a>
 :::
 
+<script>var wslog2; //for .markFocused() , but that does not prevent the scrolling down to the last workspace</script>
+
 <details>
 <summary id="2">2</summary>
-<div id="blocklyDivLog2" style="height: 300px;"></div>
+<div onClick="wslog2.markFocused();" id="blocklyDivLog2" style="height: 300px;"></div>
 <script>
 function v2() {
-brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2");
-cleandiv("blocklyDivLog2_t")
+wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDivLog2");
 }
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-To make the log2 fit the notes, you need to scale it accordingly. -- But I have jumped ahead. I need to plot the plain log2 first.
+To make it fit the notes, you need to insert some scale factors into the logarithmic formula. -- But I have jumped ahead. I need to plot the plain log2 first.
 </div>
 </details>
 
 ::: {.column-margin}
-<a href="#2" onClick=v2()>_</a>
+<a href="#2" onClick="v2(); cleandiv('blocklyDivLog2_t')">_</a>
 :::
 
 ::: {.hidden}
@@ -225,7 +227,7 @@ statejs.log23.anim2();
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
 <div class="desc" id="blocklyDiv10_t">
-And here, I already hit the main message of my presentation. It is this. -- It is the log2 that you plot. This is so obvious that I repeat: It is the log2 that you plot. The log2 is a perfectly good mathematical object. It is not the log2 of x or y or z. It is just log2. You plot just log2. That, in a nutshell, is my approach for plotting.
+And here, I hit the main message of my presentation. It is this. -- It is the log2 that you plot. This is so obvious that I repeat: It is the log2 that you plot. The log2 is a perfectly good mathematical object. It is not the log2 of x or y or z. It is just log2. You plot just log2. That, in a nutshell, is my approach for plotting.
 </div>
 
 ```{python}
@@ -261,7 +263,7 @@ var clean3 = () => {mywait(); cleandiv("divmanylogs_t")}
 <span onClick=statejs.log23.many("divmanylogs") style="color:blue">A</span>
 <span onClick=mywait() style="color:blue">B</span>
 <div class="desc" id="divmanylogs_t">
-While I do worry that my viewers did not have the time to digest, I move on towards the practical goal. -- I need to get more to something like this. I need a scaled version of the log2.
+While I do worry that I have not given my viewers enough time to digest this, I move on towards the practical goal. -- I need to get more to something like this.
 </div>
 
 </details>
@@ -280,10 +282,12 @@ Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 var abws5 = addBlocks(ws5);
 </script>
 
+
+<span style="color:blue">A</span>
 <span onClick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">B</span>
 
 <div class="desc" id="blocklyDiv5_t">
-To come up with this formula that I already showed at the beginning, I did lots of plots and trial and error and mistakes. The mistakes are the error part in trial and error. But I cannot plot a formula. The main theme again. I need a proper mathematical target to plot. -- To get such a target, I need to wrap this formula into a procedure. For this you have to make a decision. You have to choose names. Naming is hard. -- The procedure itself I gave the name Poe. It takes the arguments intersect, steps and the frequency x. -- The procedure returns the formula. -- You have to replace the numbers by the chosen names. -- I provide the procedure as Python code.
+To plot the notes, I come back to the formula I showed at the beginning. I arrived at this formula by trial and error. This formula is the result of my plots and mistakes, the digested essence. You cannot plot this formula directly, at least when using my approach. This is the main theme again. I need a proper mathematical target to plot. -B- To get such a target, I need to wrap this formula into a procedure. -- The procedure itself I gave the name Poe. It takes the arguments intersect, steps and the frequency x. -- The procedure returns the formula. -- You have to replace the numbers by the chosen names. -C- I provide the procedure as Python code.
 </div>
 </details>
 
@@ -300,7 +304,7 @@ cleandiv("blocklyDiv5_t")
 ::: {.column-margin}
 <a href="#4" onClick=four_()>_</a>
 <details>
-<summary>D</summary>
+<summary>C</summary>
 <div style="width: 300px">
 ```{python}
 def Poe(intersect, steps, x):
@@ -378,7 +382,7 @@ statejs.log23.log3("divlog2x");
 <div style="width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
 </td>
 <td style="vertical-align: top">
-<div id="blocklyDiv14" style="height: 600px; width: 800px"></div>
+<div id="blocklyDiv14" style="height: 400px; width: 800px"></div>
 <script>
 var r14= () => brender("(plot (partial Poe 220 7) [1 2 4 8])", "blocklyDiv14")
 var ws6 = r14();
@@ -388,7 +392,7 @@ var ws6 = r14();
 
 
 <div class="desc" id="blocklyDiv14_t">
-The procedure named Poe is not yet the mathematical target. Poe cannot be plot directly. To make the desired mathematical target out of Poe, I need to use a standard maneuver of computer science. You take the partial of Poe. -- Here is my main theme in spades: "partial" taking a procedure to deliver the target to plot. Only now can you plot the scaled log2. -- All this can in turn be wrapped in a procedure. -- If all this is too much, maybe it helps that this notebook is online if you like to try yourself.
+The procedure named Poe is not yet the mathematical target. The procedure Poe which does the calculation according to the original formula shares the same fate as this formula: also Poe cannot be plotted directly. To make the desired mathematical target out of Poe, I need to use a standard maneuver of computer science. You take the partial of Poe. -- Here is my main theme in spades: "partial" taking a procedure to deliver the target to plot. Only now can you plot the scaled log2. -- All this can in turn be wrapped in a procedure. -- If all this is too much, maybe it helps that this notebook is online if you like to try yourself.
 </div>
 </td>
 </tr></table>
@@ -426,28 +430,27 @@ plot(log2b(220, 7), [1, 2, 4, 8])
 
 <details>
 <summary id="9">7</summary>
-<div id="blocklyDiv19" style="height: 500px;"></div>
+<span onClick="" style="color:blue">A</span>
+<span onClick="abws19('x1')" style="color:blue">x1</span>
+<span onClick="abws19('0.7')" style="color:blue">0.7</span>
+<div id="blocklyDiv19" style="height: 300px;"></div>
 <script>
-r19 = () => brender("(call (log2b 1 1) x0)", "blocklyDiv19");
+r19 = () => brenderT("(call (log2b 1 1) x0)", "blocklyDiv19", true);
 var ws19 = r19();
 var abws19 = addBlocks(ws19);
 </script>
 
-<span onClick="" style="color:blue">A</span>
-<span onClick="abws19('(call (log2b 1 1) x1)')" style="color:blue">C</span>
-<span onClick="abws19('(call (log2b 1 0.7) x1)')" style="color:blue">D</span>
-
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. -- It can also be called with a number. The number 440 is the frequency of the standard pitch A. -- What might be surprising is that log2b can also be called with a symbol. I chose x0 as the symbol in this example. But it is arbitrary. It could also have been x1. Remember that log2 does not know anything about x or y or z. --  Also, the step argument does not need to be an integer, it can well be 0 point 7.
+Not only can log2b be plotted. Log2b can also be called. What might be surprising is that log2b can be called with a symbol. -- I chose x0 as the symbol in this example. -- But it is arbitrary. It could also have been x1. Remember that log2 does not know anything about x or y or z. --  Also, the step argument does not need to be an integer, it can well be 0 point 7.
 </div>
 </details>
 
 <script>
 var fu19 = () => {
-var ws19_E = r19();
+var ws19_E = brenderT("(call (log2b 1 0.7) x1)", "blocklyDiv19", true);
 var abws19_E = addBlocks(ws19_E);
-abws19_E('(call (log2b 1 1) x1)')
-abws19_E('(call (log2b 1 0.7) x1)')
+// abws19_E('(call (log2b 1 1) x1)')
+// abws19_E('(call (log2b 1 0.7) x1)')
 }
 </script>
 
@@ -496,7 +499,7 @@ statejs.log23.logtri("divlogtri");
 <span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
 <div class="desc" id="divlogtri_t">
-In fact, the case 0.7 is almost a special one. -- As any curve, it can be approximated by triangles. -- I move the triangles to the ground level. -- Their hight quite nicely fit the curve one over x. -- Or the other way around -- Well not quite as well. The trick is to shrink the area of the triangle while retaining its shape.
+In fact, the case 0.7 is almost a special one. -- As any curve, it can be approximated by triangles. -- I move the triangles to the ground level. -- Now the curve known as "one over x" fits their hights quite nicely. -- You can also try the other way around -- That does not work quite as well. -- The trick is to shrink the area of the triangle while retaining its shape.
 </div>
 </details>
 
@@ -567,7 +570,7 @@ r15();
 (D(ln) | x0)
 ```
 <div class="desc" id="blocklyDivpipe_t">
-In my pictorial representation, I'd like to do the same. In practice, this does not mean that the D is replace by the pipe, but rather the call procedure.
+In my pictorial representation, I'd like to do the same. Note that it is not the D procedure that is representd by the pipe symbol. It is the call procedure that is dropped and replaced by the pipe.
 </div>
 </details>
 
@@ -587,7 +590,7 @@ r16();
 (log2b(220, 7) | 440)
 ```
 <div class="desc" id="blocklyDivpipe2_t">
-This means that also the call to log2b is colloquially done with a pipe. -- Actually, the implementation of pipe is done quite easily with a few lines of Python.
+All this means that also a direct call to log2b can be done with a pipe. -- You might think that such a custom pipe is a lot of work. This is not so. My custom pipe is just a few lines of Python.
 </div>
 </details>
 
