@@ -10,8 +10,12 @@ format:
     smooth-scroll: true
 jupyter: python3
 execute:
-  cache: true
+  cache: false
 ---
+<!--
+Before publishing:
+* set cache to false
+-->
 <script>
 document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
@@ -108,7 +112,10 @@ def rnd(expr):
      return expr.xreplace({n: round(n, 3) for n in expr.atoms(sympy.Number)})
 
 def plot(f, x):
-    plt.plot(x, mapv(f, x), "o")
+    if str(f)==f:
+       return "That's not something you can plot"
+    else:
+       plt.plot(x, mapv(f, x), "o")
 ```
 :::
 
@@ -190,7 +197,11 @@ wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyD
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-To make it fit the notes, you need to insert some scale factors into the logarithmic formula. -- But I have jumped ahead. I need to plot the plain log2 first.
+To make it fit the notes, you need to insert some scale factors into the logarithmic formula. -- You can play with the formula youself. This notebook is online at the following address
+
+<a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a>
+
+But I have jumped ahead. I need to start with plotting the plain log2.
 </div>
 </details>
 
@@ -227,7 +238,7 @@ statejs.log23.anim2();
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
 <div class="desc" id="blocklyDiv10_t">
-And here, I hit the main message of my presentation. It is this. -- It is the log2 that you plot. This is so obvious that I repeat: It is the log2 that you plot. The log2 is a perfectly good mathematical object. It is not the log2 of x or y or z. It is just log2. You plot just log2. That, in a nutshell, is my approach for plotting.
+And here, I hit the main message of my presentation. It is this. -- It is the log2 that you plot. This is so obvious that I'd like to talk about what log2 is not. It is not the log2 of x or y or z. It is not some string or text that contains the word log2. So what is log2? It is a mathematical object. I restrict myself to plotting those things only and show a way to overcome this restriction. Mastering this challange will lead to fruitful insights beyond plotting, namely for calculating derivatives.
 </div>
 
 ```{python}
@@ -284,10 +295,10 @@ var abws5 = addBlocks(ws5);
 
 
 <span style="color:blue">A</span>
-<span onClick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">B</span>
+<span onClick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">C</span>
 
 <div class="desc" id="blocklyDiv5_t">
-To plot the notes, I come back to the formula I showed at the beginning. I arrived at this formula by trial and error. This formula is the result of my plots and mistakes, the digested essence. You cannot plot this formula directly, at least when using my approach. This is the main theme again. I need a proper mathematical target to plot. -B- To get such a target, I need to wrap this formula into a procedure. -- The procedure itself I gave the name Poe. It takes the arguments intersect, steps and the frequency x. -- The procedure returns the formula. -- You have to replace the numbers by the chosen names. -C- I provide the procedure as Python code.
+To plot the notes, I come back to the formula I showed at the beginning. This formula is the result of my trials and errors, a process I do not want to talk about. I just present it as the result of my plots and mistakes. The formula is the digested essence. Within my restrictions, you cannot plot this formula directly -B- That's not something you can plot. This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to wrap this formula into a procedure. -- The procedure itself I gave the name Poe. It takes the arguments intersect, steps and the frequency x. -- The procedure returns the formula. -- You have to replace the numbers by the chosen names. -D- I provide the procedure as Python code.
 </div>
 </details>
 
@@ -303,8 +314,18 @@ cleandiv("blocklyDiv5_t")
 
 ::: {.column-margin}
 <a href="#4" onClick=four_()>_</a>
+
 <details>
-<summary>C</summary>
+<summary>B</summary>
+<div style="width: 300px">
+```{python}
+plot("log2(x / 220) * 7", [1, 2, 4, 8])
+```
+</div>
+</details>
+<details>
+
+<summary>D</summary>
 <div style="width: 300px">
 ```{python}
 def Poe(intersect, steps, x):
@@ -388,11 +409,11 @@ var r14= () => brender("(plot (partial Poe 220 7) [1 2 4 8])", "blocklyDiv14")
 var ws6 = r14();
 </script>
 
-<span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">D</span>
+<span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">B</span>
 
 
 <div class="desc" id="blocklyDiv14_t">
-The procedure named Poe is not yet the mathematical target. The procedure Poe which does the calculation according to the original formula shares the same fate as this formula: also Poe cannot be plotted directly. To make the desired mathematical target out of Poe, I need to use a standard maneuver of computer science. You take the partial of Poe. -- Here is my main theme in spades: "partial" taking a procedure to deliver the target to plot. Only now can you plot the scaled log2. -- All this can in turn be wrapped in a procedure. -- If all this is too much, maybe it helps that this notebook is online if you like to try yourself.
+The procedure named Poe is not yet the mathematical target. The procedure Poe which does the calculation according to the original formula shares the same fate as this formula: also Poe cannot be plotted directly. -A- To make the desired mathematical target out of Poe, I need to do an operation that is a standard in computer science. You call a procedure named "partial" and give it "Poe" as the argument. Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- All this can in turn be wrapped in yet another procedure. -C-
 </div>
 </td>
 </tr></table>
@@ -419,7 +440,7 @@ plot(partial(Poe, 220, 7), [1, 2, 4, 8])
 </details>
 
 <details>
-<summary>B</summary>
+<summary>C</summary>
 <div style="width: 300px">
 ```{python}
 plot(log2b(220, 7), [1, 2, 4, 8])
@@ -441,7 +462,7 @@ var abws19 = addBlocks(ws19);
 </script>
 
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. Log2b can also be called. What might be surprising is that log2b can be called with a symbol. -- I chose x0 as the symbol in this example. -- But it is arbitrary. It could also have been x1. Remember that log2 does not know anything about x or y or z. --  Also, the step argument does not need to be an integer, it can well be 0 point 7.
+Not only can log2b be plotted. Log2b can also be called. -B- What might be surprising is that log2b can be called with a symbol. I chose x0 as the symbol in this example. -x1- But it was arbitrary. It can also choose x1 as a symbol. You know, log2 does not know anything about x or y or z. -0.7-  Also, the step argument does not need to be an integer, it can well be 0 point 7.
 </div>
 </details>
 
@@ -499,7 +520,7 @@ statejs.log23.logtri("divlogtri");
 <span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
 <div class="desc" id="divlogtri_t">
-In fact, the case 0.7 is almost a special one. -- As any curve, it can be approximated by triangles. -- I move the triangles to the ground level. -- Now the curve known as "one over x" fits their hights quite nicely. -- You can also try the other way around -- That does not work quite as well. -- The trick is to shrink the area of the triangle while retaining its shape.
+In fact, the case 0.7 is an interesting one. -B- As any curve, it can be approximated by triangles. -C- I move the triangles to the ground level. -D- Now the curve known as "one over x" fits their hights quite nicely. -E- You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area of the triangle while retaining its shape.
 </div>
 </details>
 
@@ -538,7 +559,7 @@ r13();
 call(D(ln), x0)
 ```
 <div class="desc" id="blocklyDiv22a_t">
-If I do the actual calculation with 0.7, I nearly get one over x for the derivative. To get the exact result, I need to switch to the natural logarithm ln.
+If I run the Python code with 0.7, I nearly get one over x for the derivative. To get the exact result, I need to switch to the natural logarithm ln. The pictures above are the pinnacle of my presentation. To prove the importance of them, I drop you some names. In math, the procedure named "call" would be akin to a functional, D is an operator. In computer science, both are called higher order functions. ln is of course a function.
 </div>
 </details>
 
@@ -550,7 +571,7 @@ If I do the actual calculation with 0.7, I nearly get one over x for the derivat
 <summary id="14">--</summary>
 $$\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
 <div class="desc" id="tex14_t">
-The usual mathematical notation for the derivative at point x0 is by unsing the vertical bar, colloquially called pipe.
+I'd like to wind down with a note on notation. The usual notation for the derivative at point x-naught is by unsing the vertical bar, colloquially called pipe.
 </div>
 </details>
 
@@ -570,7 +591,7 @@ r15();
 (D(ln) | x0)
 ```
 <div class="desc" id="blocklyDivpipe_t">
-In my pictorial representation, I'd like to do the same. Note that it is not the D procedure that is representd by the pipe symbol. It is the call procedure that is dropped and replaced by the pipe.
+In my pictorial representation, I also like to use the pipe symbol. Note that it is not the D operator that is replaced by the pipe, but it is the call functional that is dropped.
 </div>
 </details>
 
