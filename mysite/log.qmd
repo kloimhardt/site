@@ -10,12 +10,16 @@ format:
     smooth-scroll: true
 jupyter: python3
 execute:
-  cache: false
+  cache: true
 ---
 <!--
 Before publishing:
 * set cache to false
+* outcomment scittle nrepl
+* open all sections
+* get GClef local
 -->
+
 <script>
 document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
@@ -177,7 +181,7 @@ print("</script>")
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 
 <div class="desc" id="divnotes2_t">
-Sometimes, you need to start with the basics. I am sure you all have your own ways to do graphs. So you don't really need this, but I think my way has its own value. In a minute, I will show the main point for you to decide. But in the first step, I needed to make a choice for the mathematical target to plot. It could have been anyone. I chose the musical scale. -- The notes are logarithmic.
+Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way has, I think, its merits but that's for you to decide. I'll come to its main quality in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. -- The notes are logarithmic.
 </div>
 </details>
 
@@ -197,11 +201,11 @@ wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyD
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-To make it fit the notes, you need to insert some scale factors into the logarithmic formula. -- You can play with the formula youself. This notebook is online at the following address
+It is not the plain log2 that fits the notes. There need to be some scale factors. -- Because this notebook is online at the following address
 
 <a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a>
 
-But I have jumped ahead. I need to start with plotting the plain log2.
+You can play with the formula yourself. But I have jumped ahead. The story starts with plotting the plain log2 which already hits the main message of my presentation.
 </div>
 </details>
 
@@ -238,7 +242,7 @@ statejs.log23.anim2();
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
 <div class="desc" id="blocklyDiv10_t">
-And here, I hit the main message of my presentation. It is this. -- It is the log2 that you plot. This is so obvious that I'd like to talk about what log2 is not. It is not the log2 of x or y or z. It is not some string or text that contains the word log2. So what is log2? It is a mathematical object. I restrict myself to plotting those things only and show a way to overcome this restriction. Mastering this challange will lead to fruitful insights beyond plotting, namely for calculating derivatives.
+The message is this. -- It is the log2 that you plot. This is so obvious that I'd like to state what log2 is not. It is not the log2 of x or y or z. It is not some string or text that contains the word log2. So what is log2? It is a mathematical object. The plot routine I am using to plot log2 is a certain Python procedure that is severely restricted. Only mathematical targets, and only those, can be plotted. The tools utilised to work within this restriction will continue to serve other purposes beyond plotting. The pinnacle of this presentation shows those tools providing a new way for the notation and calculation of derivatives.
 </div>
 
 ```{python}
@@ -274,7 +278,7 @@ var clean3 = () => {mywait(); cleandiv("divmanylogs_t")}
 <span onClick=statejs.log23.many("divmanylogs") style="color:blue">A</span>
 <span onClick=mywait() style="color:blue">B</span>
 <div class="desc" id="divmanylogs_t">
-While I do worry that I have not given my viewers enough time to digest this, I move on towards the practical goal. -- I need to get more to something like this.
+Because I am aware that some time for digestion is needed, my viewers might be relieved that I now direct this column towards the practical goal. -- I need to get more to something like this. And so, I get back to the formula that appeared at the start.
 </div>
 
 </details>
@@ -298,7 +302,7 @@ var abws5 = addBlocks(ws5);
 <span onClick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">C</span>
 
 <div class="desc" id="blocklyDiv5_t">
-To plot the notes, I come back to the formula I showed at the beginning. This formula is the result of my trials and errors, a process I do not want to talk about. I just present it as the result of my plots and mistakes. The formula is the digested essence. Within my restrictions, you cannot plot this formula directly -B- That's not something you can plot. This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to wrap this formula into a procedure. -- The procedure itself I gave the name Poe. It takes the arguments intersect, steps and the frequency x. -- The procedure returns the formula. -- You have to replace the numbers by the chosen names. -D- I provide the procedure as Python code.
+The formula I showed at the start -B- is not something you can plot. This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to wrap this formula into a procedure. -- The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -- The procedure does the necessary computation, it returns the formula-computed value. -- In its code, you have to replace the numbers with the two parameters. -D- I provide the procedure as Python code.
 </div>
 </details>
 
@@ -413,7 +417,7 @@ var ws6 = r14();
 
 
 <div class="desc" id="blocklyDiv14_t">
-The procedure named Poe is not yet the mathematical target. The procedure Poe which does the calculation according to the original formula shares the same fate as this formula: also Poe cannot be plotted directly. -A- To make the desired mathematical target out of Poe, I need to do an operation that is a standard in computer science. You call a procedure named "partial" and give it "Poe" as the argument. Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- All this can in turn be wrapped in yet another procedure. -C-
+The procedure named Poe is not yet the mathematical target. This procedure doing the calculation shares the same fate as its formula: also Poe cannot be plotted directly. -A- To get the mathematical target desired for plotting, I need to perform an operation named "partial". -- You call a procedure named "partial" and give it "Poe" as the argument. Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- All this can in turn be wrapped in yet another procedure. -CA_-
 </div>
 </td>
 </tr></table>
@@ -429,7 +433,7 @@ def log2b(intersect, steps):
 :::
 
 ::: {.column-margin}
-<a href="#6" onClick="r14(); cleandiv('blocklyDiv14_t')">_</a>
+<a href="#6" onClick="var ws6t=brender('(def (log2b intersect steps) (return (partial Poe intersect steps)))', 'blocklyDiv14'); addBlocks(ws6t)('(plot (log2b 220 7) [1 2 4 8])'); cleandiv('blocklyDiv14_t')">_</a>
 <details>
 <summary>A</summary>
 <div style="width: 300px">
@@ -452,8 +456,8 @@ plot(log2b(220, 7), [1, 2, 4, 8])
 <details>
 <summary id="9">7</summary>
 <span onClick="" style="color:blue">A</span>
-<span onClick="abws19('x1')" style="color:blue">x1</span>
-<span onClick="abws19('0.7')" style="color:blue">0.7</span>
+<span onClick="abws19('x1')" style="color:blue">C</span>
+<span onClick="abws19('0.7')" style="color:blue">E</span>
 <div id="blocklyDiv19" style="height: 300px;"></div>
 <script>
 r19 = () => brenderT("(call (log2b 1 1) x0)", "blocklyDiv19", true);
@@ -462,7 +466,7 @@ var abws19 = addBlocks(ws19);
 </script>
 
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. Log2b can also be called. -B- What might be surprising is that log2b can be called with a symbol. I chose x0 as the symbol in this example. -x1- But it was arbitrary. It can also choose x1 as a symbol. You know, log2 does not know anything about x or y or z. -0.7-  Also, the step argument does not need to be an integer, it can well be 0 point 7.
+Not only can log2b be plotted. Log2b can also be called. -B- That log2b can be called with a symbol might be a surprise. That is thanks to a package named Sympy. Here you see that I chose x-naught as the symbol. -CD- But x-naught is only the default of possible choices. I can also choose x1 as a symbol. You know, log2b does not know a thing about x (or y or z). -EF- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
 </div>
 </details>
 
@@ -487,7 +491,7 @@ call(log2b(1, 1), x0)
 </details>
 
 <details>
-<summary>C</summary>
+<summary>D</summary>
 <div style="width: 300px">
 ```{python}
 call(log2b(1, 1), x1)
@@ -496,7 +500,7 @@ call(log2b(1, 1), x1)
 </details>
 
 <details>
-<summary>D</summary>
+<summary>F</summary>
 <div style="width: 300px">
 ```{python}
 call(log2b(1, 0.7), x1)
@@ -520,7 +524,7 @@ statejs.log23.logtri("divlogtri");
 <span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
 <div class="desc" id="divlogtri_t">
-In fact, the case 0.7 is an interesting one. -B- As any curve, it can be approximated by triangles. -C- I move the triangles to the ground level. -D- Now the curve known as "one over x" fits their hights quite nicely. -E- You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area of the triangle while retaining its shape.
+The case of O point seven is a contrived invention of mine. I would not bother you with it if I had not discovered it to be a segue to the natural logarithm. -B- In general, you can fit a series of triangles onto any curve. -C- Moving those triangles to the ground level reveals -D- that a new curve "one over x" fits their heights quite nicely. -E- You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area while retaining the angles.
 </div>
 </details>
 
@@ -536,7 +540,7 @@ var ab = addBlocks(ws17a);
 </script>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 <div class="desc" id="blocklyDiv17a_t">
-This triangle business smells of derivatives. -- Taking the derivate is simple and easy.
+Curves and triangles that connect them to other curves. This smells of derivative. -- Differentiating log2b is simple and easy.
 </div>
 </details>
 
@@ -559,7 +563,7 @@ r13();
 call(D(ln), x0)
 ```
 <div class="desc" id="blocklyDiv22a_t">
-If I run the Python code with 0.7, I nearly get one over x for the derivative. To get the exact result, I need to switch to the natural logarithm ln. The pictures above are the pinnacle of my presentation. To prove the importance of them, I drop you some names. In math, the procedure named "call" would be akin to a functional, D is an operator. In computer science, both are called higher order functions. ln is of course a function.
+If I run Python to derive log2b and eval that at point O point seven, I almost get one over x as result. To become exact, I need to switch to "ln", the natural logarithm. Within this presentation, the pictures above can be called its pinnacle. As a kind of confirmation, I'd like to drop some names. The procedure named "call" would in math be recognised as a functional and D as an operator. In computer science, both is called functions of higher order. The natural logarithm "ln" of course is a function.
 </div>
 </details>
 
@@ -571,7 +575,7 @@ If I run the Python code with 0.7, I nearly get one over x for the derivative. T
 <summary id="14">--</summary>
 $$\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
 <div class="desc" id="tex14_t">
-I'd like to wind down with a note on notation. The usual notation for the derivative at point x-naught is by unsing the vertical bar, colloquially called pipe.
+I'd like to wind down with a note on notation. The common notation for deriving a function and then eval that at x-naught is by using the vertical bar which is also called "pipe".
 </div>
 </details>
 
@@ -591,7 +595,7 @@ r15();
 (D(ln) | x0)
 ```
 <div class="desc" id="blocklyDivpipe_t">
-In my pictorial representation, I also like to use the pipe symbol. Note that it is not the D operator that is replaced by the pipe, but it is the call functional that is dropped.
+Just like in math, so in my picture I like to use pipe. It is not the D operator that is replaced by the pipe, but it is the call that is dropped.
 </div>
 </details>
 
@@ -611,7 +615,7 @@ r16();
 (log2b(220, 7) | 440)
 ```
 <div class="desc" id="blocklyDivpipe2_t">
-All this means that also a direct call to log2b can be done with a pipe. -- You might think that such a custom pipe is a lot of work. This is not so. My custom pipe is just a few lines of Python.
+As the pipe is a more succinct notation for the call functional, I prefer the pipe for simply calling log2b as well. -- You might think that such a custom pipe is hard to implement. This is not so. My custom pipe is just a few lines of Python.
 </div>
 </details>
 
