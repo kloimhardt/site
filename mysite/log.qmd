@@ -10,14 +10,14 @@ format:
     smooth-scroll: true
 jupyter: python3
 execute:
-  cache: true
+  cache: false
 ---
 <!--
 Before publishing:
 * set cache to false
 * outcomment scittle nrepl
 * open all sections
-* get GClef local
+* get GClef, Trashcan local
 -->
 
 <script>
@@ -201,11 +201,11 @@ wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyD
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-It is not the plain log2 that fits the notes. There need to be some scale factors. -- Because this notebook is online at the following address
+It is not the plain log2 that fits the notes. There need to be some scale factors. -- You can play with the formla yourself, because this notebook is online at the following address
 
 <a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a>
 
-You can play with the formula yourself. But I have jumped ahead. The story starts with plotting the plain log2 which already hits the main message of my presentation.
+But I have jumped ahead. The story starts with plotting the plain log2. And that already hits upon the main message of my presentation.
 </div>
 </details>
 
@@ -242,7 +242,7 @@ statejs.log23.anim2();
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
 <div class="desc" id="blocklyDiv10_t">
-The message is this. -- It is the log2 that you plot. This is so obvious that I'd like to state what log2 is not. It is not the log2 of x or y or z. It is not some string or text that contains the word log2. So what is log2? It is a mathematical object. The plot routine I am using to plot log2 is a certain Python procedure that is severely restricted. Only mathematical targets, and only those, can be plotted. The tools utilised to work within this restriction will continue to serve other purposes beyond plotting. The pinnacle of this presentation shows those tools providing a new way for the notation and calculation of derivatives.
+The message is this. -- It is the log2 that you plot. This is so obvious that I'd like to state what log2 is not. It is not the log2 of x or y or z. Also, it is not some text that contains the string log2. Rather, log2 is a mathematical object. It is only objects like this that my Python routine can plot.
 </div>
 
 ```{python}
@@ -278,7 +278,7 @@ var clean3 = () => {mywait(); cleandiv("divmanylogs_t")}
 <span onClick=statejs.log23.many("divmanylogs") style="color:blue">A</span>
 <span onClick=mywait() style="color:blue">B</span>
 <div class="desc" id="divmanylogs_t">
-Because I am aware that some time for digestion is needed, my viewers might be relieved that I now direct this column towards the practical goal. -- I need to get more to something like this. And so, I get back to the formula that appeared at the start.
+I am aware that you need some time for digesting my self-imposed plotting restrictions. So I move more towards the practical goal. -- I need to get more to something like this. For that, I need to get back to the formula I showed at the start.
 </div>
 
 </details>
@@ -302,7 +302,7 @@ var abws5 = addBlocks(ws5);
 <span onClick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">C</span>
 
 <div class="desc" id="blocklyDiv5_t">
-The formula I showed at the start -B- is not something you can plot. This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to wrap this formula into a procedure. -- The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -- The procedure does the necessary computation, it returns the formula-computed value. -- In its code, you have to replace the numbers with the two parameters. -D- I provide the procedure as Python code.
+The formula I showed at the start -B- is not something you can plot. This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to bind this formula to a procedure. -- The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -- The procedure does the necessary computation, it returns the value given by the formula. -- In its code, you have to replace the numbers with the two parameters. -D- I provide the procedure as Python code.
 </div>
 </details>
 
@@ -415,9 +415,8 @@ var ws6 = r14();
 
 <span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">B</span>
 
-
 <div class="desc" id="blocklyDiv14_t">
-The procedure named Poe is not yet the mathematical target. This procedure doing the calculation shares the same fate as its formula: also Poe cannot be plotted directly. -A- To get the mathematical target desired for plotting, I need to perform an operation named "partial". -- You call a procedure named "partial" and give it "Poe" as the argument. Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- All this can in turn be wrapped in yet another procedure. -CA_-
+To really plot the procedure named Poe, I need to perform an operation named "partial". -A- You call a procedure named "partial" and give it "Poe" as the argument. -- Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- I turned all this into yet another procedure and named it log2b. -CA_-
 </div>
 </td>
 </tr></table>
@@ -466,7 +465,7 @@ var abws19 = addBlocks(ws19);
 </script>
 
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. Log2b can also be called. -B- That log2b can be called with a symbol might be a surprise. That is thanks to a package named Sympy. Here you see that I chose x-naught as the symbol. -CD- But x-naught is only the default of possible choices. I can also choose x1 as a symbol. You know, log2b does not know a thing about x (or y or z). -EF- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
+Not only can log2b be plotted. Log2b can also be called. -B- That log2b can be called with a symbol might be a surprise. That is thanks to a package named Sympy. Here you see that I chose x-naught as the symbol. -CD- But x-naught is only the default of possible choices. I can also choose x1 as a symbol. This freedom of choice is because log2b does not know a thing about x (or y or z). -EFD- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
 </div>
 </details>
 
@@ -524,7 +523,7 @@ statejs.log23.logtri("divlogtri");
 <span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
 <div class="desc" id="divlogtri_t">
-The case of O point seven is a contrived invention of mine. I would not bother you with it if I had not discovered it to be a segue to the natural logarithm. -B- In general, you can fit a series of triangles onto any curve. -C- Moving those triangles to the ground level reveals -D- that a new curve "one over x" fits their heights quite nicely. -E- You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area while retaining the angles.
+I would not bother you with my O point seven invention, hadn't I discovered it to be a segue to the natural logarithm. -B- In general, you can fit a series of triangles onto any curve. -C- Moving those triangles to the ground level reveals -D- that a new curve "one over x" fits their heights quite agreeably. -E- You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area while retaining the angles.
 </div>
 </details>
 
@@ -540,7 +539,7 @@ var ab = addBlocks(ws17a);
 </script>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 <div class="desc" id="blocklyDiv17a_t">
-Curves and triangles that connect them to other curves. This smells of derivative. -- Differentiating log2b is simple and easy.
+Triangles and curves like above bring to mind the concept of derivative.  -- Taking the derivative of log2b is simple and easy.
 </div>
 </details>
 
@@ -642,8 +641,11 @@ def partial(*args):
 </div>
 </details>
 :::
+<div style="height: 900px;"></div>
 
+<!--
 <script>
 document.querySelectorAll("details")
 .forEach(d => d.setAttribute("open", ""))
 </script>
+-->
