@@ -186,12 +186,12 @@ Sometimes, you need to start with the basics. I am sure you have your own ways t
 </details>
 
 ::: {.column-margin}
-<a href="#1" onClick="statejs.notes.anim6(); cleandiv('divnotes2_t')">_</a>
+<a href="#1" onClick="statejs.notes.anim6();">_</a>
 :::
 
 <script>var wslog2; //for .markFocused() , but that does not prevent the scrolling down to the last workspace</script>
 
-<details>
+<details onClick=cleandiv('divnotes2_t')>
 <summary id="2">2</summary>
 <div onClick="wslog2.markFocused();" id="blocklyDivLog2" style="height: 300px;"></div>
 <script>
@@ -210,7 +210,7 @@ But I have jumped ahead. The story starts with plotting the plain log2. And that
 </details>
 
 ::: {.column-margin}
-<a href="#2" onClick="v2(); cleandiv('blocklyDivLog2_t')">_</a>
+<a href="#2" onClick="v2();">_</a>
 :::
 
 ::: {.hidden}
@@ -237,7 +237,7 @@ statejs.log23.anim2();
 :::
 -->
 
-<details>
+<details onClick="cleandiv('blocklyDivLog2_t')">
 <summary id="5">3</summary>
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
@@ -255,10 +255,10 @@ var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv(
 </details>
 
 ::: {.column-margin}
-<a href="#5" onClick=clean5()>_</a>
+<a href="#5">_</a>
 :::
 
-<details>
+<details onClick=clean5()>
 <summary id="3">4</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
@@ -283,10 +283,10 @@ I am aware that you need some time for digesting my self-imposed plotting restri
 
 </details>
 ::: {.column-margin}
-<a href="#3" onClick=clean3()>_</a>
+<a href="#3">_</a>
 :::
 
-<details>
+<details onClick=clean3()>
 <summary id="4">5</summary>
 <div id="blocklyDiv5" style="height: 350px;"></div>
 <script>
@@ -312,7 +312,6 @@ var ws4u = brender(" (def (Poe intersect steps x) (return (:tiles/infix (* (log2
 var abws4u = addBlocks(ws4u);
 abws4u('(Poe 220 7 440)')
 abws4u('(Poe 1 1 2)')
-cleandiv("blocklyDiv5_t")
 }
 </script>
 
@@ -400,7 +399,7 @@ statejs.log23.log3("divlog2x");
 -->
 
 :::{.column-screen-left}
-<details>
+<details onClick=cleandiv("blocklyDiv5_t")>
 <summary id="6">6</summary>
 <table><tr>
 <td style="vertical-align: top">
@@ -432,7 +431,7 @@ def log2b(intersect, steps):
 :::
 
 ::: {.column-margin}
-<a href="#6" onClick="var ws6t=brender('(def (log2b intersect steps) (return (partial Poe intersect steps)))', 'blocklyDiv14'); addBlocks(ws6t)('(plot (log2b 220 7) [1 2 4 8])'); cleandiv('blocklyDiv14_t')">_</a>
+<a href="#6" onClick="var ws6t=brender('(def (log2b intersect steps) (return (partial Poe intersect steps)))', 'blocklyDiv14'); addBlocks(ws6t)('(plot (log2b 220 7) [1 2 4 8])');">_</a>
 <details>
 <summary>A</summary>
 <div style="width: 300px">
@@ -452,7 +451,7 @@ plot(log2b(220, 7), [1, 2, 4, 8])
 </details>
 :::
 
-<details>
+<details onClick=cleandiv('blocklyDiv14_t')>
 <summary id="9">7</summary>
 <span onClick="" style="color:blue">A</span>
 <span onClick="abws19('x1')" style="color:blue">C</span>
@@ -479,7 +478,7 @@ var abws19_E = addBlocks(ws19_E);
 </script>
 
 ::: {.column-margin}
-<a href="#9" onClick="fu19(); cleandiv('blocklyDiv19_t');">_</a>
+<a href="#9" onClick="fu19();">_</a>
 <details>
 <summary>B</summary>
 <div style="width: 300px">
@@ -508,7 +507,7 @@ call(log2b(1, 0.7), x1)
 </details>
 :::
 
-<details>
+<details onClick="cleandiv('blocklyDiv19_t')">
 <summary id="11">8</summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;"></div>
 <script>
@@ -528,10 +527,10 @@ I would not bother you with my O point seven invention, hadn't I discovered it t
 </details>
 
 ::: {.column-margin}
-<a href="#11" onClick="cleandiv('divlogtri_t');">_</a>
+<a href="#11">_</a>
 :::
 
-<details>
+<details onClick="cleandiv('divlogtri_t');">
 <summary id="12">9</summary>
 <div id="blocklyDiv17a" style="height:150px"></div>
 <script>var ws17a = brender("(call (log2b 1 0.7) x0)", "blocklyDiv17a")
@@ -544,10 +543,10 @@ Triangles and curves like above bring to mind the concept of derivative.  -- Tak
 </details>
 
 ::: {.column-margin}
-<a href="#12" onClick="brender('(call (D (log2b 1 0.7)) x0)', 'blocklyDiv17a'); cleandiv('blocklyDiv17a_t');">_</a>
+<a href="#12" onClick="brender('(call (D (log2b 1 0.7)) x0)', 'blocklyDiv17a');">_</a>
 :::
 
-<details>
+<details onClick=cleandiv('blocklyDiv17a_t');>
 <summary id="13">10</summary>
 ```{python}
 call(D(log2b(1, 0.7)), x0).evalf()
@@ -567,10 +566,10 @@ If I run Python to derive log2b and eval that at point O point seven, I almost g
 </details>
 
 ::: {.column-margin}
-<a href="#blocklyDiv22a" onClick="r13(); cleandiv('blocklyDiv22a_t');">_</a>
+<a href="#blocklyDiv22a" onClick="r13();">_</a>
 :::
 
-<details>
+<details onClick="cleandiv('blocklyDiv22a_t');">
 <summary id="14">--</summary>
 $$\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
 <div class="desc" id="tex14_t">
@@ -579,10 +578,10 @@ I'd like to wind down with a note on notation. The common notation for deriving 
 </details>
 
 ::: {.column-margin}
-<a href="#blocklyDiv22a" onClick="cleandiv('tex14_t');">_</a>
+<a href="#blocklyDiv22a">_</a>
 :::
 
-<details>
+<details onClick="cleandiv('tex14_t');">
 <summary id="15">--</summary>
 <div id="blocklyDivpipe" style="height:100px"></div>
 <script>
@@ -599,10 +598,10 @@ Just like in math, so in my picture I like to use pipe. It is not the D operator
 </details>
 
 ::: {.column-margin}
-<a href="#15" onClick="r15(); cleandiv('blocklyDivpipe_t');">_</a>
+<a href="#15" onClick="r15();">_</a>
 :::
 
-<details>
+<details onClick="cleandiv('blocklyDivpipe_t');">
 <summary id="16">11</summary>
 <div id="blocklyDivpipe2" style="height:100px"></div>
 <script>
