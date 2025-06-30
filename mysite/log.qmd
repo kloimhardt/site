@@ -188,7 +188,6 @@ print("</script>")
 <span onClick="statejs.notes.anim3()" style="color:blue">D</span>
 <span onClick="statejs.notes.anim5()" style="color:blue">E</span>
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
-
 <div class="desc" id="divnotes2_t">
 Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way for plotting has, I think, its merits. But that's for you to decide. I'll come to its main quality in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. -- The notes are logarithmic.
 </div>
@@ -200,8 +199,8 @@ Sometimes, you need to start with the basics. I am sure you have your own ways t
 
 <script>var wslog2; //for .markFocused() , but that does not prevent the scrolling down to the last workspace</script>
 
-<details onClick=cleandiv('divnotes2_t')>
-<summary id="2">2</summary>
+<details>
+<summary onClick=cleandiv('divnotes2_t') id="2">2</summary>
 <div onClick="wslog2.markFocused();" id="blocklyDivLog2" style="height: 300px;"></div>
 <script>
 function v2() {
@@ -246,8 +245,8 @@ statejs.log23.anim2();
 :::
 -->
 
-<details onClick="cleandiv('blocklyDivLog2_t')">
-<summary id="5">3</summary>
+<details>
+<summary onClick="cleandiv('blocklyDivLog2_t')" id="5">3</summary>
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
 
@@ -269,8 +268,8 @@ var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv(
 <a href="#5">_</a>
 :::
 
-<details onClick=clean5()>
-<summary id="3">4</summary>
+<details>
+<summary onClick=clean5() id="3">4</summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px"></div>
 <script>
 statejs.log23.many("divmanylogs");
@@ -297,8 +296,8 @@ I am aware that you need some time for digesting my self-imposed plotting restri
 <a href="#3">_</a>
 :::
 
-<details onClick=clean3()>
-<summary id="4">5</summary>
+<details>
+<summary onClick=clean3() id="4">5</summary>
 <div id="blocklyDiv5" style="height: 350px;"></div>
 <script>
 var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDiv5");
@@ -312,7 +311,6 @@ var abws5 = addBlocks(ws5);
 <span onClick="abws5('(def (Poe intersect steps x) :tiles/slot)');" style="color:blue">C</span>
 <span onClick="abws5('(return :tiles/slot)');" style="color:blue">D</span>
 <span onClick="abws5('(Poe intersect steps 440)')" style="color:blue">E</span>
-
 <div class="desc" id="blocklyDiv5_t">
 The formula I showed at the start is not something you can plot. -B- This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to bind this formula to a procedure. The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -D- The procedure does the necessary computation, it returns the value given by the formula. -E- In its code, you have to replace the numbers with the two parameters. -F- I provide the procedure as Python code.
 </div>
@@ -411,8 +409,8 @@ statejs.log23.log3("divlog2x");
 -->
 
 :::{.column-screen-left}
-<details onClick=cleandiv("blocklyDiv5_t")>
-<summary id="6">6</summary>
+<details>
+<summary onClick=cleandiv("blocklyDiv5_t") id="6">6</summary>
 <table><tr>
 <td style="vertical-align: top">
 <div style="width: 230px"><img src="jsfiles/xkcd_partial.jpg" style="horizontal-align: right"></img></div>
@@ -425,7 +423,6 @@ var ws6 = r14();
 </script>
 
 <span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">B</span>
-
 <div class="desc" id="blocklyDiv14_t">
 To really plot the procedure named Poe, I need to perform an operation named "partial". -A- You call a procedure named "partial" and give it "Poe" as the argument. -- Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- I turned all this into yet another procedure and named it log2b that is very conveneint for plotting. -AC_-
 </div>
@@ -463,18 +460,17 @@ plot(log2b(220, 7), [1, 2, 4, 8])
 </details>
 :::
 
-<details onClick=cleandiv('blocklyDiv14_t')>
-<summary id="9">7</summary>
-<span onClick="" style="color:blue">A</span>
-<span onClick="abws19('x1')" style="color:blue">C</span>
-<span onClick="abws19('0.7')" style="color:blue">E</span>
+<details>
+<summary onClick=cleandiv('blocklyDiv14_t') id="9">7</summary>
 <div id="blocklyDiv19" style="height: 300px;"></div>
 <script>
 r19 = () => brenderT("(call (log2b 1 1) x0)", "blocklyDiv19", true);
 var ws19 = r19();
 var abws19 = addBlocks(ws19);
 </script>
-
+<span onClick="" style="color:blue">A</span>
+<span onClick="abws19('x1')" style="color:blue">C</span>
+<span onClick="abws19('0.7')" style="color:blue">E</span>
 <div class="desc" id="blocklyDiv19_t">
 Not only can log2b be plotted. Log2b can also be called. -B- That log2b can be called with a symbol might be a surprise. That is thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. -C-BD- But x-naught is only the default of possible choices. I can also choose x1 as a symbol. This freedom of choice is because log2b does not know a thing about x (or y or z). -E-DF- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
 </div>
@@ -519,8 +515,8 @@ call(log2b(1, 0.7), x1)
 </details>
 :::
 
-<details onClick="cleandiv('blocklyDiv19_t')">
-<summary id="11">8</summary>
+<details>
+<summary onClick="cleandiv('blocklyDiv19_t')" id="11">8</summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;"></div>
 <script>
 statejs.strfrac1ovX = "$$\\frac{1}{x}$$";
@@ -542,8 +538,8 @@ I would not bother you with my O point seven invention, hadn't I discovered it t
 <a href="#11">_</a>
 :::
 
-<details onClick="cleandiv('divlogtri_t');">
-<summary id="12">9</summary>
+<details>
+<summary onClick="cleandiv('divlogtri_t');" id="12">9</summary>
 <div id="blocklyDiv17a" style="height:150px"></div>
 <script>var ws17a = brender("(call (log2b 1 0.7) x0)", "blocklyDiv17a")
 var ab = addBlocks(ws17a);
@@ -558,8 +554,8 @@ Triangles and curves like above bring to mind the concept of derivative.  -- Tak
 <a href="#12" onClick="brender('(call (D (log2b 1 0.7)) x0)', 'blocklyDiv17a');">_</a>
 :::
 
-<details onClick=cleandiv('blocklyDiv17a_t');>
-<summary id="13">10</summary>
+<details>
+<summary onClick=cleandiv('blocklyDiv17a_t'); id="13">10</summary>
 ```{python}
 call(D(log2b(1, 0.7)), x0).evalf()
 ```
@@ -581,8 +577,8 @@ If I run Python to derive log2b and eval that at point O point seven, I almost g
 <a href="#blocklyDiv22a" onClick="r13();">_</a>
 :::
 
-<details onClick="cleandiv('blocklyDiv22a_t');">
-<summary id="14">--</summary>
+<details>
+<summary onClick="cleandiv('blocklyDiv22a_t');" id="14">--</summary>
 $$\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}$$
 <div class="desc" id="tex14_t">
 I'd like to wind down with a note on notation. The common notation for deriving a function and then eval that at x-naught is by using the vertical bar which is also called "pipe".
@@ -593,8 +589,8 @@ I'd like to wind down with a note on notation. The common notation for deriving 
 <a href="#blocklyDiv22a">_</a>
 :::
 
-<details onClick="cleandiv('tex14_t');">
-<summary id="15">--</summary>
+<details>
+<summary onClick="cleandiv('tex14_t');" id="15">--</summary>
 <div id="blocklyDivpipe" style="height:100px"></div>
 <script>
 var r15 = () => brender("((D ln) x0)", "blocklyDivpipe");
@@ -613,8 +609,8 @@ Just like in math, so in my picture I like to use pipe. It is not the D operator
 <a href="#15" onClick="r15();">_</a>
 :::
 
-<details onClick="cleandiv('blocklyDivpipe_t');">
-<summary id="16">11</summary>
+<details>
+<summary onClick="cleandiv('blocklyDivpipe_t');" id="16">11</summary>
 <div id="blocklyDivpipe2" style="height:100px"></div>
 <script>
 var r16 = () => brender("((log2b 220 7) 440)", "blocklyDivpipe2");
