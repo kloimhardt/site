@@ -10,14 +10,22 @@ format:
     smooth-scroll: true
 jupyter: python3
 execute:
-  cache: false
+  cache: true
 ---
 <!--
 Before publishing:
 * set cache to false
 * outcomment scittle nrepl
 * open all sections
-* get GClef, Trashcan local
+
+Todo:
+1-3 mit neuem Mikro
+4 ok
+5 genauer
+6 ok
+7 neu
+8 darum auch
+9 - 11 ok
 -->
 
 <script>
@@ -60,7 +68,8 @@ cleandiv(divid);
 let ws = Blockly.inject(divid,
 {"sounds": false,
 "scrollbars": false,
-"trashcan": bTrash});
+"trashcan": bTrash,
+"media": "/jsfiles/blockly/static/media/"});
 
 Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)), ws);
 
@@ -181,7 +190,7 @@ print("</script>")
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 
 <div class="desc" id="divnotes2_t">
-Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way has, I think, its merits but that's for you to decide. I'll come to its main quality in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. -- The notes are logarithmic.
+Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way for plotting has, I think, its merits. But that's for you to decide. I'll come to its main quality in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. -- The notes are logarithmic.
 </div>
 </details>
 
@@ -205,7 +214,7 @@ It is not the plain log2 that fits the notes. There need to be some scale factor
 
 <a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a>
 
-But I have jumped ahead. The story starts with plotting the plain log2. And that already hits upon the main message of my presentation.
+But I have jumped ahead. The story starts with the language Python and plotting the plain log2. And that already hits upon the main message of my presentation.
 </div>
 </details>
 
@@ -241,13 +250,15 @@ statejs.log23.anim2();
 <summary id="5">3</summary>
 <div id="blocklyDiv10" style="height: 150px; width: 800px"></div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
-<div class="desc" id="blocklyDiv10_t">
-The message is this. -- It is the log2 that you plot. This is so obvious that I'd like to state what log2 is not. It is not the log2 of x or y or z. Also, it is not some text that contains the string log2. Rather, log2 is a mathematical object. It is only objects like this that my Python routine can plot.
-</div>
+
 
 ```{python}
 plot(log2, [1, 2, 4, 8])
 ```
+
+<div class="desc" id="blocklyDiv10_t">
+The message is this. -- It is the log2 that you plot. This is so obvious that I'd like to state what log2 is not. It is not the log2 of x or y or z. Also, it is not some text that contains the string log2. Rather, log2 is a mathematical object. It is only objects like this that my Python routine can plot.
+</div>
 
 <script>
 var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv("blocklyDiv10_t");}
@@ -297,12 +308,13 @@ Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 var abws5 = addBlocks(ws5);
 </script>
 
-
 <span style="color:blue">A</span>
-<span onClick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">C</span>
+<span onClick="abws5('(def (Poe intersect steps x) :tiles/slot)');" style="color:blue">C</span>
+<span onClick="abws5('(return :tiles/slot)');" style="color:blue">D</span>
+<span onClick="abws5('(Poe intersect steps 440)')" style="color:blue">E</span>
 
 <div class="desc" id="blocklyDiv5_t">
-The formula I showed at the start -B- is not something you can plot. This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to bind this formula to a procedure. -- The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -- The procedure does the necessary computation, it returns the value given by the formula. -- In its code, you have to replace the numbers with the two parameters. -D- I provide the procedure as Python code.
+The formula I showed at the start is not something you can plot. -B- This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to bind this formula to a procedure. The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -D- The procedure does the necessary computation, it returns the value given by the formula. -E- In its code, you have to replace the numbers with the two parameters. -F- I provide the procedure as Python code.
 </div>
 </details>
 
@@ -328,7 +340,7 @@ plot("log2(x / 220) * 7", [1, 2, 4, 8])
 </details>
 <details>
 
-<summary>D</summary>
+<summary>F</summary>
 <div style="width: 300px">
 ```{python}
 def Poe(intersect, steps, x):
@@ -415,7 +427,7 @@ var ws6 = r14();
 <span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">B</span>
 
 <div class="desc" id="blocklyDiv14_t">
-To really plot the procedure named Poe, I need to perform an operation named "partial". -A- You call a procedure named "partial" and give it "Poe" as the argument. -- Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- I turned all this into yet another procedure and named it log2b. -CA_-
+To really plot the procedure named Poe, I need to perform an operation named "partial". -A- You call a procedure named "partial" and give it "Poe" as the argument. -- Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- I turned all this into yet another procedure and named it log2b that is very conveneint for plotting. -AC_-
 </div>
 </td>
 </tr></table>
@@ -464,7 +476,7 @@ var abws19 = addBlocks(ws19);
 </script>
 
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. Log2b can also be called. -B- That log2b can be called with a symbol might be a surprise. That is thanks to a package named Sympy. Here you see that I chose x-naught as the symbol. -CD- But x-naught is only the default of possible choices. I can also choose x1 as a symbol. This freedom of choice is because log2b does not know a thing about x (or y or z). -EFD- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
+Not only can log2b be plotted. Log2b can also be called. -B- That log2b can be called with a symbol might be a surprise. That is thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. -C-BD- But x-naught is only the default of possible choices. I can also choose x1 as a symbol. This freedom of choice is because log2b does not know a thing about x (or y or z). -E-DF- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
 </div>
 </details>
 
@@ -642,9 +654,7 @@ def partial(*args):
 :::
 <div style="height: 900px;"></div>
 
-<!--
 <script>
 document.querySelectorAll("details")
 .forEach(d => d.setAttribute("open", ""))
 </script>
--->

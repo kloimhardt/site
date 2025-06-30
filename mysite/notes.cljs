@@ -41,7 +41,7 @@
 (defn drawclef [brd]
   (drawlines brd ["E4" "G4" "B4" "D5" "F5"])
   (. brd (create "image"
-                     #js["https://upload.wikimedia.org/wikipedia/commons/f/ff/GClef.svg"
+                     #js["/jsfiles/GClef.svg"
                          #js[166 0.5]
                          #js[76 -15]])))
 
