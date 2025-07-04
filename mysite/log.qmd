@@ -105,6 +105,9 @@ def call(f, x):
 def mapv(a, b):
     return list(map(a, map(lambda x: 1.0 * x, b)))
 
+def mapv_indexed(f, coll):
+    return list(map(lambda x: [x, f(x)], map(lambda x: 1.0 * x, coll)))
+
 class PipeAsCall(object):
     def __init__(self, func):
         self.func = func
@@ -112,6 +115,9 @@ class PipeAsCall(object):
         return self.func(other)
     def __call__(self, x):
         return self.func(x)
+
+class Transducer(PipeAsCall):
+  pass
 
 def partial(*args):
     return PipeAsCall(
@@ -129,6 +135,23 @@ def plot(f, x):
        return "That's not something you can plot"
     else:
        plt.plot(x, mapv(f, x), "o")
+
+def plotting(f):
+    if type(f) == Transducer:
+        return partial(lambda f, coll: plt.plot(list(map(lambda x: x[0],f(coll))),list(map(lambda x: x[1],f(coll))), "o"), f)
+    else:
+        return partial(lambda f, x: plt.plot(x, mapv(f, x), "o"), f)
+
+isPositive = lambda n: True if n>0 else False
+
+def filtering(f):
+    return Transducer(functools.partial(lambda f,coll: list(filter(f, coll)), f))
+
+def mapping(f):
+    return Transducer(functools.partial(mapv_indexed, f))
+
+def compose(f, g):
+    return Transducer(lambda x: f(g(x)))
 ```
 :::
 
@@ -443,7 +466,7 @@ def log2b(intersect, steps):
 <a href="#6" onClick="var ws6t=brender('(def (log2b intersect steps) (return (partial Poe intersect steps)))', 'blocklyDiv14'); addBlocks(ws6t)('(plot (log2b 220 7) [1 2 4 8])');">_</a>
 <details>
 <summary>A</summary>
-<div style="width: 300px">
+<div style="width: 305px">
 ```{python}
 plot(partial(Poe, 220, 7), [1, 2, 4, 8])
 ```
@@ -452,7 +475,7 @@ plot(partial(Poe, 220, 7), [1, 2, 4, 8])
 
 <details>
 <summary>C</summary>
-<div style="width: 300px">
+<div style="width: 305px">
 ```{python}
 plot(log2b(220, 7), [1, 2, 4, 8])
 ```
@@ -626,7 +649,7 @@ As the pipe is a more succinct notation for the call functional, I prefer the pi
 </details>
 
 ::: {.column-margin}
-<a href="#16" onClick="r16(); cleandiv('blocklyDivpipe2_t');">_</a>
+<a href="#16" onClick="r16()">_</a>
 
 <details>
 <summary>A</summary>
@@ -648,6 +671,92 @@ def partial(*args):
 </div>
 </details>
 :::
+
+<details>
+<summary onClick=cleandiv("blocklyDivpipe2_t") id="12T">12</summary>
+<div id="blocklyDivTrans" style="height: 500px;"></div>
+<script>
+wsTra = brenderT("(:tiles/vert ((plotting ln) [1 2 4 5]))", "blocklyDivTrans", true);
+var abwsTra = addBlocks(wsTra);
+</script>
+
+<span style="color:blue">A</span>
+<span onClick="abwsTra('-1')" style="color:blue">C</span>
+<span onClick="abwsTra('(:tiles/vert ((filtering isPositive) :tiles/slot))')" style="color:blue">E</span>
+<span onClick="abwsTra('(:tiles/vert (plotting (:tiles/vert (compose (mapping :tiles/slot) :tiles/slot)))) ')" style="color:blue">b</span>
+<span onClick="abwsTra('(D :tiles/slot)')" style="color:blue">d</span>
+
+<div class="desc" id="blocklyDivTrans_t">
+Text
+</div>
+</details>
+
+::: {.column-margin}
+<a href="#12T">_</a>
+
+<details>
+<summary>B</summary>
+<div style="width: 310px">
+```{python}
+(plotting(ln) |
+ (1, 2, 4, 5))
+```
+</div>
+</details>
+
+<details>
+<summary>D</summary>
+<div style="width: 310px">
+```{python}
+ln(-1)
+```
+</div>
+</details>
+
+<details>
+<summary>F</summary>
+<div style="width: 310px">
+```{python}
+(filtering(isPositive) |
+ (-1, 2, 4, 5))
+```
+</div>
+</details>
+
+<details>
+<summary>a</summary>
+<div style="width: 310px">
+```{python}
+(plotting(ln) |
+ (filtering(isPositive) |
+  (-1, 2, 4, 5)))
+```
+</div>
+</details>
+
+<details>
+<summary>c</summary>
+<div style="width: 310px">
+```{python}
+(plotting (compose (mapping(ln),
+                    filtering(isPositive))) |
+ (-1, 2, 4, 5))
+```
+</div>
+</details>
+
+<details>
+<summary>e</summary>
+<div style="width: 310px">
+```{python}
+(plotting (compose (mapping (D(ln)), 
+                    filtering(isPositive))) |
+ (-1, 2, 4, 5))
+```
+</div>
+</details>
+:::
+
 <div style="height: 900px;"></div>
 
 <script>
