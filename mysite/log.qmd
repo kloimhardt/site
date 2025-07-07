@@ -131,7 +131,7 @@ def rnd(expr):
      return expr.xreplace({n: round(n, 3) for n in expr.atoms(sympy.Number)})
 
 def plot(f, x):
-    if str(f)==f:
+    if (type(f)==str) or (type(f)==sympy.core.numbers.Float):
        return "That's not something you can plot"
     else:
        plt.plot(x, mapv(f, x), "o")
@@ -143,6 +143,9 @@ def plotting(f):
         return partial(lambda f, x: plt.plot(x, mapv(f, x), "o"), f)
 
 isPositive = lambda n: True if n>0 else False
+
+def smaller(x):
+    return lambda n: True if n<x else False
 
 def filtering(f):
     return Transducer(functools.partial(lambda f,coll: list(filter(f, coll)), f))
@@ -179,6 +182,7 @@ nofreq = [item
         for idx, fs in enumerate(numerical_data)]
    for item in subl]
 
+frequencies = [n[2] for n in nofreq]
 
 print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
 print("</script>")
@@ -212,7 +216,7 @@ print("</script>")
 <span onClick="statejs.notes.anim5()" style="color:blue">E</span>
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 <div class="desc" id="divnotes2_t">
-Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way for plotting has, I think, its merits. But that's for you to decide. I'll come to its main quality in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. -- The notes are logarithmic.
+Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way for plotting has, I think, its merits. But that's for you to decide. I'll come to the main quality of my way to plot in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. -- The notes are logarithmic.
 </div>
 </details>
 
@@ -232,11 +236,11 @@ wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyD
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-It is not the plain log2 that fits the notes. There need to be some scale factors. -- You can play with the formla yourself, because this notebook is online at the following address
+It is the log2 that fits the notes, but it is not the plain one. There need to be some scale factors. -- If you want, you can play with the formla yourself, because this notebook is online at the following address
 
 <a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a>
 
-But I have jumped ahead. The story starts with the language Python and plotting the plain log2. And that already hits upon the main message of my presentation.
+But I have jumped ahead. The story starts with the language Python and plotting just the plain log2. And that already hits upon the main message of my presentation.
 </div>
 </details>
 
@@ -335,7 +339,7 @@ var abws5 = addBlocks(ws5);
 <span onClick="abws5('(return :tiles/slot)');" style="color:blue">D</span>
 <span onClick="abws5('(Poe intersect steps 440)')" style="color:blue">E</span>
 <div class="desc" id="blocklyDiv5_t">
-The formula I showed at the start is not something you can plot. -B- This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to bind this formula to a procedure. The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -D- The procedure does the necessary computation, it returns the value given by the formula. -E- In its code, you have to replace the numbers with the two parameters. -F- I provide the procedure as Python code.
+The formula I showed at the start is not something you can plot. -B- This is the main theme again. I need a proper mathematical target to plot. -C- To get such a target, I need to bind this formula to a procedure. The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -D- The procedure does the necessary computation, it returns the value given by the formula. In its code, you have to replace the numbers with the two parameters. -E- I provide the procedure as Python code. -F-
 </div>
 </details>
 
@@ -441,13 +445,16 @@ statejs.log23.log3("divlog2x");
 <td style="vertical-align: top">
 <div id="blocklyDiv14" style="height: 400px; width: 800px"></div>
 <script>
-var r14= () => brender("(plot (partial Poe 220 7) [1 2 4 8])", "blocklyDiv14")
+var r14= () => brenderT("(plot log2 [1 2 4 8])", "blocklyDiv14", true);
 var ws6 = r14();
 </script>
 
-<span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">B</span>
+<span style="color:blue">A</span>
+<span onClick="addBlocks(ws6)('(Poe 220 7 440)');" style="color:blue">B</span>
+<span onClick="addBlocks(ws6)('(partial Poe :tiles/slot :tiles/slot)');" style="color:blue">D</span>
+<span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">F</span>
 <div class="desc" id="blocklyDiv14_t">
-To really plot the procedure named Poe, I need to perform an operation named "partial". -A- You call a procedure named "partial" and give it "Poe" as the argument. -- Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -B- I turned all this into yet another procedure and named it log2b that is very conveneint for plotting. -AC_-
+I can plot log2 because it is a methematical object. -B- But I cannot plot the procedure Poe -C- I need an operation called "partial". -D- You call a procedure named "partial" and give it "Poe" as the argument. Then I can perform the plotting. -E-  Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -F- I turn all this into yet another procedure named log2b -- That is very conveneint for plotting. -G-
 </div>
 </td>
 </tr></table>
@@ -465,7 +472,16 @@ def log2b(intersect, steps):
 ::: {.column-margin}
 <a href="#6" onClick="var ws6t=brender('(def (log2b intersect steps) (return (partial Poe intersect steps)))', 'blocklyDiv14'); addBlocks(ws6t)('(plot (log2b 220 7) [1 2 4 8])');">_</a>
 <details>
-<summary>A</summary>
+<summary>C</summary>
+<div style="width: 305px">
+```{python}
+plot(Poe(220, 7, 440), [1, 2, 4, 8])
+```
+</div>
+</details>
+
+<details>
+<summary>E</summary>
 <div style="width: 305px">
 ```{python}
 plot(partial(Poe, 220, 7), [1, 2, 4, 8])
@@ -474,7 +490,7 @@ plot(partial(Poe, 220, 7), [1, 2, 4, 8])
 </details>
 
 <details>
-<summary>C</summary>
+<summary>G</summary>
 <div style="width: 305px">
 ```{python}
 plot(log2b(220, 7), [1, 2, 4, 8])
@@ -495,7 +511,7 @@ var abws19 = addBlocks(ws19);
 <span onClick="abws19('x1')" style="color:blue">C</span>
 <span onClick="abws19('0.7')" style="color:blue">E</span>
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. Log2b can also be called. -B- That log2b can be called with a symbol might be a surprise. That is thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. -C-BD- But x-naught is only the default of possible choices. I can also choose x1 as a symbol. This freedom of choice is because log2b does not know a thing about x (or y or z). -E-DF- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
+Not only can log2b be plotted. Log2b can also be called. -B- The twist here is that I called log2b not with a number but with a symbol. Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. I can also choose x1 as a symbol. -C-D- This freedom of choice is because log2b does not know a thing about x (or y or z). -E-DF- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
 </div>
 </details>
 
@@ -624,7 +640,7 @@ r15();
 (D(ln) | x0)
 ```
 <div class="desc" id="blocklyDivpipe_t">
-Just like in math, so in my picture I like to use pipe. It is not the D operator that is replaced by the pipe, but it is the call that is dropped.
+Inspired by math, I use pipe in my pictures. Note that it is not the D operator that is replaced by the pipe, but it is the call that is dropped.
 </div>
 </details>
 
@@ -634,17 +650,16 @@ Just like in math, so in my picture I like to use pipe. It is not the D operator
 
 <details>
 <summary onClick="cleandiv('blocklyDivpipe_t');" id="16">11</summary>
-<div id="blocklyDivpipe2" style="height:100px"></div>
+<div id="blocklyDivpipe2" style="height:300px"></div>
 <script>
-var r16 = () => brender("((log2b 220 7) 440)", "blocklyDivpipe2");
-r16();
+var r16 = () => brenderT("(plot ln [1 2 4 8])", "blocklyDivpipe2", true);
+ws11p = r16();
 </script>
+<span style="color:blue">A</span>
+<span onClick="addBlocks(ws11p)('((plotting :tiles/slot) :tiles/slot)')" style="color:blue">B</span>
 
-```{python}
-(log2b(220, 7) | 440)
-```
 <div class="desc" id="blocklyDivpipe2_t">
-As the pipe is a more succinct notation for the call functional, I prefer the pipe for simply calling log2b as well. -- You might think that such a custom pipe is hard to implement. This is not so. My custom pipe is just a few lines of Python.
+The goal of this presentation was to show some merits of my way of plotting. This goal has been reached with the "partial" procedure to produce functions of higher order. The pipe symbol has just been an invention for notation. But I discoverd that the pipe symbol is quite handy for pointing at an idea to speed up the calculation. -BC- To start, I also for plotting introduce the pipe symbol. -D- You might think that my pipe notation is hard to implement. This is not so. My custom pipe is just a few lines of Python.
 </div>
 </details>
 
@@ -652,7 +667,16 @@ As the pipe is a more succinct notation for the call functional, I prefer the pi
 <a href="#16" onClick="r16()">_</a>
 
 <details>
-<summary>A</summary>
+<summary>C</summary>
+<div style="width: 310px">
+```{python}
+(plotting(ln) | (1, 2, 4, 8))
+```
+</div>
+</details>
+
+<details>
+<summary>D</summary>
 <div style="width: 300px">
 ```{python}
 #| eval: false
@@ -676,18 +700,17 @@ def partial(*args):
 <summary onClick=cleandiv("blocklyDivpipe2_t") id="12T">12</summary>
 <div id="blocklyDivTrans" style="height: 500px;"></div>
 <script>
-wsTra = brenderT("(:tiles/vert ((plotting ln) [1 2 4 5]))", "blocklyDivTrans", true);
+wsTra = brenderT("((plotting ln) frequencies)", "blocklyDivTrans", true);
 var abwsTra = addBlocks(wsTra);
 </script>
 
 <span style="color:blue">A</span>
-<span onClick="abwsTra('-1')" style="color:blue">C</span>
-<span onClick="abwsTra('(:tiles/vert ((filtering isPositive) :tiles/slot))')" style="color:blue">E</span>
-<span onClick="abwsTra('(:tiles/vert (plotting (:tiles/vert (compose (mapping :tiles/slot) :tiles/slot)))) ')" style="color:blue">b</span>
-<span onClick="abwsTra('(D :tiles/slot)')" style="color:blue">d</span>
+<span onClick="abwsTra('((filtering (smaller 880)) :tiles/slot)')" style="color:blue">C</span>
+<span onClick="abwsTra('(compose (mapping :tiles/slot) :tiles/slot)')" style="color:blue">E</span>
+<span onClick="abwsTra('(D :tiles/slot)')" style="color:blue">G</span>
 
 <div class="desc" id="blocklyDivTrans_t">
-Text
+In a way, the pipe explicitely depicts the processing time. When plotting points, the pipe depicts the time spent on calculating their place. -B- To plot all notes, I need to load the frequencies from external data. The data contains the frequencies up to 8000 cycles per second. -C- I'd like to only focus on the frequencies below 880 Hz, so I apply the respective filter to the data -- and plot that. -D- In priciple I am done. But I'd like to have the filtering not in the middel position, but in front of the first pipe. -E- The trick is to use compose which you see in the green tile. -F- As soon as you compose things in front of the pipe like this, you open up a way to speed up the calculation. This is because the concept commonly known as "transducers" in principle becomes applicable. I have to admit though that I was not able to find a Python transducer library that outperforms the standard. -G- For sure you can insert differentiation into this composition as easily as ever. -a-
 </div>
 </details>
 
@@ -698,8 +721,7 @@ Text
 <summary>B</summary>
 <div style="width: 310px">
 ```{python}
-(plotting(ln) |
- (1, 2, 4, 5))
+(plotting(ln) | frequencies)
 ```
 </div>
 </details>
@@ -708,7 +730,9 @@ Text
 <summary>D</summary>
 <div style="width: 310px">
 ```{python}
-ln(-1)
+(plotting(ln) |
+  (filtering(smaller(880)) |
+    frequencies))
 ```
 </div>
 </details>
@@ -717,8 +741,11 @@ ln(-1)
 <summary>F</summary>
 <div style="width: 310px">
 ```{python}
-(filtering(isPositive) |
- (-1, 2, 4, 5))
+(plotting
+  (compose
+    (mapping(ln), 
+     filtering(smaller(880)))) |
+  frequencies)
 ```
 </div>
 </details>
@@ -727,35 +754,24 @@ ln(-1)
 <summary>a</summary>
 <div style="width: 310px">
 ```{python}
-(plotting(ln) |
- (filtering(isPositive) |
-  (-1, 2, 4, 5)))
-```
-</div>
-</details>
-
-<details>
-<summary>c</summary>
-<div style="width: 310px">
-```{python}
-(plotting (compose (mapping(ln),
-                    filtering(isPositive))) |
- (-1, 2, 4, 5))
-```
-</div>
-</details>
-
-<details>
-<summary>e</summary>
-<div style="width: 310px">
-```{python}
-(plotting (compose (mapping (D(ln)), 
-                    filtering(isPositive))) |
- (-1, 2, 4, 5))
+(plotting
+  (compose
+    (mapping(D(ln)), 
+     filtering(smaller(880)))) |
+  frequencies)
 ```
 </div>
 </details>
 :::
+
+<details>
+<summary>Appendix</summary>
+
+Source code of this Quarto generated page: <a href=https://github.com/kloimhardt/site/blob/main/mysite/log.qmd>https://github.com/kloimhardt/site/blob/main/mysite/log.qmd</a>
+
+Interactive workspace: <a href=https://kloimhardt.github.io/cljtiles.html?page=higherorder>https://kloimhardt.github.io/cljtiles.html?page=higherorder</a>
+
+</details>
 
 <div style="height: 900px;"></div>
 
