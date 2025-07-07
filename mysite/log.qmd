@@ -39,7 +39,9 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 <script src="jsfiles/scittle/dist/scittle.js" type="application/javascript"></script>
 <script src="jsfiles/scittle/dist/scittle.nrepl.js" type="application/javascript"></script>
 <script src="jsfiles/blockly/blockly_compressed.js"></script>
+<!--
 <script src="jsfiles/blockly/msg/en.js"></script>
+-->
 <script src="jsfiles/twotiles/twotiles_core.js"></script>
 
 <link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/css/syntax.css">
@@ -348,7 +350,6 @@ var four_ = () => {
 var ws4u = brender(" (def (Poe intersect steps x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5");
 var abws4u = addBlocks(ws4u);
 abws4u('(Poe 220 7 440)')
-abws4u('(Poe 1 1 2)')
 }
 </script>
 
@@ -454,7 +455,8 @@ var ws6 = r14();
 <span onClick="addBlocks(ws6)('(partial Poe :tiles/slot :tiles/slot)');" style="color:blue">D</span>
 <span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">F</span>
 <div class="desc" id="blocklyDiv14_t">
-I can plot log2 because it is a methematical object. -B- But I cannot plot the procedure Poe -C- I need an operation called "partial". -D- You call a procedure named "partial" and give it "Poe" as the argument. Then I can perform the plotting. -E-  Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -F- I turn all this into yet another procedure named log2b -- That is very conveneint for plotting. -G-
+I can plot log2 because it is a methematical object. -B- But I cannot plot the procedure Poe -C- I need an operation called "partial" to transform Poe into the proper target to plot. -D- You call a procedure named "partial" and give it "Poe" as the argument. -- Then I can perform the plotting. -E-  Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -F- I turn all this into yet another procedure named log2b -- That is very conveneint for plotting. -G-
+<div style="height: 200px;"></div>
 </div>
 </td>
 </tr></table>
@@ -503,15 +505,16 @@ plot(log2b(220, 7), [1, 2, 4, 8])
 <summary onClick=cleandiv('blocklyDiv14_t') id="9">7</summary>
 <div id="blocklyDiv19" style="height: 300px;"></div>
 <script>
-r19 = () => brenderT("(call (log2b 1 1) x0)", "blocklyDiv19", true);
+r19 = () => brenderT("(plot (log2b 220 7) [1 2 4 8])", "blocklyDiv19", true);
 var ws19 = r19();
 var abws19 = addBlocks(ws19);
 </script>
 <span onClick="" style="color:blue">A</span>
-<span onClick="abws19('x1')" style="color:blue">C</span>
-<span onClick="abws19('0.7')" style="color:blue">E</span>
+<span onClick="abws19('(call :tiles/slot :tiles/slot)')" style="color:blue">B</span>
+<span onClick="abws19('x0')" style="color:blue">D</span>
+<span onClick="abws19('x1');abws19('0.7')" style="color:blue">F</span>
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. Log2b can also be called. -B- The twist here is that I called log2b not with a number but with a symbol. Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. I can also choose x1 as a symbol. -C-D- This freedom of choice is because log2b does not know a thing about x (or y or z). -E-DF- Also none of the parameters need to be a whole number. O point 7 does nicely as well.
+Not only can log2b be plotted. -B- Log2b can also be called. -C- Not only can log2b be called with a number but also with a symbol. -DE- Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. I can also choose x1 as a symbol. -F- This freedom of choice is because log2b does not know a thing about x (or y or z). -- Also none of the parameters need to be a whole number. O point 7 does nicely as well. -G-
 </div>
 </details>
 
@@ -527,25 +530,24 @@ var abws19_E = addBlocks(ws19_E);
 ::: {.column-margin}
 <a href="#9" onClick="fu19();">_</a>
 <details>
-<summary>B</summary>
+<summary>C</summary>
 <div style="width: 300px">
 ```{python}
-call(log2b(1, 1), x0)
+call(log2b(220, 7), 8)
+```
+</div>
+</details>
+<details>
+<summary>E</summary>
+<div style="width: 300px">
+```{python}
+call(log2b(220, 7), x0)
 ```
 </div>
 </details>
 
 <details>
-<summary>D</summary>
-<div style="width: 300px">
-```{python}
-call(log2b(1, 1), x1)
-```
-</div>
-</details>
-
-<details>
-<summary>F</summary>
+<summary>G</summary>
 <div style="width: 300px">
 ```{python}
 call(log2b(1, 0.7), x1)
@@ -585,7 +587,7 @@ var ab = addBlocks(ws17a);
 </script>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 <div class="desc" id="blocklyDiv17a_t">
-Triangles and curves like above bring to mind the concept of derivative.  -- Taking the derivative of log2b is simple and easy.
+Triangles and curves like above bring to mind the concept of derivative.  -D- Taking the derivative of log2b is simple and easy.
 </div>
 </details>
 
@@ -630,53 +632,28 @@ I'd like to wind down with a note on notation. The common notation for deriving 
 
 <details>
 <summary onClick="cleandiv('tex14_t');" id="15">--</summary>
-<div id="blocklyDivpipe" style="height:100px"></div>
+<div id="blocklyDivpipe" style="height:300px"></div>
 <script>
-var r15 = () => brender("((D ln) x0)", "blocklyDivpipe");
-r15();
+var r15 = () => brenderT("(call (D ln) x0)", "blocklyDivpipe", true);
+ws15x=r15();
 </script>
+<span onClick="addBlocks(ws15x)('(:tiles/slot :tiles/slot)')" style="color:blue">B</span>
+<div class="desc" id="blocklyDivpipe_t">
+Inspired by math, I use pipe in my pictures. -B- Note that it is not the D operator that is replaced by the pipe, but it is the call that is dropped. -- The pipe can also be implemented in Python. -C- You might think that my pipe notation is hard to implement. -- This is not so. My custom pipe is just a few lines of Python.
+</div>
+</details>
 
+::: {.column-margin}
+<a href="#15" onClick="brenderT('((D ln) x0)', 'blocklyDivpipe', true)">_</a>
+<details>
+<summary>C</summary>
 ```{python}
 (D(ln) | x0)
 ```
-<div class="desc" id="blocklyDivpipe_t">
-Inspired by math, I use pipe in my pictures. Note that it is not the D operator that is replaced by the pipe, but it is the call that is dropped.
-</div>
-</details>
-
-::: {.column-margin}
-<a href="#15" onClick="r15();">_</a>
-:::
-
-<details>
-<summary onClick="cleandiv('blocklyDivpipe_t');" id="16">11</summary>
-<div id="blocklyDivpipe2" style="height:300px"></div>
-<script>
-var r16 = () => brenderT("(plot ln [1 2 4 8])", "blocklyDivpipe2", true);
-ws11p = r16();
-</script>
-<span style="color:blue">A</span>
-<span onClick="addBlocks(ws11p)('((plotting :tiles/slot) :tiles/slot)')" style="color:blue">B</span>
-
-<div class="desc" id="blocklyDivpipe2_t">
-The goal of this presentation was to show some merits of my way of plotting. This goal has been reached with the "partial" procedure to produce functions of higher order. The pipe symbol has just been an invention for notation. But I discoverd that the pipe symbol is quite handy for pointing at an idea to speed up the calculation. -BC- To start, I also for plotting introduce the pipe symbol. -D- You might think that my pipe notation is hard to implement. This is not so. My custom pipe is just a few lines of Python.
-</div>
-</details>
-
-::: {.column-margin}
-<a href="#16" onClick="r16()">_</a>
-
-<details>
-<summary>C</summary>
-<div style="width: 310px">
-```{python}
-(plotting(ln) | (1, 2, 4, 8))
-```
-</div>
 </details>
 
 <details>
-<summary>D</summary>
+<summary>--</summary>
 <div style="width: 300px">
 ```{python}
 #| eval: false
@@ -697,6 +674,33 @@ def partial(*args):
 :::
 
 <details>
+<summary onClick="cleandiv('blocklyDivpipe_t');" id="16">11</summary>
+<div id="blocklyDivpipe2" style="height:300px"></div>
+<script>
+var r16 = () => brenderT("(plot ln [1 2 4 8])", "blocklyDivpipe2", true);
+ws11p = r16();
+</script>
+<span style="color:blue">A</span>
+<span onClick="addBlocks(ws11p)('((plotting :tiles/slot) :tiles/slot)')" style="color:blue">B</span>
+<div class="desc" id="blocklyDivpipe2_t">
+The goal of this presentation was to show some merits of my way of plotting. This goal has been reached with the "partial" procedure to produce functions of higher order. The pipe symbol has just been an invention for notation. But I discoverd that the pipe symbol is quite handy for pointing at an idea to speed up the calculation. -BC- To start, I also for plotting introduce the pipe symbol.
+</div>
+</details>
+
+::: {.column-margin}
+<a href="#16" onClick='brenderT("((plotting ln) [1 2 4 8])", "blocklyDivpipe2", true)'>_</a>
+
+<details>
+<summary>C</summary>
+<div style="width: 310px">
+```{python}
+(plotting(ln) | (1, 2, 4, 8))
+```
+</div>
+</details>
+:::
+
+<details>
 <summary onClick=cleandiv("blocklyDivpipe2_t") id="12T">12</summary>
 <div id="blocklyDivTrans" style="height: 500px;"></div>
 <script>
@@ -708,9 +712,9 @@ var abwsTra = addBlocks(wsTra);
 <span onClick="abwsTra('((filtering (smaller 880)) :tiles/slot)')" style="color:blue">C</span>
 <span onClick="abwsTra('(compose (mapping :tiles/slot) :tiles/slot)')" style="color:blue">E</span>
 <span onClick="abwsTra('(D :tiles/slot)')" style="color:blue">G</span>
-
 <div class="desc" id="blocklyDivTrans_t">
 In a way, the pipe explicitely depicts the processing time. When plotting points, the pipe depicts the time spent on calculating their place. -B- To plot all notes, I need to load the frequencies from external data. The data contains the frequencies up to 8000 cycles per second. -C- I'd like to only focus on the frequencies below 880 Hz, so I apply the respective filter to the data -- and plot that. -D- In priciple I am done. But I'd like to have the filtering not in the middel position, but in front of the first pipe. -E- The trick is to use compose which you see in the green tile. -F- As soon as you compose things in front of the pipe like this, you open up a way to speed up the calculation. This is because the concept commonly known as "transducers" in principle becomes applicable. I have to admit though that I was not able to find a Python transducer library that outperforms the standard. -G- For sure you can insert differentiation into this composition as easily as ever. -a-
+<div style="height: 900px;"></div>
 </div>
 </details>
 
@@ -772,8 +776,6 @@ Source code of this Quarto generated page: <a href=https://github.com/kloimhardt
 Interactive workspace: <a href=https://kloimhardt.github.io/cljtiles.html?page=higherorder>https://kloimhardt.github.io/cljtiles.html?page=higherorder</a>
 
 </details>
-
-<div style="height: 900px;"></div>
 
 <script>
 document.querySelectorAll("details")
