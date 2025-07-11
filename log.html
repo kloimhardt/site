@@ -162,6 +162,21 @@ window.Quarto = {
 </header>
 
 
+<!--
+Before publishing:
+* set cache to false
+* outcomment scittle nrepl
+* open all sections
+
+Todo:
+1-3 mit neuem Mikro
+4 ok
+5 genauer
+6 ok
+7 neu
+8 darum auch
+9 - 11 ok
+-->
 <script>
 document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
@@ -169,9 +184,13 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 <p><link rel="stylesheet" type="text/css" href="jsfiles/jsxgraph/distrib/jsxgraph.css"></p>
 <script>var SCITTLE_NREPL_WEBSOCKET_PORT = 1340;</script>
 <script src="jsfiles/scittle/dist/scittle.js" type="application/javascript"></script>
+<!--
 <script src="jsfiles/scittle/dist/scittle.nrepl.js" type="application/javascript"></script>
+-->
 <script src="jsfiles/blockly/blockly_compressed.js"></script>
+<!--
 <script src="jsfiles/blockly/msg/en.js"></script>
+-->
 <script src="jsfiles/twotiles/twotiles_core.js"></script>
 <p><link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/css/syntax.css"></p>
 <p><link rel="stylesheet" type="text/css" href="jsfiles/rigsomelight.com/assets/bootstrap/css/bootstrap.css"></p>
@@ -192,7 +211,8 @@ cleandiv(divid);
 let ws = Blockly.inject(divid,
 {"sounds": false,
 "scrollbars": false,
-"trashcan": bTrash});
+"trashcan": bTrash,
+"media": "/jsfiles/blockly/static/media/"});
 
 Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)), ws);
 
@@ -206,7 +226,7 @@ var brender = (code,divid) => brenderT(code,divid, false)
 const delay = ms => new Promise(res => setTimeout(res, ms));
 </script>
 <div class="hidden">
-<div id="d705ed61" class="cell" data-execution_count="2">
+<div id="bebd6c0a" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code Preamble</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy</span>
@@ -224,27 +244,56 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapv(a, b):</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">list</span>(<span class="bu">map</span>(a, <span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="fl">1.0</span> <span class="op">*</span> x, b)))</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PipeAsCall(<span class="bu">object</span>):</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, func):</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.func <span class="op">=</span> func</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__or__</span>(<span class="va">self</span>, other):</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(other)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__call__</span>(<span class="va">self</span>, x):</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(x)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial(<span class="op">*</span>args):</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> PipeAsCall(</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        functools.partial(<span class="op">*</span>args))</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> D(f):</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  var <span class="op">=</span> symbols(<span class="st">"var"</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> PipeAsCall(sympy.lambdify([var], diff(f(var), var), <span class="st">"sympy"</span>))</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rnd(expr):</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> expr.xreplace({n: <span class="bu">round</span>(n, <span class="dv">3</span>) <span class="cf">for</span> n <span class="kw">in</span> expr.atoms(sympy.Number)})</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot(f, x):</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, mapv(f, x), <span class="st">"o"</span>)</span></code></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapv_indexed(f, coll):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: [x, f(x)], <span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="fl">1.0</span> <span class="op">*</span> x, coll)))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PipeAsCall(<span class="bu">object</span>):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, func):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.func <span class="op">=</span> func</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__or__</span>(<span class="va">self</span>, other):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(other)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__call__</span>(<span class="va">self</span>, x):</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(x)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Transducer(PipeAsCall):</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">pass</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial(<span class="op">*</span>args):</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> PipeAsCall(</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        functools.partial(<span class="op">*</span>args))</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> D(f):</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  var <span class="op">=</span> symbols(<span class="st">"var"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> PipeAsCall(sympy.lambdify([var], diff(f(var), var), <span class="st">"sympy"</span>))</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rnd(expr):</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> expr.xreplace({n: <span class="bu">round</span>(n, <span class="dv">3</span>) <span class="cf">for</span> n <span class="kw">in</span> expr.atoms(sympy.Number)})</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot(f, x):</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="bu">type</span>(f)<span class="op">==</span><span class="bu">str</span>) <span class="kw">or</span> (<span class="bu">type</span>(f)<span class="op">==</span>sympy.core.numbers.Float):</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>       <span class="cf">return</span> <span class="st">"That's not something you can plot"</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>       plt.plot(x, mapv(f, x), <span class="st">"o"</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plotting(f):</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(f) <span class="op">==</span> Transducer:</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> partial(<span class="kw">lambda</span> f, coll: plt.plot(<span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x[<span class="dv">0</span>],f(coll))),<span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x[<span class="dv">1</span>],f(coll))), <span class="st">"o"</span>), f)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> partial(<span class="kw">lambda</span> f, x: plt.plot(x, mapv(f, x), <span class="st">"o"</span>), f)</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>isPositive <span class="op">=</span> <span class="kw">lambda</span> n: <span class="va">True</span> <span class="cf">if</span> n<span class="op">&gt;</span><span class="dv">0</span> <span class="cf">else</span> <span class="va">False</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> smaller(x):</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">lambda</span> n: <span class="va">True</span> <span class="cf">if</span> n<span class="op">&lt;</span>x <span class="cf">else</span> <span class="va">False</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> filtering(f):</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Transducer(functools.partial(<span class="kw">lambda</span> f,coll: <span class="bu">list</span>(<span class="bu">filter</span>(f, coll)), f))</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapping(f):</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Transducer(functools.partial(mapv_indexed, f))</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compose(f, g):</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Transducer(<span class="kw">lambda</span> x: f(g(x)))</span></code></pre></div>
 </details>
 </div>
 </div>
@@ -269,19 +318,20 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, fs <span class="kw">in</span> <span class="bu">enumerate</span>(numerical_data)]</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>   <span class="cf">for</span> item <span class="kw">in</span> subl]</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps([[nf[<span class="dv">0</span>] <span class="op">+</span> <span class="bu">str</span>(nf[<span class="dv">1</span>]), nf[<span class="dv">2</span>]] <span class="cf">for</span> nf <span class="kw">in</span> nofreq <span class="cf">if</span> <span class="kw">not</span> nf[<span class="dv">0</span>].endswith(<span class="st">"s"</span>)]))</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&lt;/script&gt;"</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># instead of using the plain js</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># print("&lt;script src='jsfiles/notes.js'&gt;&lt;/script&gt;")</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># we load the respective Scittle code</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&lt;script&gt;"</span>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'notes.cljs'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> <span class="bu">file</span>.read().replace(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="st">''</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"scittle.core.eval_string('"</span>, data, <span class="st">"')"</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&lt;/script&gt;"</span>)</span></code></pre></div>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>frequencies <span class="op">=</span> [n[<span class="dv">2</span>] <span class="cf">for</span> n <span class="kw">in</span> nofreq]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps([[nf[<span class="dv">0</span>] <span class="op">+</span> <span class="bu">str</span>(nf[<span class="dv">1</span>]), nf[<span class="dv">2</span>]] <span class="cf">for</span> nf <span class="kw">in</span> nofreq <span class="cf">if</span> <span class="kw">not</span> nf[<span class="dv">0</span>].endswith(<span class="st">"s"</span>)]))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&lt;/script&gt;"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># instead of using the plain js</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># print("&lt;script src='jsfiles/notes.js'&gt;&lt;/script&gt;")</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># we load the respective Scittle code</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&lt;script&gt;"</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'notes.cljs'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> <span class="bu">file</span>.read().replace(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="st">''</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"scittle.core.eval_string('"</span>, data, <span class="st">"')"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&lt;/script&gt;"</span>)</span></code></pre></div>
 <script>
 statejs['notenames']= 
 ["C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"]
@@ -289,7 +339,7 @@ statejs['frequencies']=
 [["C0", 16.35], ["D0", 18.35], ["E0", 20.6], ["F0", 21.83], ["G0", 24.5], ["A0", 27.5], ["B0", 30.87], ["C1", 32.7], ["D1", 36.71], ["E1", 41.2], ["F1", 43.65], ["G1", 49.0], ["A1", 55.0], ["B1", 61.74], ["C2", 65.41], ["D2", 73.42], ["E2", 82.41], ["F2", 87.31], ["G2", 98.0], ["A2", 110.0], ["B2", 123.47], ["C3", 130.81], ["D3", 146.83], ["E3", 164.81], ["F3", 174.61], ["G3", 196.0], ["A3", 220.0], ["B3", 246.94], ["C4", 261.63], ["D4", 293.66], ["E4", 329.63], ["F4", 349.23], ["G4", 392.0], ["A4", 440.0], ["B4", 493.88], ["C5", 523.25], ["D5", 587.33], ["E5", 659.25], ["F5", 698.46], ["G5", 783.99], ["A5", 880.0], ["B5", 987.77], ["C6", 1046.5], ["D6", 1174.66], ["E6", 1318.51], ["F6", 1396.91], ["G6", 1567.98], ["A6", 1760.0], ["B6", 1975.53], ["C7", 2093.0], ["D7", 2349.32], ["E7", 2637.0], ["F7", 2793.83], ["G7", 3135.96], ["A7", 3520.0], ["B7", 3951.0], ["C8", 4186.0], ["D8", 4698.63], ["E8", 5274.0], ["F8", 5587.65], ["G8", 6271.93], ["A8", 7040.0], ["B8", 7902.13]]
 </script>
 <script>
-scittle.core.eval_string(' (ns notes)(defmacro deepdef [v e] `(def ~v ~e))(defn drawstiel1 [bnotes2 shift len]  (fn [name]    (let [bp (.select bnotes2 name)]      (. bnotes2         (create "line"                 #js[#js[(fn [] (+ (.X bp) shift)) (fn [] (.Y bp))]                     #js[(fn [] (+ (.X bp) shift)) (fn [] (+ (.Y bp) len))]]                 #js{:name          (str "stlm" name)                     :straightFirst false                     :straightLast  false                     :strokeWidth   4                     :strokeColor   "black"})))))(defn plotpoints1 [bnotes2 vpp]  (run! (fn [d]          (. bnotes2 (create "point"                             #js[(:sx d) (:y d)]                             #js{:name  (:name d)                                 :color "black"})))        vpp))(defn drawlines [bnotes2 names]  (run! (fn [name]          (let [p (.select bnotes2 name)]            (. bnotes2 (create "line"                               #js[#js[150 (.Y p)] #js[1050 (.Y p)]]                               #js{:straightFirst false                                   :straightLast  false                                   :strokeWidth   1                                   :strokeColor   "black"}))))        names)  (.. bnotes2 (select "G3") (setLabel "")))(def idx220 26)(defn drawclef [brd]  (drawlines brd ["E4" "G4" "B4" "D5" "F5"])  (. brd (create "image"                     #js["https://upload.wikimedia.org/wikipedia/commons/f/ff/GClef.svg"                         #js[166 0.5]                         #js[76 -15]])))(defn plotpoints [bnotes2 vpp]  (plotpoints1 bnotes2 vpp)  (drawclef bnotes2)  (run! (fn [name]          (.. bnotes2 (select name) (setAttribute #js{:size 9})))        ["D4" "E4" "F4" "G4" "A4" "B4" "C5" "D5" "E5" "F5" "G5"])  (run! (drawstiel1 bnotes2 9 7)        ["D4" "E4" "F4" "G4" "A4"])  (run! (drawstiel1 bnotes2 -9 -7)        ["B4" "C5" "D5" "E5" "F5" "G5"]))(defn straight1 [y d] (* (- y d) (/ 440 7)))(defn vpp [frequencies]  (into []        (map-indexed (fn [i [name x]]                       (let [y (- i idx220)]                         {:name name                          :x    x :sx (straight1 y -2.7)                          :y    y}))                     frequencies)))(defn brdspec [bb &[axis xname yname]]  {:boundingbox   bb   :showNavigation false   :showCopyright true   :axis          (or axis false)   :grid          false   :defaultAxes   {:x {:name      (or xname "")        :withLabel true        :label     {:position "rt"                    :offset   [-5 15]                    :anchorX  "right"}        :ticks     {:visible     true                    :majorHeight 5}}    :y {:withLabel true        :name      (or yname "")        :label     {:position "rt"                    :offset   [5 -5]                    :anchorY  "top"}        :ticks {:visible     true                :majorHeight 5} }}}  )(defn main [divid]  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard divid                       (clj->js (brdspec [120 (- 48 idx220)                                          1080 (- 20 idx220)])))))  (plotpoints (.. js/statejs -notes -bnotes2)              (vpp (js->clj (.-frequencies js/statejs)))))((js->clj (.-frequencies js/statejs)) 26)((vpp (js->clj (.-frequencies js/statejs))) 26)(defn octave [y o]  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (. bnotes2       (create "line"               (let [p1 (.select bnotes2 (:name (pp y)))                     p2 (.select bnotes2 (:name (pp (+ y o))))]                 #js[p1                     #js[(fn [] (.X p2)) (fn [] (.Y p1))]])               #js{:name          (str "oct" (:name (pp y)))                   :straightFirst false                   :straightLast  false                   :strokeWidth   2                   :strokeColor   "red"}))))(defn anim1 []  (octave 26 7)  (octave 40 -7))(defn anim2 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (run!      (fn [tu]        (.. bnotes2            (select (:name tu))            (moveTo #js[(:x tu) (:y tu)] 1500)))      pp)))(defn anim3 []  #_(anim3)  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (run! (fn [[l f]]            (.create bnotes2                     "text"                     #js[f -2 (str l f " Hz")]                     #js{:fontsize 20 :color "black"}))          [["" 220] ["" 440] ["" 880]])))(defn anim5 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (.create bnotes2             "functiongraph"             #js["(7 * log(x / 220)) / log(2)"]             #js{:strokeColor "red" :strokeWidth 2})))(defn anim6 []  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard "divnotes2"                       (clj->js (brdspec [-320 33                                          1480 -18]                                         true                                         "Frequency"                                         "log2")))))  (run! (fn [d]          (.. js/statejs -notes -bnotes2              (create "point"                      #js[(:x d) (:y d)]                      #js{:name  (:name d)                          :color "black"                          })              (setLabel "")))        (vpp (js->clj (.-frequencies js/statejs))))  (doto (.. js/statejs -notes -bnotes2)    (drawclef )    (.create      "functiongraph"      #js["(7 * log(x / 220)) / log(2)"]      #js{:strokeColor "red" :strokeWidth 2})    #_(.create      "text"      #js[1100 22 "Logarithm"]      #js{:fontSize 24}))  (anim1))(set! (.. js/statejs -notes) #js{})(set! (.. js/statejs -notes -main) main)(set! (.. js/statejs -notes -anim1) anim1)(set! (.. js/statejs -notes -anim2) anim2)(set! (.. js/statejs -notes -anim3) anim3)(set! (.. js/statejs -notes -anim5) anim5)(set! (.. js/statejs -notes -anim6) anim6)(comment  (do    (main "divnotes2")    (def bnotes2 (.. js/statejs -notes -bnotes2))    )  (anim1)  (anim2)  (anim3)  (anim5)  (anim6)  :end) ')
+scittle.core.eval_string(' (ns notes)(defmacro deepdef [v e] `(def ~v ~e))(defn drawstiel1 [bnotes2 shift len]  (fn [name]    (let [bp (.select bnotes2 name)]      (. bnotes2         (create "line"                 #js[#js[(fn [] (+ (.X bp) shift)) (fn [] (.Y bp))]                     #js[(fn [] (+ (.X bp) shift)) (fn [] (+ (.Y bp) len))]]                 #js{:name          (str "stlm" name)                     :straightFirst false                     :straightLast  false                     :strokeWidth   4                     :strokeColor   "black"})))))(defn plotpoints1 [bnotes2 vpp]  (run! (fn [d]          (. bnotes2 (create "point"                             #js[(:sx d) (:y d)]                             #js{:name  (:name d)                                 :color "black"})))        vpp))(defn drawlines [bnotes2 names]  (run! (fn [name]          (let [p (.select bnotes2 name)]            (. bnotes2 (create "line"                               #js[#js[150 (.Y p)] #js[1050 (.Y p)]]                               #js{:straightFirst false                                   :straightLast  false                                   :strokeWidth   1                                   :strokeColor   "black"}))))        names)  (.. bnotes2 (select "G3") (setLabel "")))(def idx220 26)(defn drawclef [brd]  (drawlines brd ["E4" "G4" "B4" "D5" "F5"])  (. brd (create "image"                     #js["/jsfiles/GClef.svg"                         #js[166 0.5]                         #js[76 -15]])))(defn plotpoints [bnotes2 vpp]  (plotpoints1 bnotes2 vpp)  (drawclef bnotes2)  (run! (fn [name]          (.. bnotes2 (select name) (setAttribute #js{:size 9})))        ["D4" "E4" "F4" "G4" "A4" "B4" "C5" "D5" "E5" "F5" "G5"])  (run! (drawstiel1 bnotes2 9 7)        ["D4" "E4" "F4" "G4" "A4"])  (run! (drawstiel1 bnotes2 -9 -7)        ["B4" "C5" "D5" "E5" "F5" "G5"]))(defn straight1 [y d] (* (- y d) (/ 440 7)))(defn vpp [frequencies]  (into []        (map-indexed (fn [i [name x]]                       (let [y (- i idx220)]                         {:name name                          :x    x :sx (straight1 y -2.7)                          :y    y}))                     frequencies)))(defn brdspec [bb &[axis xname yname]]  {:boundingbox   bb   :showNavigation false   :showCopyright true   :axis          (or axis false)   :grid          false   :defaultAxes   {:x {:name      (or xname "")        :withLabel true        :label     {:position "rt"                    :offset   [-5 15]                    :anchorX  "right"}        :ticks     {:visible     true                    :majorHeight 5}}    :y {:withLabel true        :name      (or yname "")        :label     {:position "rt"                    :offset   [5 -5]                    :anchorY  "top"}        :ticks {:visible     true                :majorHeight 5} }}}  )(defn main [divid]  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard divid                       (clj->js (brdspec [120 (- 48 idx220)                                          1080 (- 20 idx220)])))))  (plotpoints (.. js/statejs -notes -bnotes2)              (vpp (js->clj (.-frequencies js/statejs)))))((js->clj (.-frequencies js/statejs)) 26)((vpp (js->clj (.-frequencies js/statejs))) 26)(defn octave [y o]  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (. bnotes2       (create "line"               (let [p1 (.select bnotes2 (:name (pp y)))                     p2 (.select bnotes2 (:name (pp (+ y o))))]                 #js[p1                     #js[(fn [] (.X p2)) (fn [] (.Y p1))]])               #js{:name          (str "oct" (:name (pp y)))                   :straightFirst false                   :straightLast  false                   :strokeWidth   2                   :strokeColor   "red"}))))(defn anim1 []  (octave 26 7)  (octave 40 -7))(defn anim2 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (run!      (fn [tu]        (.. bnotes2            (select (:name tu))            (moveTo #js[(:x tu) (:y tu)] 1500)))      pp)))(defn anim3 []  #_(anim3)  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (run! (fn [[l f]]            (.create bnotes2                     "text"                     #js[f -2 (str l f " Hz")]                     #js{:fontsize 20 :color "black"}))          [["" 220] ["" 440] ["" 880]])))(defn anim5 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (.create bnotes2             "functiongraph"             #js["(7 * log(x / 220)) / log(2)"]             #js{:strokeColor "red" :strokeWidth 2})))(defn anim6 []  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard "divnotes2"                       (clj->js (brdspec [-320 33                                          1480 -18]                                         true                                         "Frequency"                                         "log2")))))  (run! (fn [d]          (.. js/statejs -notes -bnotes2              (create "point"                      #js[(:x d) (:y d)]                      #js{:name  (:name d)                          :color "black"                          })              (setLabel "")))        (vpp (js->clj (.-frequencies js/statejs))))  (doto (.. js/statejs -notes -bnotes2)    (drawclef )    (.create      "functiongraph"      #js["(7 * log(x / 220)) / log(2)"]      #js{:strokeColor "red" :strokeWidth 2})    #_(.create      "text"      #js[1100 22 "Logarithm"]      #js{:fontSize 24}))  (anim1))(set! (.. js/statejs -notes) #js{})(set! (.. js/statejs -notes -main) main)(set! (.. js/statejs -notes -anim1) anim1)(set! (.. js/statejs -notes -anim2) anim2)(set! (.. js/statejs -notes -anim3) anim3)(set! (.. js/statejs -notes -anim5) anim5)(set! (.. js/statejs -notes -anim6) anim6)(comment  (do    (main "divnotes2")    (def bnotes2 (.. js/statejs -notes -bnotes2))    )  (anim1)  (anim2)  (anim3)  (anim5)  (anim6)  :end) ')
 </script>
 </div>
 <!--
@@ -304,17 +354,17 @@ scittle.core.eval_string(' (ns notes)(defmacro deepdef [v e] `(def ~v ~e))(defn 
 
 </div>
 <script>statejs.notes.main("divnotes2");</script>
-<p><span onclick="statejs.notes.main('divnotes2')" style="color:blue">A</span> <span onclick="statejs.notes.anim1()" style="color:blue">B</span> <span onclick="statejs.notes.anim2()" style="color:blue">C</span> <span onclick="statejs.notes.anim3()" style="color:blue">D</span> <span onclick="statejs.notes.anim5()" style="color:blue">E</span> <span onclick="statejs.notes.anim6()" style="color:blue">F</span></p>
+<span onclick="statejs.notes.main('divnotes2')" style="color:blue">A</span> <span onclick="statejs.notes.anim1()" style="color:blue">B</span> <span onclick="statejs.notes.anim2()" style="color:blue">C</span> <span onclick="statejs.notes.anim3()" style="color:blue">D</span> <span onclick="statejs.notes.anim5()" style="color:blue">E</span> <span onclick="statejs.notes.anim6()" style="color:blue">F</span>
 <div id="divnotes2_t" class="desc">
-<p>Sometimes, you need to start with the basics. I am sure you all have your own ways to do graphs. So you don’t really need this, but I think my way has its own value. In a minute, I will show the main point for you to decide. But in the first step, I needed to make a choice for the mathematical target to plot. It could have been anyone. I chose the musical scale. – The notes are logarithmic.</p>
+<p>Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way for plotting has, I think, its merits. But that’s for you to decide. I’ll come to the main quality of my way to plot in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. – The notes are logarithmic.</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#1" onclick="statejs.notes.anim6(); cleandiv('divnotes2_t')">_</a></p>
+<p><a href="#1" onclick="statejs.notes.anim6();">_</a></p>
 </div></div><script>var wslog2; //for .markFocused() , but that does not prevent the scrolling down to the last workspace</script>
 <details>
-<summary id="2">
+<summary onclick="cleandiv('divnotes2_t')" id="2">
 2
 </summary>
 <div id="blocklyDivLog2" onclick="wslog2.markFocused();" style="height: 300px;">
@@ -327,12 +377,14 @@ wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyD
 v2();
 </script>
 <div id="blocklyDivLog2_t" class="desc">
-<p>To make it fit the notes, you need to insert some scale factors into the logarithmic formula. – But I have jumped ahead. I need to plot the plain log2 first.</p>
+<p>While it is the log2 that fits the notes, it is not the plain log2. There need to be some scale factors. – If you want, you can play with the formula yourself, because this notebook is online at the following address</p>
+<p><a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a></p>
+<p>But I have jumped ahead. The story starts with the Python language. And plotting just the plain log2. And that already hits upon the main message of my presentation.</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#2" onclick="v2(); cleandiv('blocklyDivLog2_t')">_</a></p>
+<p><a href="#2" onclick="v2();">_</a></p>
 </div></div><div class="hidden">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"&lt;script&gt;"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'log23.cljs'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
@@ -356,17 +408,14 @@ statejs.log23.anim2();
 :::
 -->
 <details>
-<summary id="5">
+<summary onclick="cleandiv('blocklyDivLog2_t')" id="5">
 3
 </summary>
 <div id="blocklyDiv10" style="height: 150px; width: 800px">
 
 </div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
-<div id="blocklyDiv10_t" class="desc">
-<p>And here, I hit the main message of my presentation. It is this. – It is the log2 that you plot. This is so obvious that I repeat: It is the log2 that you plot. The log2 is a perfectly good mathematical object. It is not the log2 of x or y or z. It is just log2. You plot just log2. That, in a nutshell, is my approach for plotting.</p>
-</div>
-<div id="943cb784" class="cell" data-execution_count="5">
+<div id="9b83212f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot(log2, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -376,15 +425,18 @@ statejs.log23.anim2();
 </div>
 </div>
 </div>
+<div id="blocklyDiv10_t" class="desc">
+<p>The message is this. – It is the log2 that you plot. This is so obvious that I’d like to state what log2 is not. It is not the log2 of x or y or z. Also, it is not some text that contains the string log2. Rather, log2 is a mathematical object. Only objects like this are suitable for plotting within the paradigm of my presentation.</p>
+</div>
 <script>
 var clean5 = () => { brender("(plot log2 [1 2 4 8])", "blocklyDiv10"); cleandiv("blocklyDiv10_t");}
 </script>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#5" onclick="clean5()">_</a></p>
+<p><a href="#5">_</a></p>
 </div></div><details>
-<summary id="3">
+<summary onclick="clean5()" id="3">
 4
 </summary>
 <div id="divmanylogs" class="jxgbox" style="height:300px">
@@ -405,14 +457,14 @@ var clean3 = () => {mywait(); cleandiv("divmanylogs_t")}
 </script>
 <span onclick="statejs.log23.many(&quot;divmanylogs&quot;)" style="color:blue">A</span> <span onclick="mywait()" style="color:blue">B</span>
 <div id="divmanylogs_t" class="desc">
-<p>While I do worry that I have not given my viewers enough time to digest this, I move on towards the practical goal. – I need to get more to something like this.</p>
+<p>I am aware that you need some time for digesting my self-imposed plotting restrictions. So I move more towards the practical goal. -B- I need to get more to something like this. For that, I need to get back to the formula I showed at the start.</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#3" onclick="clean3()">_</a></p>
+<p><a href="#3">_</a></p>
 </div></div><details>
-<summary id="4">
+<summary onclick="clean3()" id="4">
 5
 </summary>
 <div id="blocklyDiv5" style="height: 350px;">
@@ -425,9 +477,9 @@ var addBlocks = (ws) => (s) =>
 Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
 var abws5 = addBlocks(ws5);
 </script>
-<p><span style="color:blue">A</span> <span onclick="abws5('(Poe intersect steps x)'); abws5('(Poe intersect steps 440)'); abws5('(def :tiles/slot (return :tiles/slot))')" style="color:blue">B</span></p>
+<span style="color:blue">A</span> <span onclick="abws5('(def (Poe intersect steps x) :tiles/slot)');" style="color:blue">C</span> <span onclick="abws5('(return :tiles/slot)');" style="color:blue">D</span> <span onclick="abws5('(Poe intersect steps 440)')" style="color:blue">E</span>
 <div id="blocklyDiv5_t" class="desc">
-<p>To plot the notes, I come back to the formula I showed at the beginning. I arrived at this formula by trial and error. This formula is the result of my plots and mistakes, the digested essence. You cannot plot this formula directly, at least when using my approach. This is the main theme again. I need a proper mathematical target to plot. -B- To get such a target, I need to wrap this formula into a procedure. – The procedure itself I gave the name Poe. It takes the arguments intersect, steps and the frequency x. – The procedure returns the formula. – You have to replace the numbers by the chosen names. -C- I provide the procedure as Python code.</p>
+<p>The formula I showed at the start is not something you can plot. -B- This is the main theme again. The theme is that I need a proper mathematical target to plot. To arrive at such a target, it is necessary to bind the formula to a procedure. -C- The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -D- The procedure does the wanted computation, it returns the value given by the formula. -E- In its code, you have to replace the numbers with the names of the two parameters. I provide the procedure as Python code. -F-</p>
 </div>
 </details>
 <script>
@@ -435,8 +487,6 @@ var four_ = () => {
 var ws4u = brender(" (def (Poe intersect steps x) (return (:tiles/infix (* (log2 (:tiles/infix (/ x intersect))) steps))))", "blocklyDiv5");
 var abws4u = addBlocks(ws4u);
 abws4u('(Poe 220 7 440)')
-abws4u('(Poe 1 1 2)')
-cleandiv("blocklyDiv5_t")
 }
 </script>
 
@@ -502,18 +552,31 @@ statejs.log23.log3("divlog2x");
 :::
 -->
 <div class="no-row-height column-margin column-container"><div class="">
-<a href="#4" onclick="four_()">_</a>
+<p><a href="#4" onclick="four_()">_</a></p>
 <details>
 <summary>
-C
+B
 </summary>
 <div style="width: 300px">
-<div id="6cd6bf82" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Poe(intersect, steps, x):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log2(x<span class="op">/</span>intersect) <span class="op">*</span> steps</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Poe(<span class="dv">220</span>, <span class="dv">7</span>, <span class="dv">440</span>)</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<div id="422540f3" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot(<span class="st">"log2(x / 220) * 7"</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>"That's not something you can plot"</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary>
+F
+</summary>
+<div style="width: 300px">
+<div id="d928c02d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Poe(intersect, steps, x):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log2(x<span class="op">/</span>intersect) <span class="op">*</span> steps</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Poe(<span class="dv">220</span>, <span class="dv">7</span>, <span class="dv">440</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p><span class="math inline">\(\displaystyle 7.0\)</span></p>
 </div>
 </div>
@@ -521,7 +584,7 @@ C
 </details>
 </div></div><div class="column-screen-left">
 <details>
-<summary id="6">
+<summary onclick="cleandiv(&quot;blocklyDiv5_t&quot;)" id="6">
 6
 </summary>
 <table>
@@ -536,12 +599,15 @@ C
 
 </div>
 <script>
-var r14= () => brender("(plot (partial Poe 220 7) [1 2 4 8])", "blocklyDiv14")
+var r14= () => brenderT("(plot log2 [1 2 4 8])", "blocklyDiv14", true);
 var ws6 = r14();
 </script>
-<p><span onclick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">D</span></p>
+<span style="color:blue">A</span> <span onclick="addBlocks(ws6)('(Poe 220 7 440)');" style="color:blue">B</span> <span onclick="addBlocks(ws6)('(partial Poe :tiles/slot :tiles/slot)');" style="color:blue">D</span> <span onclick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">F</span>
 <div id="blocklyDiv14_t" class="desc">
-<p>The procedure named Poe is not yet the mathematical target. The procedure Poe which does the calculation according to the original formula shares the same fate as this formula: also Poe cannot be plotted directly. To make the desired mathematical target out of Poe, I need to use a standard maneuver of computer science. You take the partial of Poe. – Here is my main theme in spades: “partial” taking a procedure to deliver the target to plot. Only now can you plot the scaled log2. – All this can in turn be wrapped in a procedure. – If all this is too much, maybe it helps that this notebook is online if you like to try yourself.</p>
+I can plot log2 because it is a mathematical object. -B- But still I cannot plot the procedure Poe. -C- I need an operation called “partial” to transform Poe into the proper target to plot. -D- The procedure named “partial” takes “Poe” as an argument. – Then I can perform the plotting. -E- Here is the main theme in spades: “partial” taking a procedure to deliver the target to plot. -F- I turn all this into yet another procedure named log2b – That is very convenient for plotting. -G-
+<div style="height: 200px;">
+
+</div>
 </div>
 </td>
 </tr>
@@ -549,25 +615,38 @@ var ws6 = r14();
 </details>
 </div>
 <div class="hidden">
-<div id="647398b5" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log2b(intersect, steps):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> partial(Poe, intersect, steps)</span></code></pre></div>
+<div id="2c479aca" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log2b(intersect, steps):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> partial(Poe, intersect, steps)</span></code></pre></div>
 </div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<a href="#6" onclick="r14(); cleandiv('blocklyDiv14_t')">_</a>
+<a href="#6" onclick="var ws6t=brender('(def (log2b intersect steps) (return (partial Poe intersect steps)))', 'blocklyDiv14'); addBlocks(ws6t)('(plot (log2b 220 7) [1 2 4 8])');">_</a>
 <details>
 <summary>
-A
+C
 </summary>
-<div style="width: 300px">
-<div id="9a9c61b7" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plot(partial(Poe, <span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
+<div style="width: 305px">
+<div id="f9b0b87b" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plot(Poe(<span class="dv">220</span>, <span class="dv">7</span>, <span class="dv">440</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>"That's not something you can plot"</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary>
+E
+</summary>
+<div style="width: 305px">
+<div id="b3a4e5c6" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plot(partial(Poe, <span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="log_files/figure-html/cell-8-output-1.png" class="figure-img img-fluid"></p>
+<p><img src="log_files/figure-html/cell-10-output-1.png" class="figure-img img-fluid"></p>
 </figure>
 </div>
 </div>
@@ -576,15 +655,15 @@ A
 </details>
 <details>
 <summary>
-B
+G
 </summary>
-<div style="width: 300px">
-<div id="fb2303f9" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plot(log2b(<span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
+<div style="width: 305px">
+<div id="5305d3e8" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plot(log2b(<span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="log_files/figure-html/cell-9-output-1.png" class="figure-img img-fluid"></p>
+<p><img src="log_files/figure-html/cell-11-output-1.png" class="figure-img img-fluid"></p>
 </figure>
 </div>
 </div>
@@ -592,20 +671,20 @@ B
 </div>
 </details>
 </div></div><details>
-<summary id="9">
+<summary onclick="cleandiv('blocklyDiv14_t')" id="9">
 7
 </summary>
-<span onclick="" style="color:blue">A</span> <span onclick="abws19('x1')" style="color:blue">x1</span> <span onclick="abws19('0.7')" style="color:blue">0.7</span>
 <div id="blocklyDiv19" style="height: 300px;">
 
 </div>
 <script>
-r19 = () => brenderT("(call (log2b 1 1) x0)", "blocklyDiv19", true);
+r19 = () => brenderT("(plot (log2b 220 7) [1 2 4 8])", "blocklyDiv19", true);
 var ws19 = r19();
 var abws19 = addBlocks(ws19);
 </script>
+<p><span onclick="" style="color:blue">A</span> <span onclick="abws19('(call :tiles/slot :tiles/slot)')" style="color:blue">B</span> <span onclick="abws19('x0')" style="color:blue">D</span> <span onclick="abws19('x1')" style="color:blue">F</span> <span onclick="abws19('0.7')" style="color:blue">G</span></p>
 <div id="blocklyDiv19_t" class="desc">
-<p>Not only can log2b be plotted. Log2b can also be called. What might be surprising is that log2b can be called with a symbol. – I chose x0 as the symbol in this example. – But it is arbitrary. It could also have been x1. Remember that log2 does not know anything about x or y or z. – Also, the step argument does not need to be an integer, it can well be 0 point 7.</p>
+<p>Not only can log2b be plotted. -B- Log2b can also be called. -C- Not only can log2b be called with data of type number. Log2b can also be called with a symbol. -DE- Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. As a symbol, for example, I can also choose x1. -F- For log2b, the x1 is just yet another data that happens to be of type symbol. This idea of “symbols as data” is a source for the freedom of choice. -G- Before being able to process some data, log2b needs to be initialized with two parameters. But these do not need to be of type integer. The float 0.7 does nicely as well. -a-</p>
 </div>
 </details>
 <script>
@@ -618,48 +697,48 @@ var abws19_E = addBlocks(ws19_E);
 </script>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<a href="#9" onclick="fu19(); cleandiv('blocklyDiv19_t');">_</a>
-<details>
-<summary>
-B
-</summary>
-<div style="width: 300px">
-<div id="83b50ba9" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">1</span>, <span class="dv">1</span>), x0)</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
-<p><span class="math inline">\(\displaystyle \operatorname{log}_{2}{\left(x_{0} \right)}\)</span></p>
-</div>
-</div>
-</div>
-</details>
+<a href="#9" onclick="fu19();">_</a>
 <details>
 <summary>
 C
 </summary>
 <div style="width: 300px">
-<div id="b9efb09f" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">1</span>, <span class="dv">1</span>), x1)</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
-<p><span class="math inline">\(\displaystyle \operatorname{log}_{2}{\left(x_{1} \right)}\)</span></p>
+<div id="c5e3bb86" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">220</span>, <span class="dv">7</span>), <span class="dv">8</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<p><span class="math inline">\(\displaystyle -33.4695179946726\)</span></p>
 </div>
 </div>
 </div>
 </details>
 <details>
 <summary>
-D
+E
 </summary>
 <div style="width: 300px">
-<div id="b4f84ef7" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>), x1)</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<div id="2f324442" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">220</span>, <span class="dv">7</span>), x0)</span></code></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
+<p><span class="math inline">\(\displaystyle 7 \operatorname{log}_{2}{\left(\frac{x_{0}}{220} \right)}\)</span></p>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary>
+a
+</summary>
+<div style="width: 300px">
+<div id="6b98ae8e" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>), x1)</span></code></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
 <p><span class="math inline">\(\displaystyle 0.7 \operatorname{log}_{2}{\left(x_{1} \right)}\)</span></p>
 </div>
 </div>
 </div>
 </details>
 </div></div><details>
-<summary id="11">
+<summary onclick="cleandiv('blocklyDiv19_t')" id="11">
 8
 </summary>
 <div id="divlogtri" class="jxgbox" style="height:300px;">
@@ -671,14 +750,14 @@ statejs.log23.logtri("divlogtri");
 </script>
 <span onclick="statejs.log23.logtri(&quot;divlogtri&quot;)" style="color:blue">A</span> <span onclick="statejs.log23.trianim2()" style="color:blue">B</span> <span onclick="statejs.log23.trianim3()" style="color:blue">C</span> <span onclick="statejs.log23.trianim4()" style="color:blue">D</span> <span onclick="statejs.log23.trianim5()" style="color:blue">E</span> <span onclick="statejs.log23.trianim6()" style="color:blue">F</span> <span onclick="statejs.log23.trianim7()" style="color:blue">G</span>
 <div id="divlogtri_t" class="desc">
-<p>In fact, the case 0.7 is almost a special one. – As any curve, it can be approximated by triangles. – I move the triangles to the ground level. – Now the curve known as “one over x” fits their hights quite nicely. – You can also try the other way around – That does not work quite as well. – The trick is to shrink the area of the triangle while retaining its shape.</p>
+<p>I would not have bothered you with my O point seven invention, hadn’t I discovered it to be a segue to the natural logarithm. -B- In general, you can fit a series of triangles onto any curve. -C- Moving those triangles to the ground level reveals -D- that a new curve “one over x” fits their heights quite agreeably. −E− You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area while retaining the angles.</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#11" onclick="cleandiv('divlogtri_t');">_</a></p>
+<p><a href="#11">_</a></p>
 </div></div><details>
-<summary id="12">
+<summary onclick="cleandiv('divlogtri_t');" id="12">
 9
 </summary>
 <div id="blocklyDiv17a" style="height:150px">
@@ -689,19 +768,19 @@ var ab = addBlocks(ws17a);
 </script>
 <span onclick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 <div id="blocklyDiv17a_t" class="desc">
-<p>This triangle business smells of derivatives. – Taking the derivate is simple and easy.</p>
+<p>I hope my triangles just formed an agreeable entertainment. For me they were (while making them). In conclusion, I assume you caught on to the topic I am aiming at: -D- differentiation. – Taking the derivative of log2b is simple and easy.</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#12" onclick="brender('(call (D (log2b 1 0.7)) x0)', 'blocklyDiv17a'); cleandiv('blocklyDiv17a_t');">_</a></p>
+<p><a href="#12" onclick="brender('(call (D (log2b 1 0.7)) x0)', 'blocklyDiv17a');">_</a></p>
 </div></div><details>
-<summary id="13">
+<summary onclick="cleandiv('blocklyDiv17a_t');" id="13">
 10
 </summary>
-<div id="394e4745" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>call(D(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>)), x0).evalf()</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
+<div id="2ccb4785" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>call(D(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>)), x0).evalf()</span></code></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <p><span class="math inline">\(\displaystyle \frac{1.00988652862227}{x_{0}}\)</span></p>
 </div>
 </div>
@@ -712,100 +791,189 @@ var ab = addBlocks(ws17a);
 var r13 = () => brender("(call (D ln) x0)", "blocklyDiv22a");
 r13();
 </script>
-<div id="d9a51b57" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>call(D(ln), x0)</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
+<div id="00cc1b7b" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>call(D(ln), x0)</span></code></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <p><span class="math inline">\(\displaystyle \frac{1}{x_{0}}\)</span></p>
 </div>
 </div>
 <div id="blocklyDiv22a_t" class="desc">
-<p>If I do the actual calculation with 0.7, I nearly get one over x for the derivative. To get the exact result, I need to switch to the natural logarithm ln.</p>
+<p>With the log2b initialized at O point seven, I calculate its derivative. As a result I almost get one over x. To become exact, I need to switch to “ln”, the natural logarithm. The pictures above can, within this presentation, be called its pinnacle. As a kind of confirmation, I’d like to drop some names. In math, the procedure named “call” is a functional while D is an operator. In computer science, both is called functions of higher order. The natural logarithm “ln” of course is a function in any field.</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#blocklyDiv22a" onclick="r13(); cleandiv('blocklyDiv22a_t');">_</a></p>
+<p><a href="#blocklyDiv22a" onclick="r13();">_</a></p>
 </div></div><details>
-<summary id="14">
+<summary onclick="cleandiv('blocklyDiv22a_t');" id="14">
 –
 </summary>
 <span class="math display">\[\Large \left. \frac{d \ln(x)}{dx} \right|_{x=x_0}\]</span>
 <div id="tex14_t" class="desc">
-<p>The usual mathematical notation for the derivative at point x0 is by unsing the vertical bar, colloquially called pipe.</p>
+<p>I’d like to wind down with a note on notation. When I differentiate a function like “ln” and then evaluate that derivative at x-naught, the common notation is the vertical bar. This bar is also called “pipe”.</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#blocklyDiv22a" onclick="cleandiv('tex14_t');">_</a></p>
+<p><a href="#blocklyDiv22a">_</a></p>
 </div></div><details>
-<summary id="15">
+<summary onclick="cleandiv('tex14_t');" id="15">
 –
 </summary>
-<div id="blocklyDivpipe" style="height:100px">
+<div id="blocklyDivpipe" style="height:300px">
 
 </div>
 <script>
-var r15 = () => brender("((D ln) x0)", "blocklyDivpipe");
-r15();
+var r15 = () => brenderT("(call (D ln) x0)", "blocklyDivpipe", true);
+ws15x=r15();
 </script>
-<div id="72cb2eed" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(D(ln) <span class="op">|</span> x0)</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
+<span onclick="addBlocks(ws15x)('(:tiles/slot :tiles/slot)')" style="color:blue">B</span>
+<div id="blocklyDivpipe_t" class="desc">
+<p>Inspired by math, I also use pipe in my pictures. -B- Note that it is not the D operator that is replaced by the pipe, but it is the “call” that is dropped. – Not only can “pipe” be used in pictorial representations. The pipe can also be used within Python code. -C- You might think that my pipe notation is hard to implement. This is not so. My custom pipe is just a few lines of Python. – The pipe symbol is an invented alternative notation. For the following grand finale, I’d like to discover its explenatory virtues.</p>
+</div>
+</details>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<a href="#15" onclick="brenderT('((D ln) x0)', 'blocklyDivpipe', true)">_</a>
+<details>
+<summary>
+C
+</summary>
+<div id="30fdbb2a" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(D(ln) <span class="op">|</span> x0)</span></code></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
 <p><span class="math inline">\(\displaystyle \frac{1}{x_{0}}\)</span></p>
 </div>
 </div>
-<div id="blocklyDivpipe_t" class="desc">
-<p>In my pictorial representation, I’d like to do the same. Note that it is not the D procedure that is representd by the pipe symbol. It is the call procedure that is dropped and replaced by the pipe.</p>
+</details>
+<details>
+<summary>
+–
+</summary>
+<div style="width: 300px">
+<div id="f4ac27be" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PipeAsCall(<span class="bu">object</span>):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, func):</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.func <span class="op">=</span> func</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__or__</span>(<span class="va">self</span>, other):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(other)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__call__</span>(<span class="va">self</span>, x):</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(x)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial(<span class="op">*</span>args):</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> PipeAsCall(</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        functools.partial(<span class="op">*</span>args))</span></code></pre></div>
+</div>
 </div>
 </details>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#15" onclick="r15(); cleandiv('blocklyDivpipe_t');">_</a></p>
 </div></div><details>
-<summary id="16">
+<summary onclick="cleandiv('blocklyDivpipe_t');" id="16">
 11
 </summary>
-<div id="blocklyDivpipe2" style="height:100px">
+<div id="blocklyDivTrans" style="height: 500px;">
 
 </div>
 <script>
-var r16 = () => brender("((log2b 220 7) 440)", "blocklyDivpipe2");
-r16();
+wsTra = brenderT("(plot ln [1 2 4 8])", "blocklyDivTrans", true);
+var abwsTra = addBlocks(wsTra);
 </script>
-<div id="e130ab30" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(log2b(<span class="dv">220</span>, <span class="dv">7</span>) <span class="op">|</span> <span class="dv">440</span>)</span></code></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
-<p><span class="math inline">\(\displaystyle 7.0\)</span></p>
-</div>
-</div>
-<div id="blocklyDivpipe2_t" class="desc">
-<p>All this means that also a direct call to log2b can be done with a pipe. – You might think that such a custom pipe is a lot of work. This is not so. My custom pipe is just a few lines of Python.</p>
+<span style="color:blue">A</span> <span onclick="abwsTra('((plotting :tiles/slot) :tiles/slot)')" style="color:blue">B</span> <span onclick="abwsTra('frequencies')" style="color:blue">C</span> <span onclick="abwsTra('((filtering (smaller 900)) :tiles/slot)')" style="color:blue">E</span> <span onclick="abwsTra('(compose (mapping :tiles/slot) :tiles/slot)')" style="color:blue">G</span> <span onclick="abwsTra('(D :tiles/slot)')" style="color:blue">b</span>
+<div id="blocklyDivTrans_t" class="desc">
+<p>The pipe notation is very versatile. I can also use it when plotting something. -B- In my dataset, -C- the highest frequency is eight kilohertz. -D- I’d like to cut that down to 900 cycles per second. -E- So I apply a filter – and plot. -F- I want to move the filtering to the left. Or in a more picturesque manner: I want the filtering to be ahead of the pipes. For this, I use function composition. -G- This composition is completely decoupled from input sources and output formats. This leads to a method commonly known as “transducing” – Transducers are ahead of the pipe. -ab- For sure you can insert differentiation into the composition as easily as ever. -c-</p>
 </div>
 </details>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#16" onclick="r16(); cleandiv('blocklyDivpipe2_t');">_</a></p>
+<p><a href="#16">_</a></p>
 <details>
 <summary>
-A
+D
 </summary>
-<div style="width: 300px">
-<div id="5fe98aaa" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PipeAsCall(<span class="bu">object</span>):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, func):</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.func <span class="op">=</span> func</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__or__</span>(<span class="va">self</span>, other):</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(other)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__call__</span>(<span class="va">self</span>, x):</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.func(x)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial(<span class="op">*</span>args):</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> PipeAsCall(</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        functools.partial(<span class="op">*</span>args))</span></code></pre></div>
+<div style="width: 310px">
+<div id="73b6b1b8" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(plotting(ln) <span class="op">|</span> frequencies)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="log_files/figure-html/cell-19-output-1.png" class="figure-img img-fluid"></p>
+</figure>
+</div>
+</div>
 </div>
 </div>
 </details>
-</div></div><script>
+<details>
+<summary>
+F
+</summary>
+<div style="width: 310px">
+<div id="8e00b3e2" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(plotting(ln) <span class="op">|</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  (filtering(smaller(<span class="dv">900</span>)) <span class="op">|</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    frequencies))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="log_files/figure-html/cell-20-output-1.png" class="figure-img img-fluid"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary>
+a
+</summary>
+<div style="width: 310px">
+<div id="fedf44b5" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(plotting</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  (compose</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    (mapping(ln), </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>     filtering(smaller(<span class="dv">900</span>)))) <span class="op">|</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  frequencies)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="log_files/figure-html/cell-21-output-1.png" class="figure-img img-fluid"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary>
+c
+</summary>
+<div style="width: 310px">
+<div id="d95496a2" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(plotting</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  (compose</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    (mapping(D(ln)), </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>     filtering(smaller(<span class="dv">900</span>)))) <span class="op">|</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  frequencies)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="log_files/figure-html/cell-22-output-1.png" class="figure-img img-fluid"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</details>
+</div></div><div style="height: 900px;">
+
+</div>
+<details>
+<summary>
+Appendix
+</summary>
+<p>Source code of this Quarto generated page: <a href="https://github.com/kloimhardt/site/blob/main/mysite/log.qmd">https://github.com/kloimhardt/site/blob/main/mysite/log.qmd</a></p>
+<p>Interactive workspace: <a href="https://kloimhardt.github.io/cljtiles.html?page=higherorder">https://kloimhardt.github.io/cljtiles.html?page=higherorder</a></p>
+</details>
+<script>
 document.querySelectorAll("details")
 .forEach(d => d.setAttribute("open", ""))
 </script>
