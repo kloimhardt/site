@@ -226,7 +226,7 @@ var brender = (code,divid) => brenderT(code,divid, false)
 const delay = ms => new Promise(res => setTimeout(res, ms));
 </script>
 <div class="hidden">
-<div id="fe72d8ef" class="cell" data-execution_count="1">
+<div id="d08776b6" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code Preamble</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy</span>
@@ -415,7 +415,7 @@ statejs.log23.anim2();
 
 </div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
-<div id="f3b68b7f" class="cell" data-execution_count="4">
+<div id="68c4ae5d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot(log2, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -558,7 +558,7 @@ statejs.log23.log3("divlog2x");
 B
 </summary>
 <div style="width: 300px">
-<div id="8a67cc19" class="cell" data-execution_count="5">
+<div id="179b95ed" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot(<span class="st">"log2(x / 220) * 7"</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>"That's not something you can plot"</code></pre>
@@ -571,7 +571,7 @@ B
 F
 </summary>
 <div style="width: 300px">
-<div id="d616c435" class="cell" data-execution_count="6">
+<div id="6dbfe8bb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Poe(intersect, steps, x):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log2(x<span class="op">/</span>intersect) <span class="op">*</span> steps</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -615,7 +615,7 @@ I can plot log2 because it is a mathematical object. -B- But still I cannot plot
 </details>
 </div>
 <div class="hidden">
-<div id="fc022b1d" class="cell" data-execution_count="7">
+<div id="2846b33a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log2b(intersect, steps):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> partial(Poe, intersect, steps)</span></code></pre></div>
 </div>
@@ -628,7 +628,7 @@ I can plot log2 because it is a mathematical object. -B- But still I cannot plot
 C
 </summary>
 <div style="width: 305px">
-<div id="7e793ad8" class="cell" data-execution_count="8">
+<div id="f170eeb0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plot(Poe(<span class="dv">220</span>, <span class="dv">7</span>, <span class="dv">440</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>"That's not something you can plot"</code></pre>
@@ -641,7 +641,7 @@ C
 E
 </summary>
 <div style="width: 305px">
-<div id="866d64fc" class="cell" data-execution_count="9">
+<div id="034930de" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plot(partial(Poe, <span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -658,7 +658,7 @@ E
 G
 </summary>
 <div style="width: 305px">
-<div id="01fb9a05" class="cell" data-execution_count="10">
+<div id="9280ec42" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plot(log2b(<span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -703,7 +703,7 @@ var abws19_E = addBlocks(ws19_E);
 C
 </summary>
 <div style="width: 300px">
-<div id="0812576e" class="cell" data-execution_count="11">
+<div id="9226bb86" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">220</span>, <span class="dv">7</span>), <span class="dv">8</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
 <p><span class="math inline">\(\displaystyle -33.4695179946726\)</span></p>
@@ -716,7 +716,7 @@ C
 E
 </summary>
 <div style="width: 300px">
-<div id="ea1ae52a" class="cell" data-execution_count="12">
+<div id="11e3c97f" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">220</span>, <span class="dv">7</span>), x0)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
 <p><span class="math inline">\(\displaystyle 7 \operatorname{log}_{2}{\left(\frac{x_{0}}{220} \right)}\)</span></p>
@@ -729,7 +729,7 @@ E
 a
 </summary>
 <div style="width: 300px">
-<div id="4165169e" class="cell" data-execution_count="13">
+<div id="fa60cab0" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>), x1)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
 <p><span class="math inline">\(\displaystyle 0.7 \operatorname{log}_{2}{\left(x_{1} \right)}\)</span></p>
@@ -778,7 +778,7 @@ var ab = addBlocks(ws17a);
 <summary onclick="cleandiv('blocklyDiv17a_t');" id="13">
 10
 </summary>
-<div id="3e090780" class="cell" data-execution_count="14">
+<div id="02681abf" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>call(D(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>)), x0).evalf()</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <p><span class="math inline">\(\displaystyle \frac{1.00988652862227}{x_{0}}\)</span></p>
@@ -791,7 +791,7 @@ var ab = addBlocks(ws17a);
 var r13 = () => brender("(call (D ln) x0)", "blocklyDiv22a");
 r13();
 </script>
-<div id="92520244" class="cell" data-execution_count="15">
+<div id="a6b2a594" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>call(D(ln), x0)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <p><span class="math inline">\(\displaystyle \frac{1}{x_{0}}\)</span></p>
@@ -839,7 +839,7 @@ ws15x=r15();
 <summary>
 C
 </summary>
-<div id="7fdfb009" class="cell" data-execution_count="16">
+<div id="81cc0232" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(D(ln) <span class="op">|</span> x0)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
 <p><span class="math inline">\(\displaystyle \frac{1}{x_{0}}\)</span></p>
@@ -851,7 +851,7 @@ C
 –
 </summary>
 <div style="width: 300px">
-<div id="894f10c7" class="cell" data-execution_count="17">
+<div id="22f694ac" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PipeAsCall(<span class="bu">object</span>):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, func):</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.func <span class="op">=</span> func</span>
@@ -890,7 +890,7 @@ var abwsTra = addBlocks(wsTra);
 D
 </summary>
 <div style="width: 310px">
-<div id="76647497" class="cell" data-execution_count="18">
+<div id="2338eda4" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(plotting(ln) <span class="op">|</span> frequencies)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -907,7 +907,7 @@ D
 F
 </summary>
 <div style="width: 310px">
-<div id="b72cfdd7" class="cell" data-execution_count="19">
+<div id="4e34fd33" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(plotting(ln) <span class="op">|</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  (filtering(smaller(<span class="dv">900</span>)) <span class="op">|</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    frequencies))</span></code></pre></div>
@@ -926,7 +926,7 @@ F
 a
 </summary>
 <div style="width: 310px">
-<div id="ea3abc85" class="cell" data-execution_count="20">
+<div id="e65b1954" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(plotting</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  (compose</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    (mapping(ln), </span>
@@ -947,7 +947,7 @@ a
 c
 </summary>
 <div style="width: 310px">
-<div id="270ca1bb" class="cell" data-execution_count="21">
+<div id="576bb648" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(plotting</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  (compose</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    (mapping(D(ln)), </span>
