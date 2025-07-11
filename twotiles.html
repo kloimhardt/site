@@ -207,7 +207,7 @@ Blockly.inject(divid,
 <p>The following uses a simple math example, taking the derivative of a logarithm, to show how code is visualized with the Twotiles library.</p>
 <section id="symbolic-computation-in-python-sympy" class="level3">
 <h3 class="anchored" data-anchor-id="symbolic-computation-in-python-sympy">Symbolic computation in Python: SymPy</h3>
-<div id="9abe7d1a" class="cell" data-execution_count="1">
+<div id="8a210563" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code Preamble</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> symbols,diff,log</span>
@@ -225,7 +225,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(:tiles/infix (- (:tiles/infix (/ 5 x)) (:tiles/infix (+ 50 14))))", "blocklyDiv21")</script>
-<div id="0de8f300" class="cell" data-execution_count="2">
+<div id="91bfbc76" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="op">/</span>x <span class="op">-</span> (<span class="dv">50</span> <span class="op">+</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -238,7 +238,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(log 64)", "blocklyDiv1")</script>
-<div id="3f8e7b7f" class="cell" data-execution_count="3">
+<div id="20e9c098" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>log(<span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -252,7 +252,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(call log 64)", "blocklyDiv23")</script>
-<div id="a81b94cb" class="cell" data-execution_count="4">
+<div id="c838d38b" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>call(log, <span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -266,7 +266,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(log (:tiles/infix (* x 5)))", "blocklyDiv22")</script>
-<div id="62720b88" class="cell" data-execution_count="5">
+<div id="c6cc03c8" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>log(x <span class="op">*</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -279,7 +279,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(diff (:tiles/infix (* (log x) 5)) x)", "blocklyDiv24")</script>
-<div id="bac8ba21" class="cell" data-execution_count="6">
+<div id="759075ec" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>diff(log(x) <span class="op">*</span> <span class="dv">5</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -292,7 +292,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(diff (log x) x)", "blocklyDiv2")</script>
-<div id="00472203" class="cell" data-execution_count="7">
+<div id="c72fb96d" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>diff(log(x),x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -305,7 +305,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(def (logarithm b x) (return (:tiles/infix (/ (log x) (log b)))))", "blocklyDiv3")</script>
-<div id="dc766d7c" class="cell" data-execution_count="8">
+<div id="5255f090" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logarithm(b, x):</span>
@@ -316,7 +316,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(logarithm 8.0 64.0)", "blocklyDiv4")</script>
-<div id="4801a457" class="cell" data-execution_count="9">
+<div id="f127fd7f" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>logarithm(<span class="fl">8.0</span>, <span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -329,7 +329,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(def (log_base b) (return (partial logarithm b)))", "blocklyDiv5")</script>
-<div id="91a6644d" class="cell" data-execution_count="10">
+<div id="4b212bf1" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_base(b):</span>
@@ -340,7 +340,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(call (log_base 8.0) 64.0)", "blocklyDiv6")</script>
-<div id="daf1919f" class="cell" data-execution_count="11">
+<div id="d3829566" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>call(log_base(<span class="fl">8.0</span>),<span class="fl">64.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -353,7 +353,7 @@ Blockly.inject(divid,
 
 </div>
 <script>brender("(diff (call (log_base 8.0) x) x)", "blocklyDiv7")</script>
-<div id="34984478" class="cell" data-execution_count="12">
+<div id="535126d3" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary></summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>diff(call(log_base(<span class="fl">8.0</span>),x),x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
