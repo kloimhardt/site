@@ -212,7 +212,7 @@ let ws = Blockly.inject(divid,
 {"sounds": false,
 "scrollbars": false,
 "trashcan": bTrash,
-"media": "/jsfiles/blockly/static/media/"});
+"media": "/site/jsfiles/blockly/static/media/"});
 
 Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(parse(code)), ws);
 
@@ -226,7 +226,7 @@ var brender = (code,divid) => brenderT(code,divid, false)
 const delay = ms => new Promise(res => setTimeout(res, ms));
 </script>
 <div class="hidden">
-<div id="9ead49cb" class="cell" data-execution_count="1">
+<div id="a4b826ab" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code Preamble</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy</span>
@@ -339,7 +339,7 @@ statejs['frequencies']=
 [["C0", 16.35], ["D0", 18.35], ["E0", 20.6], ["F0", 21.83], ["G0", 24.5], ["A0", 27.5], ["B0", 30.87], ["C1", 32.7], ["D1", 36.71], ["E1", 41.2], ["F1", 43.65], ["G1", 49.0], ["A1", 55.0], ["B1", 61.74], ["C2", 65.41], ["D2", 73.42], ["E2", 82.41], ["F2", 87.31], ["G2", 98.0], ["A2", 110.0], ["B2", 123.47], ["C3", 130.81], ["D3", 146.83], ["E3", 164.81], ["F3", 174.61], ["G3", 196.0], ["A3", 220.0], ["B3", 246.94], ["C4", 261.63], ["D4", 293.66], ["E4", 329.63], ["F4", 349.23], ["G4", 392.0], ["A4", 440.0], ["B4", 493.88], ["C5", 523.25], ["D5", 587.33], ["E5", 659.25], ["F5", 698.46], ["G5", 783.99], ["A5", 880.0], ["B5", 987.77], ["C6", 1046.5], ["D6", 1174.66], ["E6", 1318.51], ["F6", 1396.91], ["G6", 1567.98], ["A6", 1760.0], ["B6", 1975.53], ["C7", 2093.0], ["D7", 2349.32], ["E7", 2637.0], ["F7", 2793.83], ["G7", 3135.96], ["A7", 3520.0], ["B7", 3951.0], ["C8", 4186.0], ["D8", 4698.63], ["E8", 5274.0], ["F8", 5587.65], ["G8", 6271.93], ["A8", 7040.0], ["B8", 7902.13]]
 </script>
 <script>
-scittle.core.eval_string(' (ns notes)(defmacro deepdef [v e] `(def ~v ~e))(defn drawstiel1 [bnotes2 shift len]  (fn [name]    (let [bp (.select bnotes2 name)]      (. bnotes2         (create "line"                 #js[#js[(fn [] (+ (.X bp) shift)) (fn [] (.Y bp))]                     #js[(fn [] (+ (.X bp) shift)) (fn [] (+ (.Y bp) len))]]                 #js{:name          (str "stlm" name)                     :straightFirst false                     :straightLast  false                     :strokeWidth   4                     :strokeColor   "black"})))))(defn plotpoints1 [bnotes2 vpp]  (run! (fn [d]          (. bnotes2 (create "point"                             #js[(:sx d) (:y d)]                             #js{:name  (:name d)                                 :color "black"})))        vpp))(defn drawlines [bnotes2 names]  (run! (fn [name]          (let [p (.select bnotes2 name)]            (. bnotes2 (create "line"                               #js[#js[150 (.Y p)] #js[1050 (.Y p)]]                               #js{:straightFirst false                                   :straightLast  false                                   :strokeWidth   1                                   :strokeColor   "black"}))))        names)  (.. bnotes2 (select "G3") (setLabel "")))(def idx220 26)(defn drawclef [brd]  (drawlines brd ["E4" "G4" "B4" "D5" "F5"])  (. brd (create "image"                     #js["/jsfiles/GClef.svg"                         #js[166 0.5]                         #js[76 -15]])))(defn plotpoints [bnotes2 vpp]  (plotpoints1 bnotes2 vpp)  (drawclef bnotes2)  (run! (fn [name]          (.. bnotes2 (select name) (setAttribute #js{:size 9})))        ["D4" "E4" "F4" "G4" "A4" "B4" "C5" "D5" "E5" "F5" "G5"])  (run! (drawstiel1 bnotes2 9 7)        ["D4" "E4" "F4" "G4" "A4"])  (run! (drawstiel1 bnotes2 -9 -7)        ["B4" "C5" "D5" "E5" "F5" "G5"]))(defn straight1 [y d] (* (- y d) (/ 440 7)))(defn vpp [frequencies]  (into []        (map-indexed (fn [i [name x]]                       (let [y (- i idx220)]                         {:name name                          :x    x :sx (straight1 y -2.7)                          :y    y}))                     frequencies)))(defn brdspec [bb &[axis xname yname]]  {:boundingbox   bb   :showNavigation false   :showCopyright true   :axis          (or axis false)   :grid          false   :defaultAxes   {:x {:name      (or xname "")        :withLabel true        :label     {:position "rt"                    :offset   [-5 15]                    :anchorX  "right"}        :ticks     {:visible     true                    :majorHeight 5}}    :y {:withLabel true        :name      (or yname "")        :label     {:position "rt"                    :offset   [5 -5]                    :anchorY  "top"}        :ticks {:visible     true                :majorHeight 5} }}}  )(defn main [divid]  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard divid                       (clj->js (brdspec [120 (- 48 idx220)                                          1080 (- 20 idx220)])))))  (plotpoints (.. js/statejs -notes -bnotes2)              (vpp (js->clj (.-frequencies js/statejs)))))((js->clj (.-frequencies js/statejs)) 26)((vpp (js->clj (.-frequencies js/statejs))) 26)(defn octave [y o]  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (. bnotes2       (create "line"               (let [p1 (.select bnotes2 (:name (pp y)))                     p2 (.select bnotes2 (:name (pp (+ y o))))]                 #js[p1                     #js[(fn [] (.X p2)) (fn [] (.Y p1))]])               #js{:name          (str "oct" (:name (pp y)))                   :straightFirst false                   :straightLast  false                   :strokeWidth   2                   :strokeColor   "red"}))))(defn anim1 []  (octave 26 7)  (octave 40 -7))(defn anim2 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (run!      (fn [tu]        (.. bnotes2            (select (:name tu))            (moveTo #js[(:x tu) (:y tu)] 1500)))      pp)))(defn anim3 []  #_(anim3)  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (run! (fn [[l f]]            (.create bnotes2                     "text"                     #js[f -2 (str l f " Hz")]                     #js{:fontsize 20 :color "black"}))          [["" 220] ["" 440] ["" 880]])))(defn anim5 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (.create bnotes2             "functiongraph"             #js["(7 * log(x / 220)) / log(2)"]             #js{:strokeColor "red" :strokeWidth 2})))(defn anim6 []  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard "divnotes2"                       (clj->js (brdspec [-320 33                                          1480 -18]                                         true                                         "Frequency"                                         "log2")))))  (run! (fn [d]          (.. js/statejs -notes -bnotes2              (create "point"                      #js[(:x d) (:y d)]                      #js{:name  (:name d)                          :color "black"                          })              (setLabel "")))        (vpp (js->clj (.-frequencies js/statejs))))  (doto (.. js/statejs -notes -bnotes2)    (drawclef )    (.create      "functiongraph"      #js["(7 * log(x / 220)) / log(2)"]      #js{:strokeColor "red" :strokeWidth 2})    #_(.create      "text"      #js[1100 22 "Logarithm"]      #js{:fontSize 24}))  (anim1))(set! (.. js/statejs -notes) #js{})(set! (.. js/statejs -notes -main) main)(set! (.. js/statejs -notes -anim1) anim1)(set! (.. js/statejs -notes -anim2) anim2)(set! (.. js/statejs -notes -anim3) anim3)(set! (.. js/statejs -notes -anim5) anim5)(set! (.. js/statejs -notes -anim6) anim6)(comment  (do    (main "divnotes2")    (def bnotes2 (.. js/statejs -notes -bnotes2))    )  (anim1)  (anim2)  (anim3)  (anim5)  (anim6)  :end) ')
+scittle.core.eval_string(' (ns notes)(defmacro deepdef [v e] `(def ~v ~e))(defn drawstiel1 [bnotes2 shift len]  (fn [name]    (let [bp (.select bnotes2 name)]      (. bnotes2         (create "line"                 #js[#js[(fn [] (+ (.X bp) shift)) (fn [] (.Y bp))]                     #js[(fn [] (+ (.X bp) shift)) (fn [] (+ (.Y bp) len))]]                 #js{:name          (str "stlm" name)                     :straightFirst false                     :straightLast  false                     :strokeWidth   4                     :strokeColor   "black"})))))(defn plotpoints1 [bnotes2 vpp]  (run! (fn [d]          (. bnotes2 (create "point"                             #js[(:sx d) (:y d)]                             #js{:name  (:name d)                                 :color "black"})))        vpp))(defn drawlines [bnotes2 names]  (run! (fn [name]          (let [p (.select bnotes2 name)]            (. bnotes2 (create "line"                               #js[#js[150 (.Y p)] #js[1050 (.Y p)]]                               #js{:straightFirst false                                   :straightLast  false                                   :strokeWidth   1                                   :strokeColor   "black"}))))        names)  (.. bnotes2 (select "G3") (setLabel "")))(def idx220 26)(defn drawclef [brd]  (drawlines brd ["E4" "G4" "B4" "D5" "F5"])  (. brd (create "image"                     #js["/site/jsfiles/GClef.svg"                         #js[166 0.5]                         #js[76 -15]])))(defn plotpoints [bnotes2 vpp]  (plotpoints1 bnotes2 vpp)  (drawclef bnotes2)  (run! (fn [name]          (.. bnotes2 (select name) (setAttribute #js{:size 9})))        ["D4" "E4" "F4" "G4" "A4" "B4" "C5" "D5" "E5" "F5" "G5"])  (run! (drawstiel1 bnotes2 9 7)        ["D4" "E4" "F4" "G4" "A4"])  (run! (drawstiel1 bnotes2 -9 -7)        ["B4" "C5" "D5" "E5" "F5" "G5"]))(defn straight1 [y d] (* (- y d) (/ 440 7)))(defn vpp [frequencies]  (into []        (map-indexed (fn [i [name x]]                       (let [y (- i idx220)]                         {:name name                          :x    x :sx (straight1 y -2.7)                          :y    y}))                     frequencies)))(defn brdspec [bb &[axis xname yname]]  {:boundingbox   bb   :showNavigation false   :showCopyright true   :axis          (or axis false)   :grid          false   :defaultAxes   {:x {:name      (or xname "")        :withLabel true        :label     {:position "rt"                    :offset   [-5 15]                    :anchorX  "right"}        :ticks     {:visible     true                    :majorHeight 5}}    :y {:withLabel true        :name      (or yname "")        :label     {:position "rt"                    :offset   [5 -5]                    :anchorY  "top"}        :ticks {:visible     true                :majorHeight 5} }}}  )(defn main [divid]  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard divid                       (clj->js (brdspec [120 (- 48 idx220)                                          1080 (- 20 idx220)])))))  (plotpoints (.. js/statejs -notes -bnotes2)              (vpp (js->clj (.-frequencies js/statejs)))))((js->clj (.-frequencies js/statejs)) 26)((vpp (js->clj (.-frequencies js/statejs))) 26)(defn octave [y o]  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (. bnotes2       (create "line"               (let [p1 (.select bnotes2 (:name (pp y)))                     p2 (.select bnotes2 (:name (pp (+ y o))))]                 #js[p1                     #js[(fn [] (.X p2)) (fn [] (.Y p1))]])               #js{:name          (str "oct" (:name (pp y)))                   :straightFirst false                   :straightLast  false                   :strokeWidth   2                   :strokeColor   "red"}))))(defn anim1 []  (octave 26 7)  (octave 40 -7))(defn anim2 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)        pp      (vpp (js->clj (.-frequencies js/statejs)))]    (run!      (fn [tu]        (.. bnotes2            (select (:name tu))            (moveTo #js[(:x tu) (:y tu)] 1500)))      pp)))(defn anim3 []  #_(anim3)  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (run! (fn [[l f]]            (.create bnotes2                     "text"                     #js[f -2 (str l f " Hz")]                     #js{:fontsize 20 :color "black"}))          [["" 220] ["" 440] ["" 880]])))(defn anim5 []  (let [bnotes2 (.. js/statejs -notes -bnotes2)]    (.create bnotes2             "functiongraph"             #js["(7 * log(x / 220)) / log(2)"]             #js{:strokeColor "red" :strokeWidth 2})))(defn anim6 []  (set! (.. js/statejs -notes -bnotes2)        (.. js/JXG            -JSXGraph            (initBoard "divnotes2"                       (clj->js (brdspec [-320 33                                          1480 -18]                                         true                                         "Frequency"                                         "log2")))))  (run! (fn [d]          (.. js/statejs -notes -bnotes2              (create "point"                      #js[(:x d) (:y d)]                      #js{:name  (:name d)                          :color "black"                          })              (setLabel "")))        (vpp (js->clj (.-frequencies js/statejs))))  (doto (.. js/statejs -notes -bnotes2)    (drawclef )    (.create      "functiongraph"      #js["(7 * log(x / 220)) / log(2)"]      #js{:strokeColor "red" :strokeWidth 2})    #_(.create      "text"      #js[1100 22 "Logarithm"]      #js{:fontSize 24}))  (anim1))(set! (.. js/statejs -notes) #js{})(set! (.. js/statejs -notes -main) main)(set! (.. js/statejs -notes -anim1) anim1)(set! (.. js/statejs -notes -anim2) anim2)(set! (.. js/statejs -notes -anim3) anim3)(set! (.. js/statejs -notes -anim5) anim5)(set! (.. js/statejs -notes -anim6) anim6)(comment  (do    (main "divnotes2")    (def bnotes2 (.. js/statejs -notes -bnotes2))    )  (anim1)  (anim2)  (anim3)  (anim5)  (anim6)  :end) ')
 </script>
 </div>
 <!--
@@ -415,7 +415,7 @@ statejs.log23.anim2();
 
 </div>
 <script>brender("(plot log2 [1 2 4 8])", "blocklyDiv10")</script>
-<div id="aee5a8eb" class="cell" data-execution_count="4">
+<div id="309b296c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot(log2, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -558,7 +558,7 @@ statejs.log23.log3("divlog2x");
 B
 </summary>
 <div style="width: 300px">
-<div id="39bc45b8" class="cell" data-execution_count="5">
+<div id="ac125e6e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot(<span class="st">"log2(x / 220) * 7"</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>"That's not something you can plot"</code></pre>
@@ -571,7 +571,7 @@ B
 F
 </summary>
 <div style="width: 300px">
-<div id="a7ab6766" class="cell" data-execution_count="6">
+<div id="7b074bfb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Poe(intersect, steps, x):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log2(x<span class="op">/</span>intersect) <span class="op">*</span> steps</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -615,7 +615,7 @@ I can plot log2 because it is a mathematical object. -B- But still I cannot plot
 </details>
 </div>
 <div class="hidden">
-<div id="1c2febee" class="cell" data-execution_count="7">
+<div id="2d4d4abc" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log2b(intersect, steps):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> partial(Poe, intersect, steps)</span></code></pre></div>
 </div>
@@ -628,7 +628,7 @@ I can plot log2 because it is a mathematical object. -B- But still I cannot plot
 C
 </summary>
 <div style="width: 305px">
-<div id="817ac4d0" class="cell" data-execution_count="8">
+<div id="a50dd668" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plot(Poe(<span class="dv">220</span>, <span class="dv">7</span>, <span class="dv">440</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>"That's not something you can plot"</code></pre>
@@ -641,7 +641,7 @@ C
 E
 </summary>
 <div style="width: 305px">
-<div id="8057bce1" class="cell" data-execution_count="9">
+<div id="40951432" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plot(partial(Poe, <span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -658,7 +658,7 @@ E
 G
 </summary>
 <div style="width: 305px">
-<div id="b9a49def" class="cell" data-execution_count="10">
+<div id="ac27a418" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plot(log2b(<span class="dv">220</span>, <span class="dv">7</span>), [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>])</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -703,7 +703,7 @@ var abws19_E = addBlocks(ws19_E);
 C
 </summary>
 <div style="width: 300px">
-<div id="d21dd881" class="cell" data-execution_count="11">
+<div id="83a9a214" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">220</span>, <span class="dv">7</span>), <span class="dv">8</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
 <p><span class="math inline">\(\displaystyle -33.4695179946726\)</span></p>
@@ -716,7 +716,7 @@ C
 E
 </summary>
 <div style="width: 300px">
-<div id="d7d61323" class="cell" data-execution_count="12">
+<div id="7548a61b" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">220</span>, <span class="dv">7</span>), x0)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
 <p><span class="math inline">\(\displaystyle 7 \operatorname{log}_{2}{\left(\frac{x_{0}}{220} \right)}\)</span></p>
@@ -729,7 +729,7 @@ E
 a
 </summary>
 <div style="width: 300px">
-<div id="241cc8ef" class="cell" data-execution_count="13">
+<div id="8c94de6d" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>call(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>), x1)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
 <p><span class="math inline">\(\displaystyle 0.7 \operatorname{log}_{2}{\left(x_{1} \right)}\)</span></p>
@@ -778,7 +778,7 @@ var ab = addBlocks(ws17a);
 <summary onclick="cleandiv('blocklyDiv17a_t');" id="13">
 10
 </summary>
-<div id="6656066b" class="cell" data-execution_count="14">
+<div id="e45ca690" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>call(D(log2b(<span class="dv">1</span>, <span class="fl">0.7</span>)), x0).evalf()</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <p><span class="math inline">\(\displaystyle \frac{1.00988652862227}{x_{0}}\)</span></p>
@@ -791,7 +791,7 @@ var ab = addBlocks(ws17a);
 var r13 = () => brender("(call (D ln) x0)", "blocklyDiv22a");
 r13();
 </script>
-<div id="d0a8f380" class="cell" data-execution_count="15">
+<div id="fcf87aab" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>call(D(ln), x0)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <p><span class="math inline">\(\displaystyle \frac{1}{x_{0}}\)</span></p>
@@ -839,7 +839,7 @@ ws15x=r15();
 <summary>
 C
 </summary>
-<div id="2efe398d" class="cell" data-execution_count="16">
+<div id="858b02d2" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(D(ln) <span class="op">|</span> x0)</span></code></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
 <p><span class="math inline">\(\displaystyle \frac{1}{x_{0}}\)</span></p>
@@ -851,7 +851,7 @@ C
 –
 </summary>
 <div style="width: 300px">
-<div id="90d5f7f9" class="cell" data-execution_count="17">
+<div id="c2fe3dd7" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PipeAsCall(<span class="bu">object</span>):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, func):</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.func <span class="op">=</span> func</span>
@@ -890,7 +890,7 @@ var abwsTra = addBlocks(wsTra);
 D
 </summary>
 <div style="width: 310px">
-<div id="0239f6a1" class="cell" data-execution_count="18">
+<div id="cd59efe9" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(plotting(ln) <span class="op">|</span> frequencies)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -907,7 +907,7 @@ D
 F
 </summary>
 <div style="width: 310px">
-<div id="63ca27fb" class="cell" data-execution_count="19">
+<div id="a880e47f" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(plotting(ln) <span class="op">|</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  (filtering(smaller(<span class="dv">900</span>)) <span class="op">|</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    frequencies))</span></code></pre></div>
@@ -926,7 +926,7 @@ F
 a
 </summary>
 <div style="width: 310px">
-<div id="cee04141" class="cell" data-execution_count="20">
+<div id="b0533297" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(plotting</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  (compose</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    (mapping(ln), </span>
@@ -947,7 +947,7 @@ a
 c
 </summary>
 <div style="width: 310px">
-<div id="02d66832" class="cell" data-execution_count="21">
+<div id="ee3e6c22" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(plotting</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  (compose</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    (mapping(D(ln)), </span>
