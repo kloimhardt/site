@@ -238,7 +238,7 @@ wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyD
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-While it is the log2 that fits the notes, it is not the plain log2. There need to be some scale factors. -- If you want, you can play with the formla yourself, because this notebook is online at the following address
+While it is the log2 that fits the notes, it is not the plain log2. There need to be some scale factors. -- If you want, you can play with the formula yourself, because this notebook is online at the following address
 
 <a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a>
 
@@ -285,7 +285,7 @@ plot(log2, [1, 2, 4, 8])
 ```
 
 <div class="desc" id="blocklyDiv10_t">
-The message is this. -- It is the log2 that you plot. This is so obvious that I'd like to state what log2 is not. It is not the log2 of x or y or z. Also, it is not some text that contains the string log2. Rather, log2 is a mathematical object. It is only objects like this that my Python routine can plot.
+The message is this. -- It is the log2 that you plot. This is so obvious that I'd like to state what log2 is not. It is not the log2 of x or y or z. Also, it is not some text that contains the string log2. Rather, log2 is a mathematical object. Only objects like this are suitable for plotting within the paradigm of my presentation.
 </div>
 
 <script>
@@ -455,7 +455,7 @@ var ws6 = r14();
 <span onClick="addBlocks(ws6)('(partial Poe :tiles/slot :tiles/slot)');" style="color:blue">D</span>
 <span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">F</span>
 <div class="desc" id="blocklyDiv14_t">
-I can plot log2 because it is a methematical object. -B- But still I cannot plot the procedure Poe. -C- I need an operation called "partial" to transform Poe into the proper target to plot. -D- The procedure named "partial" takes "Poe" as an argument. -- Then I can perform the plotting. -E-  Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -F- I turn all this into yet another procedure named log2b -- That is very conveneint for plotting. -G-
+I can plot log2 because it is a mathematical object. -B- But still I cannot plot the procedure Poe. -C- I need an operation called "partial" to transform Poe into the proper target to plot. -D- The procedure named "partial" takes "Poe" as an argument. -- Then I can perform the plotting. -E-  Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -F- I turn all this into yet another procedure named log2b -- That is very convenient for plotting. -G-
 <div style="height: 200px;"></div>
 </div>
 </td>
@@ -516,7 +516,7 @@ var abws19 = addBlocks(ws19);
 <span onClick="abws19('0.7')" style="color:blue">G</span>
 
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. -B- Log2b can also be called. -C- Not only can log2b be called with data of type number. Log2b can also be called with a symbol. -DE- Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. As a symbol, I can also choose x1. -F- This freedom of choice is because for log2b, the x1 is just some data that happens to be of type symbol. -G- Before being able to process some data, log2b needs to be initialized with two parameters. But those do not need to be of type integer. The float O point 7 does nicely as well. -a-
+Not only can log2b be plotted. -B- Log2b can also be called. -C- Not only can log2b be called with data of type number. Log2b can also be called with a symbol. -DE- Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. As a symbol, for example, I can also choose x1. -F- For log2b, the x1 is just yet another data that happens to be of type symbol. This idea of "symbols as data" is a source for the freedom of choice. -G- Before being able to process some data, log2b needs to be initialized with two parameters. But these do not need to be of type integer. The float 0.7 does nicely as well. -a-
 </div>
 </details>
 
@@ -573,7 +573,7 @@ statejs.log23.logtri("divlogtri");
 <span onClick="statejs.log23.trianim6()" style="color:blue">F</span>
 <span onClick="statejs.log23.trianim7()" style="color:blue">G</span>
 <div class="desc" id="divlogtri_t">
-I would not bother you with my O point seven invention, hadn't I discovered it to be a segue to the natural logarithm. -B- In general, you can fit a series of triangles onto any curve. -C- Moving those triangles to the ground level reveals -D- that a new curve "one over x" fits their heights quite agreeably. &minus;E&minus; You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area while retaining the angles.
+I would not have bothered you with my O point seven invention, hadn't I discovered it to be a segue to the natural logarithm. -B- In general, you can fit a series of triangles onto any curve. -C- Moving those triangles to the ground level reveals -D- that a new curve "one over x" fits their heights quite agreeably. &minus;E&minus; You can also try the other way around -F- That does not work quite as well. -G- The trick is to shrink the area while retaining the angles.
 </div>
 </details>
 
@@ -589,7 +589,7 @@ var ab = addBlocks(ws17a);
 </script>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 <div class="desc" id="blocklyDiv17a_t">
-I hope my triangles just formed an agreeable entertainment. For me they were while making them. In conclusion, I assume you caught on to the topic I am aiming at: -D- differentiation. -- Taking the derivative of log2b is simple and easy.
+I hope my triangles just formed an agreeable entertainment. For me they were (while making them). In conclusion, I assume you caught on to the topic I am aiming at: -D- differentiation. -- Taking the derivative of log2b is simple and easy.
 </div>
 </details>
 
@@ -612,7 +612,7 @@ r13();
 call(D(ln), x0)
 ```
 <div class="desc" id="blocklyDiv22a_t">
-If I initialize log2b with O point seven and calculate its derivative, as a result I almost get one over x. To become exact, I need to switch to "ln", the natural logarithm. The pictures above can, within this presentation, be called its pinnacle. As a kind of confirmation, I'd like to drop some names. The procedure named "call" would in math be recognised as a functional and D as an operator. In computer science, both is called functions of higher order. The natural logarithm "ln" of course is a function.
+With the log2b initialized at O point seven, I calculate its derivative. As a result I almost get one over x. To become exact, I need to switch to "ln", the natural logarithm. The pictures above can, within this presentation, be called its pinnacle. As a kind of confirmation, I'd like to drop some names. In math, the procedure named "call" is a functional while D is an operator. In computer science, both is called functions of higher order. The natural logarithm "ln" of course is a function in any field.
 </div>
 </details>
 
@@ -641,7 +641,7 @@ ws15x=r15();
 </script>
 <span onClick="addBlocks(ws15x)('(:tiles/slot :tiles/slot)')" style="color:blue">B</span>
 <div class="desc" id="blocklyDivpipe_t">
-Inspired by math, I use pipe in my pictures. -B- Note that it is not the D operator that is replaced by the pipe, but it is the "call" that is dropped. -- Not only can "pipe" be used in pictorial representations. The pipe can also be used within Python code. -C- You might think that my pipe notation is hard to implement. -- This is not so. My custom pipe is just a few lines of Python.
+Inspired by math, I also use pipe in my pictures. -B- Note that it is not the D operator that is replaced by the pipe, but it is the "call" that is dropped. -- Not only can "pipe" be used in pictorial representations. The pipe can also be used within Python code. -C- You might think that my pipe notation is hard to implement. This is not so. My custom pipe is just a few lines of Python. -- The pipe symbol is an invented alternative notation. For the following grand finale, I'd like to discover its explenatory virtues.
 </div>
 </details>
   
@@ -690,7 +690,7 @@ var abwsTra = addBlocks(wsTra);
 <span onClick="abwsTra('(compose (mapping :tiles/slot) :tiles/slot)')" style="color:blue">G</span>
 <span onClick="abwsTra('(D :tiles/slot)')" style="color:blue">b</span>
 <div class="desc" id="blocklyDivTrans_t">
-The pipe symbol is an invented alternative notation. -B- I discoverd that this invention is quite handy for explaining the separation of computation and data. -C- In my dataset the highest frequency is 8000 cycles per second. -D-  I'd like to cut that to 900. -E- So I apply a filter -- and plot that. -F- I want to move the filtering to the left in front of the first pipe. For this, I use a function composition. -G- The main advantage of this composition is that it is completely decoupled from input sources and output format. -- What I showed here as moving stuff to the left is commonly known as the method of "transducers" -ab- For sure you can insert differentiation into this composition as easily as ever. -c-
+The pipe notation is very versatile. I can also use it when plotting something. -B- In my dataset, -C- the highest frequency is eight kilohertz. -D- I'd like to cut that down to 900 cycles per second. -E- So I apply a filter -- and plot. -F- I want to move the filtering to the left. Or in a more picturesque manner: I want the filtering to be ahead of the pipes. For this, I use function composition. -G- This composition is completely decoupled from input sources and output formats. This leads to a method commonly known as "transducing"  -- Transducers are ahead of the pipe. -ab- For sure you can insert differentiation into the composition as easily as ever. -c-
 </div>
 </details>
 
