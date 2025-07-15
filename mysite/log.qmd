@@ -17,6 +17,8 @@ Before publishing:
 * set cache to false
 * outcomment scittle nrepl
 * open all sections
+* "/site/jsfiles/blockly/static/media/"
+* "/site/jsfiles/GClef.svg"
 
 Todo:
 1-3 mit neuem Mikro
@@ -329,19 +331,20 @@ I am aware that you need some time for digesting my self-imposed plotting restri
 <summary onClick=clean3() id="4">5</summary>
 <div id="blocklyDiv5" style="height: 350px;"></div>
 <script>
-var ws5 = brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDiv5");
+var rws5 = () => brender(" (:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyDiv5");
 
 var addBlocks = (ws) => (s) =>
 Blockly.Xml.appendDomToWorkspace(Blockly.utils.xml.textToDom(parse(s)), ws);
-var abws5 = addBlocks(ws5);
+
+var abws5 = addBlocks(rws5());
 </script>
 
-<span style="color:blue">A</span>
+<span onClick="abws5 = addBlocks(rws5())" style="color:blue">A</span>
 <span onClick="abws5('(def (Poe intersect steps x) :tiles/slot)');" style="color:blue">C</span>
 <span onClick="abws5('(return :tiles/slot)');" style="color:blue">D</span>
 <span onClick="abws5('(Poe intersect steps 440)')" style="color:blue">E</span>
 <div class="desc" id="blocklyDiv5_t">
-The formula I showed at the start is not something you can plot. -B- This is the main theme again. The theme is that I need a proper mathematical target to plot. To arrive at such a target, it is necessary to bind the formula to a procedure. -C- The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -D- The procedure does the wanted computation, it returns the value given by the formula. -E- In its code, you have to replace the numbers with the names of the two parameters. I provide the procedure as Python code. -F-
+The formula I showed at the start is not something you can plot. -B- This is the main theme again. The theme is that I need a proper mathematical target to plot. To arrive at such a target, it is necessary to bind the formula to a procedure. -C- The procedure itself I gave the name Poe. It takes three arguments. Two parameters and the frequency x. -D- The procedure does the wanted computation. -- It returns the value given by the formula. -E- In its code, you have to replace the numbers with the names of the two parameters. -- I provide the procedure as Python code. -F-
 </div>
 </details>
 
@@ -447,13 +450,12 @@ statejs.log23.log3("divlog2x");
 <div id="blocklyDiv14" style="height: 400px; width: 800px"></div>
 <script>
 var r14= () => brenderT("(plot log2 [1 2 4 8])", "blocklyDiv14", true);
-var ws6 = r14();
+var addws6 = addBlocks(r14());
 </script>
-
-<span style="color:blue">A</span>
-<span onClick="addBlocks(ws6)('(Poe 220 7 440)');" style="color:blue">B</span>
-<span onClick="addBlocks(ws6)('(partial Poe :tiles/slot :tiles/slot)');" style="color:blue">D</span>
-<span onClick="addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(log2b intersect steps)'); addBlocks(ws6)('(def :tiles/slot (return :tiles/slot))') " style="color:blue">F</span>
+<span onClick="addws6 = addBlocks(r14())" style="color:blue">A</span>
+<span onClick="addws6('(Poe 220 7 440)');" style="color:blue">B</span>
+<span onClick="addws6('(partial Poe :tiles/slot :tiles/slot)');" style="color:blue">D</span>
+<span onClick="addws6('(log2b intersect steps)'); addws6('(log2b intersect steps)'); addws6('(def :tiles/slot (return :tiles/slot))') " style="color:blue">F</span>
 <div class="desc" id="blocklyDiv14_t">
 I can plot log2 because it is a mathematical object. -B- But still I cannot plot the procedure Poe. -C- I need an operation called "partial" to transform Poe into the proper target to plot. -D- The procedure named "partial" takes "Poe" as an argument. -- Then I can perform the plotting. -E-  Here is the main theme in spades: "partial" taking a procedure to deliver the target to plot. -F- I turn all this into yet another procedure named log2b -- That is very convenient for plotting. -G-
 <div style="height: 200px;"></div>
@@ -505,18 +507,17 @@ plot(log2b(220, 7), [1, 2, 4, 8])
 <summary onClick=cleandiv('blocklyDiv14_t') id="9">7</summary>
 <div id="blocklyDiv19" style="height: 300px;"></div>
 <script>
-r19 = () => brenderT("(plot (log2b 220 7) [1 2 4 8])", "blocklyDiv19", true);
-var ws19 = r19();
-var abws19 = addBlocks(ws19);
+var r19 = () => brenderT("(plot (log2b 220 7) [1 2 4 8])", "blocklyDiv19", true);
+var abws19 = addBlocks(r19());
 </script>
-<span onClick="" style="color:blue">A</span>
+<span onClick="abws19 = addBlocks(r19())" style="color:blue">A</span>
 <span onClick="abws19('(call :tiles/slot :tiles/slot)')" style="color:blue">B</span>
 <span onClick="abws19('x0')" style="color:blue">D</span>
 <span onClick="abws19('x1')" style="color:blue">F</span>
 <span onClick="abws19('0.7')" style="color:blue">G</span>
 
 <div class="desc" id="blocklyDiv19_t">
-Not only can log2b be plotted. -B- Log2b can also be called. -C- Not only can log2b be called with data of type number. Log2b can also be called with a symbol. -DE- Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. As a symbol, for example, I can also choose x1. -F- For log2b, the x1 is just yet another data that happens to be of type symbol. This idea of "symbols as data" is a source for the freedom of choice. -G- Before being able to process some data, log2b needs to be initialized with two parameters. But these do not need to be of type integer. The float 0.7 does nicely as well. -a-
+Not only can log2b be plotted. -B- Log2b can also be called. -C- Not only can log2b be called with data of type number. Log2b can also be called with a symbol. -DE- Using symbols along with numbers is possible thanks to a package named Sympy. Here you see that for the name of the symbol I chose x-naught. But x-naught is only the default of possible choices. As a symbol, for example, I can also choose x1. -F- For log2b, the x1 is just yet another data that happens to be of type symbol. This idea of "symbols as data" is the source for my freedom of choice. Before being able to process some data, log2b needs to be initialized with two parameters. -G- But these do not need to be of type integer. The float 0.7 does nicely as well. -a-
 </div>
 </details>
 
@@ -584,9 +585,11 @@ I would not have bothered you with my O point seven invention, hadn't I discover
 <details>
 <summary onClick="cleandiv('divlogtri_t');" id="12">9</summary>
 <div id="blocklyDiv17a" style="height:150px"></div>
-<script>var ws17a = brender("(call (log2b 1 0.7) x0)", "blocklyDiv17a")
-var ab = addBlocks(ws17a);
+<script>
+var f17a = () => brender("(call (log2b 1 0.7) x0)", "blocklyDiv17a")
+var ab = addBlocks(f17a());
 </script>
+<span onClick="ab = addBlocks(f17a())" style="color:blue">A</span>
 <span onClick="ab('(D :tiles/slot)')" style="color:blue">D</span>
 <div class="desc" id="blocklyDiv17a_t">
 I hope my triangles just formed an agreeable entertainment. For me they were (while making them). In conclusion, I assume you caught on to the topic I am aiming at: -D- differentiation. -- Taking the derivative of log2b is simple and easy.
@@ -637,14 +640,15 @@ I'd like to wind down with a note on notation. When I differentiate a function l
 <div id="blocklyDivpipe" style="height:300px"></div>
 <script>
 var r15 = () => brenderT("(call (D ln) x0)", "blocklyDivpipe", true);
-ws15x=r15();
+var add15x = addBlocks(r15());
 </script>
-<span onClick="addBlocks(ws15x)('(:tiles/slot :tiles/slot)')" style="color:blue">B</span>
+<span onClick='add15x = addBlocks(r15());' style="color:blue">A</span>
+<span onClick="add15x('(:tiles/slot :tiles/slot)')" style="color:blue">B</span>
 <div class="desc" id="blocklyDivpipe_t">
-Inspired by math, I also use pipe in my pictures. -B- Note that it is not the D operator that is replaced by the pipe, but it is the "call" that is dropped. -- Not only can "pipe" be used in pictorial representations. The pipe can also be used within Python code. -C- You might think that my pipe notation is hard to implement. This is not so. My custom pipe is just a few lines of Python. -- The pipe symbol is an invented alternative notation. For the following grand finale, I'd like to discover its explenatory virtues.
+In taking this inspiration from math, I use pipe in my pictures as well. -B- Note: it's not the D operator which is replaced by the pipe, but it's the "call" that is dropped. -- Not only can "pipe" be used in pictures. The pipe can also be used within Python code. -C- You might think that my notation for pipe is hard to achieve. This is not so. My custom pipe is a few lines of Python only. -- The pipe symbol is an invented alternative notation. In the following finale, I'd like to discover its explanatory virtues.
 </div>
 </details>
-  
+
 ::: {.column-margin}
 <a href="#15" onClick="brenderT('((D ln) x0)', 'blocklyDivpipe', true)">_</a>
 <details>
@@ -679,18 +683,18 @@ def partial(*args):
 <summary onClick="cleandiv('blocklyDivpipe_t');" id="16">11</summary>
 <div id="blocklyDivTrans" style="height: 500px;"></div>
 <script>
-wsTra = brenderT("(plot ln [1 2 4 8])", "blocklyDivTrans", true);
-var abwsTra = addBlocks(wsTra);
+var fTra = () => brenderT("(plot ln [1 2 4 8])", "blocklyDivTrans", true);
+var abwsTra = addBlocks(fTra());
 </script>
 
-<span style="color:blue">A</span>
+<span onClick='abwsTra = addBlocks(fTra());'  style="color:blue">A</span>
 <span onClick="abwsTra('((plotting :tiles/slot) :tiles/slot)')" style="color:blue">B</span>
 <span onClick="abwsTra('frequencies')" style="color:blue">C</span>
 <span onClick="abwsTra('((filtering (smaller 900)) :tiles/slot)')" style="color:blue">E</span>
 <span onClick="abwsTra('(compose (mapping :tiles/slot) :tiles/slot)')" style="color:blue">G</span>
 <span onClick="abwsTra('(D :tiles/slot)')" style="color:blue">b</span>
 <div class="desc" id="blocklyDivTrans_t">
-The pipe notation is very versatile. I can also use it when plotting something. -B- In my dataset, -C- the highest frequency is eight kilohertz. -D- I'd like to cut that down to 900 cycles per second. -E- So I apply a filter -- and plot. -F- I want to move the filtering to the left. Or in a more picturesque manner: I want the filtering to be ahead of the pipes. For this, I use function composition. -G- This composition is completely decoupled from input sources and output formats. This leads to a method commonly known as "transducing"  -- Transducers are ahead of the pipe. -ab- For sure you can insert differentiation into the composition as easily as ever. -c-
+The pipe notation is very versatile. I can also use it when plotting something. -B- In my dataset, the highest frequency is eight kilohertz. -CD- I'd like to cut that down to 900 cycles per second. -E- So I apply a filter -- and plot. -F- I want to move the filtering to the left. Or in a more picturesque manner: I want the filtering to be ahead of the pipes. For this, I use function composition. -G- This composition is completely decoupled from input sources and output formats. This leads to a method commonly known as "transducing" -- Transducers are ahead of the pipe. -a- For sure you can insert differentiation into the composition as easily as ever. -bc-
 </div>
 </details>
 
