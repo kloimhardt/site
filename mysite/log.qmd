@@ -164,8 +164,6 @@ def compose(f, g):
 
 ::: {.hidden}
 ```{python}
-#| output: asis
-
 import numpy as np
 import json
 import inspect
@@ -174,11 +172,6 @@ import inspect
 data = np.genfromtxt('notes.txt', delimiter='\t', dtype=str)
 row_names = data[:, 0].tolist()
 numerical_data = np.matrix.transpose(data[:, 1:]).astype(float).tolist()
-               
-print("<script>")
-print("statejs['notenames']= ")
-print(json.dumps(row_names))
-print("statejs['frequencies']= ")
 
 nofreq = [item
     for subl in
@@ -187,6 +180,17 @@ nofreq = [item
    for item in subl]
 
 frequencies = [n[2] for n in nofreq]
+```
+:::
+
+::: {.hidden}
+```{python}
+#| output: asis
+
+print("<script>")
+print("statejs['notenames']= ")
+print(json.dumps(row_names))
+print("statejs['frequencies']= ")
 
 print(json.dumps([[nf[0] + str(nf[1]), nf[2]] for nf in nofreq if not nf[0].endswith("s")]))
 print("</script>")
@@ -220,7 +224,7 @@ print("</script>")
 <span onClick="statejs.notes.anim5()" style="color:blue">E</span>
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 <div class="desc" id="divnotes2_t">
-Sometimes, you need to start with the basics. I am sure you have your own ways to do mathematical plots. My own way for plotting has, I think, its merits. But that's for you to decide. I'll come to the main quality of my way to plot in a minute. But as a first step, I needed to make a choice for the mathematical target to plot. I chose the musical scale. -- The notes are logarithmic.
+The musical scale is logarithmic -- I am going to use this concrete example for showing my general way of doing mathematical plots.
 </div>
 </details>
 
@@ -751,7 +755,7 @@ The pipe notation is very versatile. I can also use it when plotting something. 
 <div style="height: 900px;"></div>
 
 <details>
-<summary>Appendix</summary>
+<summary id="appendix">Appendix</summary>
 
 Source code of this Quarto generated page: <a href=https://github.com/kloimhardt/site/blob/main/mysite/log.qmd>https://github.com/kloimhardt/site/blob/main/mysite/log.qmd</a>
 
@@ -765,3 +769,7 @@ document.querySelectorAll("details")
 .forEach(d => d.setAttribute("open", ""))
 </script>
 -->
+<script>
+document.querySelectorAll("details")
+.forEach(d => d.setAttribute("open", ""))
+</script>
