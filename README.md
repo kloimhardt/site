@@ -52,3 +52,7 @@ Then start an http-server (e.g. `python3 cors_server.py` which open server port 
 In the browser open: `http://localhost:8003/scittlenrepl.html`
 
 In Cider, choose cider-connect-cljs, select port 1339, followed by the nbb REPL type.
+
+## Log.org
+Dreaft for Log in cljtiles
+https://kloimhardt.github.io/cljtiles.html?org=https://raw.githubusercontent.com/kloimhardt/site/refs/heads/main/mysite/log.org

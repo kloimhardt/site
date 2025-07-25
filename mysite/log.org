@@ -183,14 +183,6 @@ For Python, I have not figured out yet how partial derivatives can be done withi
 
 All of our natural science is based on those triangles. Choosing the position and size of the triangles is the art of the scientist. But the shape of those trianges seems to be universally given by nature.
 
-Writing the text takes long
-
-* Todo
-
-cure Clef
-copy
-https://raw.githubusercontent.com/mentat-collective/fdg-book/main/clojure/org/chapter001.org
-
 ** 3 cljtiles
 
 There is also an exercise environemt which we will use later on and show in much more detail.

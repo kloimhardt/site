@@ -8,3 +8,17 @@ format:
       - brand
     css: styles.css
     toc: true
+
+website:
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "About"
+        href: about.qmd
+      - text: "Log"
+        href: log.qmd
+      - text: "Lise"
+        href: lise.qmd
+      - text: "twotiles"
+        href: twotiles.qmd

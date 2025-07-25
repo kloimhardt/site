@@ -19,7 +19,7 @@ Before publishing:
 * var notebook=true
 * "/site/jsfiles/blockly/static/media/"
 * "/site/jsfiles/GClef.svg"
-* set current youtube video
+* remove navigation in _quarto.yaml
 * recreate log.ipynb (needs to be pushed in main so no /refs/head is needed in raw.github URL which is linked in log.qmd)
 
 Todo:
