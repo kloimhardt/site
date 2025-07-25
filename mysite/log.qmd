@@ -16,10 +16,11 @@ execute:
 Before publishing:
 * set cache to false
 * outcomment scittle nrepl
-* open all sections
+* var notebook=true
 * "/site/jsfiles/blockly/static/media/"
 * "/site/jsfiles/GClef.svg"
 * set current youtube video
+* recreate log.ipynb (needs to be pushed in main so no /refs/head is needed in raw.github URL which is linked in log.qmd)
 
 Todo:
 1-3 mit neuem Mikro
@@ -32,6 +33,7 @@ Todo:
 -->
 
 <script>
+var notebook=true
 document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
 <script type="text/javascript" charset="UTF-8"
@@ -65,8 +67,10 @@ Blockly.defineBlocksWithJsonArray(twotiles.blocks);
 
 <script>
 var cleandiv = (divid) => {
-const el = document.getElementById(divid);
-while (el.firstChild) el.removeChild(el.firstChild);
+if(!notebook) {
+ const el = document.getElementById(divid);
+ while (el.firstChild) el.removeChild(el.firstChild);
+}
 }
 var brenderT = (code,divid, bTrash) => {
 cleandiv(divid);
@@ -231,7 +235,7 @@ print("</script>")
 <span onClick="statejs.notes.anim5()" style="color:blue">E</span>
 <span onClick="statejs.notes.anim6()" style="color:blue">F</span>
 <div class="desc" id="divnotes2_t">
-The musical scale is logarithmic -- I am going to use this concrete example for showing my general way of doing mathematical plots.
+The musical scale is logarithmic -- I am going to use this concrete example to show my way of doing mathematical plots.
 </div>
 </details>
 
@@ -251,11 +255,11 @@ wslog2=brender("(:tiles/infix (* (log2 (:tiles/infix (/ x 220))) 7))", "blocklyD
 v2();
 </script>
 <div class="desc" id="blocklyDivLog2_t">
-The notes above are fitted by log2. For the specific plot, I had to make a choice for some scale factors. They are mostly a matter of coincidence and taste, but for moving on you need to fix them. -- If you want, you can play with the formula yourself. At the following address
+The curve above is drawn using the log2. To show this specific plot, I had to make some choice for the scale factors. -- This notebook is online at the following address
 
 <a href="https://kloimhardt.github.io/site/log.html" style="font-size: 24px">https://kloimhardt.github.io/site/log.html</a>
 
-you find this notebook online. In its appendix you can also find a Jupyter notebook containing the ensuing code snippets. But I have jumped ahead. My story starts with the Python language. And plotting just the plain log2. And that already hits upon the main message of my presentation.
+Its appendix links a Jupyter notebook for the ensuing code snippets. But I have jumped ahead. My story starts with the Python language. And plotting just the plain log2. And that already hits upon the main message of my presentation.
 </div>
 </details>
 
@@ -773,7 +777,7 @@ Try the Jupyter notebook:
 
 This notebook was generated using Quarto. 
 
-* Walkthrough video for the notebook: <a href=https://youtu.be/cGcdgJ-V8cU target="_blank">https://youtu.be/cGcdgJ-V8cU</a>
+* Walkthrough video for the notebook: <a href=https://www.youtube.com/watch?v=FE5pB3yvCRs target="_blank">https://www.youtube.com/watch?v=FE5pB3yvCRs</a>
 * The source code can be viewed here: <a href=https://github.com/kloimhardt/site/blob/main/mysite/log.qmd target="_blank">https://github.com/kloimhardt/site/blob/main/mysite/log.qmd</a>
 
 The idea for this Python notebook is based on an older interactive workspace:
@@ -783,13 +787,9 @@ The idea for this Python notebook is based on an older interactive workspace:
 * Maybe also try <a href=https://kloimhardt.github.io/cljtiles.html?page=116 target="_blank">https://kloimhardt.github.io/cljtiles.html?page=116</a>
 </details>
 
-<!--
 <script>
-document.querySelectorAll("details")
-.forEach(d => d.setAttribute("open", ""))
-</script>
--->
-<script>
-document.querySelectorAll("details")
-.forEach(d => d.setAttribute("open", ""))
+if(notebook) {
+   document.querySelectorAll("details")
+   .forEach(d => d.setAttribute("open", ""))
+}
 </script>
