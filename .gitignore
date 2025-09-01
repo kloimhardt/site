@@ -1,3 +1,14 @@
 /mysite/.quarto/
 /mysite/_site/*
 !/mysite/_site/jsfiles
+
+.DS_Store
+.ipynb_checkpoints/
+.nrepl-port
+__pycache__/
+mysite/.DS_Store
+mysite/.ipynb_checkpoints/
+mysite/.jupyter_cache/
+mysite/_site/jsfiles/.DS_Store
+mysite/_site/jsfiles/blockly/.DS_Store
+mysite/_site/jsfiles/blockly/static/.DS_Store
