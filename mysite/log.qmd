@@ -13,7 +13,7 @@ execute:
   cache: true
 ---
 <!--
-Before publishing:
+Before publishing (according to README.md), switch to main branch and do (no commit needed in main for publishing the effects) :
 * set cache to false
 * outcomment scittle nrepl
 * var notebook=true
@@ -21,15 +21,6 @@ Before publishing:
 * "/site/jsfiles/GClef.svg"
 * remove navigation in _quarto.yaml
 * recreate log.ipynb (needs to be pushed in main so no /refs/head is needed in raw.github URL which is linked in log.qmd)
-
-Todo:
-1-3 mit neuem Mikro
-4 ok
-5 genauer
-6 ok
-7 neu
-8 darum auch
-9 - 11 ok
 -->
 
 <script>
@@ -66,14 +57,19 @@ Blockly.defineBlocksWithJsonArray(twotiles.blocks);
 </script>
 
 <script>
-var cleandiv = (divid) => {
-if(!notebook) {
+var cleandiv_pure = (divid) => {
  const el = document.getElementById(divid);
  while (el.firstChild) el.removeChild(el.firstChild);
 }
+
+var cleandiv = (divid) => {
+ if(!notebook) {
+  cleandiv_pure(divid)
+ }
 }
+
 var brenderT = (code,divid, bTrash) => {
-cleandiv(divid);
+cleandiv_pure(divid);
 let ws = Blockly.inject(divid,
 {"sounds": false,
 "scrollbars": false,
